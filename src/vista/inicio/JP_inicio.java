@@ -5,43 +5,25 @@ public class JP_inicio extends javax.swing.JPanel {
     public JP_inicio() {
         initComponents();
         this.setSize(900, 577);
+        font();
+        this.setVisible(true);
     }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
+        jl_bienvenida = new javax.swing.JLabel();
         jb_verGuia = new javax.swing.JButton();
+        jl_inicio1 = new javax.swing.JLabel();
+        jl_inicio2 = new javax.swing.JLabel();
+        jl_inicio3 = new javax.swing.JLabel();
+        jl_iniciosub1 = new javax.swing.JLabel();
+        jl_iniciosub2 = new javax.swing.JLabel();
 
-        jLabel1.setFont(new java.awt.Font("Ubuntu", 1, 48)); // NOI18N
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Bienvenido");
-
-        jLabel2.setFont(new java.awt.Font("Ubuntu", 1, 24)); // NOI18N
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("EVIU");
-
-        jLabel3.setFont(new java.awt.Font("Ubuntu", 1, 24)); // NOI18N
-        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel3.setText("(Evaluación Interactiva de Usabilidad)");
-
-        jLabel4.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
-        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel4.setText("Aquí podrás tener tus Test de Usabilidad y");
-
-        jLabel5.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
-        jLabel5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel5.setText("llevar un seguimiento de la ");
-
-        jLabel6.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
-        jLabel6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel6.setText("evolución de tu proyecto.");
+        jl_bienvenida.setFont(new java.awt.Font("Ubuntu", 1, 48)); // NOI18N
+        jl_bienvenida.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jl_bienvenida.setText("Bienvenido");
 
         jb_verGuia.setFont(new java.awt.Font("Ubuntu", 1, 18)); // NOI18N
         jb_verGuia.setText("Ver Guía");
@@ -54,41 +36,56 @@ public class JP_inicio extends javax.swing.JPanel {
             }
         });
 
+        jl_inicio1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jl_inicio1.setText("Aquí podrás tener tus Test de Usabilidad  y");
+
+        jl_inicio2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jl_inicio2.setText("llevar un seguimiento de la ");
+
+        jl_inicio3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jl_inicio3.setText("evolución de tus proyectos.");
+
+        jl_iniciosub1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jl_iniciosub1.setText("EVIU");
+
+        jl_iniciosub2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jl_iniciosub2.setText("(Evaluación Interactiva de Usabilidad)");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jl_bienvenida, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(349, Short.MAX_VALUE)
+                .addComponent(jb_verGuia, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(340, 340, 340))
+            .addComponent(jl_iniciosub1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, 876, Short.MAX_VALUE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 876, Short.MAX_VALUE)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 876, Short.MAX_VALUE)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 876, Short.MAX_VALUE))
+                    .addComponent(jl_inicio1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jl_inicio2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jl_inicio3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jl_iniciosub2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jb_verGuia, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(340, 340, 340))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(40, 40, 40)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jLabel2)
+                .addGap(22, 22, 22)
+                .addComponent(jl_bienvenida, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(44, 44, 44)
+                .addComponent(jl_iniciosub1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel3)
-                .addGap(41, 41, 41)
-                .addComponent(jLabel4)
+                .addComponent(jl_iniciosub2)
+                .addGap(65, 65, 65)
+                .addComponent(jl_inicio1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel5)
+                .addComponent(jl_inicio2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel6)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 106, Short.MAX_VALUE)
+                .addComponent(jl_inicio3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 105, Short.MAX_VALUE)
                 .addComponent(jb_verGuia, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(102, 102, 102))
         );
@@ -100,12 +97,19 @@ public class JP_inicio extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JButton jb_verGuia;
+    private javax.swing.JLabel jl_bienvenida;
+    private javax.swing.JLabel jl_inicio1;
+    private javax.swing.JLabel jl_inicio2;
+    private javax.swing.JLabel jl_inicio3;
+    private javax.swing.JLabel jl_iniciosub1;
+    private javax.swing.JLabel jl_iniciosub2;
     // End of variables declaration//GEN-END:variables
+    private void font() {
+        jl_inicio1.setFont(vista.Config.getTam_subTitulo());
+        jl_inicio2.setFont(vista.Config.getTam_subTitulo());
+        jl_inicio3.setFont(vista.Config.getTam_subTitulo());
+        jl_iniciosub1.setFont(vista.Config.getTam_Titulo());
+        jl_iniciosub2.setFont(vista.Config.getTam_Titulo());
+    }
 }

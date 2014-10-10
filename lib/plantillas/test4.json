@@ -1,0 +1,63 @@
+{
+   "str_nombreDelTest":"test nuero 1 prueba de colores",
+   "llave":"",
+   "lst_preguntas":[
+      {
+         "str_pregunta":"pregunta 1",
+         "str_id":"01",
+         "boolean_seMediraPorTiempo":true,
+         "boolean_EstadoDeAnimo":true,
+         "str_t1":"00:00:03:01",
+         "str_t2":"00:00:08:00",
+                        
+      },
+      {
+         "str_pregunta":"pregunta 2",
+         "str_id":"02",
+         "boolean_seMediraPorTiempo":true,
+         "boolean_EstadoDeAnimo":false,
+         "str_t1":"00:00:02:01",
+         "str_t2":"00:00:06:00",
+      },
+      {
+         "str_pregunta":"pregunta 3",
+         "str_id":"03",
+         "boolean_seMediraPorTiempo":false,
+         "boolean_EstadoDeAnimo":true,
+         "str_t1":"",
+         "str_t2":"",
+      },
+      {
+         "str_pregunta":"pregunta 4",
+         "str_id":"04",
+         "boolean_seMediraPorTiempo":false,
+         "boolean_EstadoDeAnimo":false,
+         "str_t1":"",
+         "str_t2":"",
+      }
+      
+   ],
+    "lst_respuestas":
+   [ 
+      {
+         "llave":"",
+         "version":"",
+         "tiempodeencuesta":"",
+         "perfil":{
+            "sexo":"",
+            "edad":"",
+            "ocupacion":""
+         },
+         "respuestas":[
+            {
+               "id_pregunta":"",
+               "pregunta":"",
+               "realizo":"si",
+               "tiempo":"",
+               "animo":"",
+               "nota":""
+            }         
+         ]
+      }
+   ]
+}

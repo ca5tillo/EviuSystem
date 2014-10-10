@@ -1,12 +1,16 @@
-
 package vista;
+
 import vista.inicio.*;
-public class Eviu extends javax.swing.JFrame {
+
+public  class Eviu extends javax.swing.JFrame {
+
+    java.awt.Container contenPane = getContentPane();
 
     public Eviu() {
         initComponents();
         this.setLocationRelativeTo(null);
-        mostrarPanelinicio();
+        
+        contenPane.add(new JP_inicio());
     }
 
     @SuppressWarnings("unchecked")
@@ -16,18 +20,42 @@ public class Eviu extends javax.swing.JFrame {
         jmb_barra = new javax.swing.JMenuBar();
         jm_archivo = new javax.swing.JMenu();
         jmi_abrirProyecto = new javax.swing.JMenuItem();
+        jmi_nuevoProyecto = new javax.swing.JMenuItem();
         jm_editar = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jm_archivo.setText("Archivo");
 
         jmi_abrirProyecto.setText("Abrir Proyecto");
+        jmi_abrirProyecto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmi_abrirProyectoActionPerformed(evt);
+            }
+        });
         jm_archivo.add(jmi_abrirProyecto);
+
+        jmi_nuevoProyecto.setText("Nuevo Proyecto");
+        jmi_nuevoProyecto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmi_nuevoProyectoActionPerformed(evt);
+            }
+        });
+        jm_archivo.add(jmi_nuevoProyecto);
 
         jmb_barra.add(jm_archivo);
 
         jm_editar.setText("Editar");
+
+        jMenuItem1.setText("jMenuItem1");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jm_editar.add(jMenuItem1);
+
         jmb_barra.add(jm_editar);
 
         setJMenuBar(jmb_barra);
@@ -45,6 +73,37 @@ public class Eviu extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jmi_abrirProyectoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmi_abrirProyectoActionPerformed
+        final vista.abrirProyecto.JD_abrirProyecto dialog
+                        = new vista.abrirProyecto.JD_abrirProyecto(this, true);
+         //si se cierra la ventana cierro el proceso
+                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                    @Override
+                    public void windowClosing(java.awt.event.WindowEvent e) {
+                        dialog.dispose();
+                    }
+                });
+        dialog.setVisible(true);
+
+    }//GEN-LAST:event_jmi_abrirProyectoActionPerformed
+
+    private void jmi_nuevoProyectoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmi_nuevoProyectoActionPerformed
+         final vista.crearProyecto.JD_crearProyecto dialog = new vista.crearProyecto.JD_crearProyecto(this, true);
+                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                    @Override
+                    public void windowClosing(java.awt.event.WindowEvent e) {
+                        dialog.dispose();
+                    }
+                });
+                dialog.setVisible(true);
+        
+        
+    }//GEN-LAST:event_jmi_nuevoProyectoActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        pintarPanel_ProyectoAbierto("Eviu");
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -80,15 +139,49 @@ public class Eviu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenu jm_archivo;
     private javax.swing.JMenu jm_editar;
     private javax.swing.JMenuBar jmb_barra;
     private javax.swing.JMenuItem jmi_abrirProyecto;
+    private javax.swing.JMenuItem jmi_nuevoProyecto;
     // End of variables declaration//GEN-END:variables
-private void mostrarPanelinicio() {
-        JP_inicio jp_inicio = new JP_inicio();
-        jp_inicio.setVisible(true);
-        this.add(jp_inicio);
-        jp_inicio.updateUI();
+    
+    public void pintarPanelInicio() {
+        // Borrar todo el contenido de la ventana \\
+        contenPane.removeAll();
+        contenPane.repaint();
+        // Pintar pantalla de inicio
+        JP_inicio JP_inicio=new JP_inicio();
+        contenPane.add(JP_inicio);
+        JP_inicio.updateUI();
+        
+    }
+
+    public void pintarPanel_ProyectoAbierto(String nomproyecto) {
+
+        contenPane.removeAll();
+        contenPane.repaint();
+
+        vista.abrirProyecto.JP_proyectoAbierto 
+                jp_proyectoAbierto = 
+                new vista.abrirProyecto.JP_proyectoAbierto(nomproyecto,this);
+        
+        jp_proyectoAbierto.setVisible(true);
+        
+        
+        contenPane.add(jp_proyectoAbierto);
+        jp_proyectoAbierto.updateUI();
+    }
+    public void pintarPanel_test(String nomProyecto,String nomTest){
+        contenPane.removeAll();
+        contenPane.repaint();
+        vista.test.JP_test a = new vista.test.JP_test(nomProyecto,nomTest,this);
+        a.setVisible(true);
+        contenPane.add(a);
+        a.updateUI();
+    }
+    public void bloquearVentanaPrincipal(){
+//        jm_archivo.setEnabled(false);
     }
 }
