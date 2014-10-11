@@ -1,6 +1,6 @@
 {
    "str_nombreDelTest":"testEjemplo",
-   "llave":"",
+   "ID":"",
    "lst_preguntas":[
       {
          "str_pregunta":"pregunta 1",

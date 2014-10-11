@@ -18,13 +18,13 @@ public class JP_pta extends javax.swing.JPanel {
         this.t1[2] = Integer.parseInt(t1[2]);
         this.t1[3] = Integer.parseInt(t1[3]);
         c1.set(0, 0, 0, this.t1[0], this.t1[1], this.t1[2]);
-        
+
         this.t2[0] = Integer.parseInt(t2[0]);
         this.t2[1] = Integer.parseInt(t2[1]);
         this.t2[2] = Integer.parseInt(t2[2]);
         this.t2[3] = Integer.parseInt(t2[3]);
         c2.set(0, 0, 0, this.t2[0], this.t2[1], this.t2[2]);
-        
+
         this.id = id;
         this.tarea = tarea;
         initComponents();
@@ -37,7 +37,6 @@ public class JP_pta extends javax.swing.JPanel {
         rb_no.setActionCommand("no");
         rb_si.setActionCommand("si");
 
-       
         cambiarLabel(t1, t2);
         jb_iniciar.setActionCommand("iniciar");
     }
@@ -94,16 +93,36 @@ public class JP_pta extends javax.swing.JPanel {
         jbg_animo.add(rb_na);
         rb_na.setSelected(true);
         rb_na.setText("N/A");
+        rb_na.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rb_naActionPerformed(evt);
+            }
+        });
 
         jbg_realizo.add(rb_si);
         rb_si.setSelected(true);
         rb_si.setText("Si");
+        rb_si.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rb_siActionPerformed(evt);
+            }
+        });
 
         jbg_animo.add(rb_desepcionado);
         rb_desepcionado.setText("Desepcionado");
+        rb_desepcionado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rb_desepcionadoActionPerformed(evt);
+            }
+        });
 
         jbg_realizo.add(rb_no);
         rb_no.setText("No");
+        rb_no.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rb_noActionPerformed(evt);
+            }
+        });
 
         jbg_tiempo.add(rb_tiempo3);
         rb_tiempo3.setText("jRadioButton1");
@@ -112,9 +131,19 @@ public class JP_pta extends javax.swing.JPanel {
 
         jbg_animo.add(rb_feliz);
         rb_feliz.setText("Feliz");
+        rb_feliz.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rb_felizActionPerformed(evt);
+            }
+        });
 
         jbg_animo.add(rb_impaciente);
         rb_impaciente.setText("Impaciente");
+        rb_impaciente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rb_impacienteActionPerformed(evt);
+            }
+        });
 
         jbg_tiempo.add(rb_tiempo2);
         rb_tiempo2.setText("jRadioButton1");
@@ -127,6 +156,11 @@ public class JP_pta extends javax.swing.JPanel {
 
         jbg_animo.add(rb_enojado);
         rb_enojado.setText("Enojado");
+        rb_enojado.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rb_enojadoActionPerformed(evt);
+            }
+        });
 
         jl_tarea.setText(tarea);
 
@@ -307,6 +341,34 @@ public class JP_pta extends javax.swing.JPanel {
     private void jb_siguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_siguienteActionPerformed
         this.setVisible(false);
     }//GEN-LAST:event_jb_siguienteActionPerformed
+
+    private void rb_felizActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rb_felizActionPerformed
+        setCommandaBotonsiguiente();
+    }//GEN-LAST:event_rb_felizActionPerformed
+
+    private void rb_impacienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rb_impacienteActionPerformed
+        setCommandaBotonsiguiente();
+    }//GEN-LAST:event_rb_impacienteActionPerformed
+
+    private void rb_desepcionadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rb_desepcionadoActionPerformed
+        setCommandaBotonsiguiente();
+    }//GEN-LAST:event_rb_desepcionadoActionPerformed
+
+    private void rb_enojadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rb_enojadoActionPerformed
+        setCommandaBotonsiguiente();
+    }//GEN-LAST:event_rb_enojadoActionPerformed
+
+    private void rb_naActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rb_naActionPerformed
+        setCommandaBotonsiguiente();
+    }//GEN-LAST:event_rb_naActionPerformed
+
+    private void rb_siActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rb_siActionPerformed
+        setCommandaBotonsiguiente();
+    }//GEN-LAST:event_rb_siActionPerformed
+
+    private void rb_noActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rb_noActionPerformed
+        setCommandaBotonsiguiente();
+    }//GEN-LAST:event_rb_noActionPerformed
     private void botonPlay_y_pausa() {
         if (jb_iniciar.getActionCommand().equals("iniciar")) {
             cronometro.iniciar();
@@ -319,22 +381,25 @@ public class JP_pta extends javax.swing.JPanel {
             jb_detener.setEnabled(true);
             jb_siguiente.setEnabled(true);
 
-            String tiempo_ = jl_cronometro.getText();
-            String realizo= jbg_realizo.getSelection().getActionCommand();
-            String animo = jbg_animo.getSelection().getActionCommand();
-            
-            org.json.simple.JSONObject respuesta = new org.json.simple.JSONObject();
-            respuesta.put("id_pregunta",jl_id.getText());
-            respuesta.put("pregunta",jl_tarea.getText());
-            respuesta.put("realizo",realizo);
-            respuesta.put("tiempo", tiempo_);
-            respuesta.put("animo",animo);
-            respuesta.put("nota",jTextArea1.getText());
-            
-            jb_siguiente.setActionCommand("" + respuesta);
+            setCommandaBotonsiguiente();
         }
     }
 
+    private void setCommandaBotonsiguiente() {
+        String tiempo_ = jl_cronometro.getText();
+        String realizo = jbg_realizo.getSelection().getActionCommand();
+        String animo = jbg_animo.getSelection().getActionCommand();
+
+        org.json.simple.JSONObject respuesta = new org.json.simple.JSONObject();
+        respuesta.put("id_pregunta", jl_id.getText());
+        respuesta.put("pregunta", jl_tarea.getText());
+        respuesta.put("realizo", realizo);
+        respuesta.put("tiempo", tiempo_);
+        respuesta.put("animo", animo);
+        respuesta.put("nota", jTextArea1.getText());
+
+        jb_siguiente.setActionCommand("" + respuesta);
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -370,6 +435,7 @@ public class JP_pta extends javax.swing.JPanel {
         rb_tiempo2.setText("Hasta " + t2[1] + ":" + t2[2] + " min.");
         rb_tiempo3.setText("Mas de lo aceptado.");
     }
+
     public class Cronometro {
 
         java.util.Calendar c3 = java.util.GregorianCalendar.getInstance();

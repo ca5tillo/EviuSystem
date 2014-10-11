@@ -29,7 +29,13 @@ public class Archivos {
         }
         return inf;
     }
-
+    /*
+    La funcion:
+        carpeta(String _carpeta)
+    Se utiliza para crear una Carpeta o un a direccion de carpetas.
+    recibe el nombre que tendra la carpeta la direccion de donse se creara la carpeta 
+    * Si esta direccion no existe la creara.
+    */
     private static void carpeta(String _carpeta) {//revisa que exista si no existe la creara
         String carpeta = "proyectos";
         if (!_carpeta.equals("")) {
@@ -140,6 +146,14 @@ public class Archivos {
         }
         return estado;
     }
+    
+    /*
+    La funcion
+        crearProyectoSimple()
+    Crear un nuevo proyecto usando las pllantillas de PROYECTO Y TEST
+    que se encuentran el la carpeta lib/plantillas/
+    PROYECTO SIMPLE copia perfil y preguntas de las plantillas.
+    */
     @SuppressWarnings("UnusedAssignment")
     public static boolean crearProyectoSimple(String nomProyecto, String descripcion) {
         boolean a = false;
@@ -148,59 +162,16 @@ public class Archivos {
             JOptionPane.showMessageDialog(null, "Ya existe el proyecto: "+nomProyecto);
         }else{
             carpeta(paht);// creo la carpeta del proyecto
-    //        String jsonProyecto = AES.encrypt(json_proyecto(nomProyecto, descripcion));
-            String jsonProyecto = json_proyecto(nomProyecto, descripcion);
+            String jsonProyecto = LeerDatos.plantilla_Proyecto(nomProyecto, descripcion);
+            if (vista.Config.AES()) jsonProyecto = AES.encrypt(jsonProyecto);
             a = escribirEnArchivo(paht + nomProyecto + ".json", jsonProyecto); // creo el arcivoproyecto 
 
             carpeta(paht + "tests/");//creo la carpetatest
-    //        String jsonTest = AES.encrypt(json_test());
-            String jsonTest = json_test();
+            String jsonTest = LeerDatos.plantilla_Test();
+            if (vista.Config.AES()) jsonTest = AES.encrypt(jsonTest);
             a = escribirEnArchivo(paht + "tests/testEjemplo.json", jsonTest);//creo unteset
         }
         return a;
     }
 
-    private static String json_proyecto(String nombre, String descripcion) {
-        String proyecto = "";
-        String pantillaProyect = "lib/plantillas/proyecto.json";
-        org.json.simple.parser.JSONParser parser = new org.json.simple.parser.JSONParser();
-        try {
-            Object obj_proyecto = parser.parse(new java.io.FileReader(pantillaProyect));
-            JSONObject jsonobj_proyecto = (JSONObject) obj_proyecto;
-
-            jsonobj_proyecto.put("str_nombreProyecto", nombre);
-            jsonobj_proyecto.put("str_descripcionDelProyecto", descripcion);
-            jsonobj_proyecto.put("llave", GenerarLlave.getLlave(6));
-
-            proyecto = "" + jsonobj_proyecto;
-
-        } catch (IOException | ParseException ex) {
-            System.out.println("Error en el parser de JSON");
-            Logger.getLogger(Archivos.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return proyecto;
-    }
-
-    private static String json_test() {
-        String proyecto = "";
-        String pantillaProyect = "lib/plantillas/testEjemplo.json";
-        org.json.simple.parser.JSONParser parser = new org.json.simple.parser.JSONParser();
-        try {
-            Object obj_proyecto = parser.parse(new java.io.FileReader(pantillaProyect));
-            JSONObject jsonobj_proyecto = (JSONObject) obj_proyecto;
-
-            jsonobj_proyecto.put("llave", GenerarLlave.getLlave(6));
-
-            proyecto = "" + jsonobj_proyecto;
-
-        } catch (IOException | ParseException ex) {
-            System.out.println("Error en el parser de JSON");
-            Logger.getLogger(Archivos.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return proyecto;
-    }
-
-    public static void main(String[] args) {
-        System.out.println("" + json_proyecto("", ""));
-    }
 }

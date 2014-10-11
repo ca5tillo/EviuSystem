@@ -120,7 +120,13 @@ public class JP_test extends javax.swing.JPanel {
     }//GEN-LAST:event_jb_cancelarActionPerformed
 
     private void jb_guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_guardarActionPerformed
-        // respuestas
+        String perfi=Eviu.getPerfilenJson();
+        System.out.println(perfi);
+        System.out.println("");
+        for(String s:respuestas){
+            System.out.println(s);
+        }
+        Eviu.pintarPanel_ProyectoAbierto(nomProyecto);
     }//GEN-LAST:event_jb_guardarActionPerformed
 
 

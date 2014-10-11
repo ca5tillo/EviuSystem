@@ -25,4 +25,7 @@ public class Config {
     public static Color colorDeSeleccionado (){
         return java.awt.Color.MAGENTA;
     }
+    public static boolean AES(){
+        return true;
+    }
 }

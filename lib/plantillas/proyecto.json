@@ -2,18 +2,18 @@
    "str_nombreProyecto":"Eviu",
    "str_descripcionDelProyecto":"Sistema para realizar Test de Usabilidad",
    "str_versiones":"0",
-   "llave":"",
+   "ID":"",
     "perfil":[
       {
-         "categoria":"sexo",
+         "categoria":"Sexo",
          "opciones":["hombre","mujer"]
       },
       {
-         "categoria":"edad",
+         "categoria":"Edad",
          "opciones":["De 5 a 10","De 10 a 15","De 15 a 20"]
       },
       {
-         "categoria":"ocupacion",
+         "categoria":"Ocupacion",
          "opciones":["estudiante","profesor","desempleado"]
       }
    ]

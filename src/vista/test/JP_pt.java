@@ -48,7 +48,7 @@ public class JP_pt extends javax.swing.JPanel {
 
         cambiarLabel(t1, t2);
         jb_iniciar.setActionCommand("iniciar");
-
+        seleccion();
     }
 
     @SuppressWarnings("unchecked")
@@ -83,7 +83,6 @@ public class JP_pt extends javax.swing.JPanel {
 
         jl_tarea.setText(tarea);
 
-        jb_siguiente.setBackground(new java.awt.Color(91, 254, 119));
         jb_siguiente.setText("Siguiente");
         jb_siguiente.setEnabled(false);
         jb_siguiente.addActionListener(new java.awt.event.ActionListener() {
@@ -169,9 +168,19 @@ public class JP_pt extends javax.swing.JPanel {
         jbg_realizo.add(rb_si);
         rb_si.setSelected(true);
         rb_si.setText("Si");
+        rb_si.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rb_siActionPerformed(evt);
+            }
+        });
 
         jbg_realizo.add(rb_no);
         rb_no.setText("No");
+        rb_no.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rb_noActionPerformed(evt);
+            }
+        });
 
         jTextArea1.setColumns(17);
         jTextArea1.setRows(5);
@@ -273,20 +282,24 @@ public class JP_pt extends javax.swing.JPanel {
             jb_iniciar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/play.png")));
             jb_detener.setEnabled(true);
             jb_siguiente.setEnabled(true);
+            seleccion();
 
-            String tiempo_ = jl_cronometro.getText();
-            String realizo = jbg_realizo.getSelection().getActionCommand();
-            String animo = "";
-            JSONObject respuesta = new JSONObject();
-            respuesta.put("id_pregunta", jl_id.getText());
-            respuesta.put("pregunta",jl_tarea.getText());
-            respuesta.put("realizo", realizo);
-            respuesta.put("tiempo", tiempo_);
-            respuesta.put("animo", animo);
-            respuesta.put("nota", jTextArea1.getText());
-
-            jb_siguiente.setActionCommand("" + respuesta);
         }
+    }
+
+    private void seleccion() {
+        String tiempo_ = jl_cronometro.getText();
+        String realizo = jbg_realizo.getSelection().getActionCommand();
+        String animo = "";
+        JSONObject respuesta = new JSONObject();
+        respuesta.put("id_pregunta", jl_id.getText());
+        respuesta.put("pregunta", jl_tarea.getText());
+        respuesta.put("realizo", realizo);
+        respuesta.put("tiempo", tiempo_);
+        respuesta.put("animo", animo);
+        respuesta.put("nota", jTextArea1.getText());
+
+        jb_siguiente.setActionCommand("" + respuesta);
     }
     private void jb_detenerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_detenerActionPerformed
         cronometro.pausar();
@@ -297,8 +310,17 @@ public class JP_pt extends javax.swing.JPanel {
     }//GEN-LAST:event_jb_detenerActionPerformed
 
     private void jb_siguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_siguienteActionPerformed
+        seleccion();
         this.setVisible(false);
     }//GEN-LAST:event_jb_siguienteActionPerformed
+
+    private void rb_noActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rb_noActionPerformed
+        seleccion();
+    }//GEN-LAST:event_rb_noActionPerformed
+
+    private void rb_siActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rb_siActionPerformed
+        seleccion();
+    }//GEN-LAST:event_rb_siActionPerformed
     private void cambiarLabel(String[] t1, String[] t2) {
         rb_tiempo1.setText("Hasta " + t1[1] + ":" + t1[2] + " min.");
         rb_tiempo2.setText("Hasta " + t2[1] + ":" + t2[2] + " min.");
@@ -329,7 +351,9 @@ public class JP_pt extends javax.swing.JPanel {
     private javax.swing.JRadioButton rb_tiempo3;
     // End of variables declaration//GEN-END:variables
     public class Cronometro {
+
         Calendar c3 = GregorianCalendar.getInstance();
+
         public Cronometro() {
             t = new Timer(10, acciones);
         }
@@ -337,7 +361,7 @@ public class JP_pt extends javax.swing.JPanel {
         private int h, m, s, cs;
 
         String tiempo;
-        int count =0;
+        int count = 0;
         private ActionListener acciones = new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
@@ -361,17 +385,17 @@ public class JP_pt extends javax.swing.JPanel {
         private void actualizarLabel() {
             c3.clear();
             c3.set(0, 0, 0, h, m, s);
-            
+
             tiempo = (h <= 9 ? "0" : "") + h + ":" + (m <= 9 ? "0" : "") + m + ":" + (s <= 9 ? "0" : "") + s + ":" + (cs <= 9 ? "0" : "") + cs;
             jl_cronometro.setText(tiempo);
 
-            if(c3.getTimeInMillis() < c1.getTimeInMillis()){
+            if (c3.getTimeInMillis() < c1.getTimeInMillis()) {
                 jl_iconoCronometro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/tiempo1.png")));
-            }else if((c1.getTimeInMillis() < c3.getTimeInMillis()) && 
-                    (c3.getTimeInMillis() < c2.getTimeInMillis()) ){
+            } else if ((c1.getTimeInMillis() < c3.getTimeInMillis())
+                    && (c3.getTimeInMillis() < c2.getTimeInMillis())) {
                 rb_tiempo2.setSelected(true);
                 jl_iconoCronometro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/tiempo2.png")));
-            }else if(c3.getTimeInMillis() > c2.getTimeInMillis()){
+            } else if (c3.getTimeInMillis() > c2.getTimeInMillis()) {
                 rb_no.setSelected(true);
                 rb_tiempo3.setSelected(true);
                 jl_iconoCronometro.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/tiempo3.png")));

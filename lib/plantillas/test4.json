@@ -40,7 +40,7 @@
     "lst_respuestas":
    [ 
       {
-         "llave":"",
+         "ID":"",
          "version":"",
          "tiempodeencuesta":"",
          "perfil":{

@@ -5,11 +5,11 @@ import vista.inicio.*;
 public  class Eviu extends javax.swing.JFrame {
 
     java.awt.Container contenPane = getContentPane();
-
+    String perfilenJson = "";
     public Eviu() {
         initComponents();
         this.setLocationRelativeTo(null);
-        
+        this.setTitle("Eviu");
         contenPane.add(new JP_inicio());
     }
 
@@ -184,4 +184,13 @@ public  class Eviu extends javax.swing.JFrame {
     public void bloquearVentanaPrincipal(){
 //        jm_archivo.setEnabled(false);
     }
+
+    public String getPerfilenJson() {
+        return perfilenJson;
+    }
+
+    public void setPerfilenJson(String perfilenJson) {
+        this.perfilenJson = perfilenJson;
+    }
+    
 }
