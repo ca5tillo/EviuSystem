@@ -18,12 +18,15 @@ public class LeerDatos {
         java.util.ArrayList <controlador.modelos.Pregunta> arrayL_preguntas = new java.util.ArrayList();
         
         org.json.simple.parser.JSONParser parser = new org.json.simple.parser.JSONParser();
+        String str_teset=Archivos.Leer_Archivo(pathTest);// leeo el Archivo 
+//        str_teset = AES.decrypt(str_teset);
+        
         try {
                 /*
                  Ir a la carpeta test y abrir el archivo del test correspondiente
                  leer preguntas
                  */
-                Object obj_test = parser.parse(new java.io.FileReader(pathTest));
+                Object obj_test = parser.parse(str_teset);
                 JSONObject jsonobj_test = (JSONObject) obj_test;
 
                 JSONArray jsonArray_preguntas = (JSONArray) jsonobj_test.get("lst_preguntas");
@@ -53,8 +56,8 @@ public class LeerDatos {
                     arrayL_preguntas.add(new controlador.modelos.Pregunta(p, id, t, t1s, t2s, a));
                 }
 
-            } catch (IOException | ParseException ex) {
-                System.out.println("Error en el parser de JSON");
+            } catch (ParseException ex) {
+                System.out.println("Error en el parser de JSON en la funcion getPreguntas()");
                 Logger.getLogger(Archivos.class.getName()).log(Level.SEVERE, null, ex);
             }
         
@@ -68,8 +71,11 @@ public class LeerDatos {
         
         org.json.simple.parser.JSONParser parser = new org.json.simple.parser.JSONParser();
         try{
-            Object obj_proyecto = parser.parse(new java.io.FileReader("proyectos/"+str_nomProyecto+"/"+
-                    str_nomProyecto+".json"));
+            String proyecto=Archivos.Leer_Archivo("proyectos/"+str_nomProyecto+"/"+
+                    str_nomProyecto+".json");
+//            proyecto = AES.decrypt(proyecto);
+            
+            Object obj_proyecto = parser.parse(proyecto);
             
             JSONObject jsonobj_proyecto = (JSONObject)obj_proyecto;
             
@@ -88,8 +94,8 @@ public class LeerDatos {
                 perfil.add(cate);
                 opciones.clear();
             }
-        }catch(org.json.simple.parser.ParseException | java.io.IOException e){
-            System.out.println("Error en el parser en JD_perfil() ");
+        }catch(org.json.simple.parser.ParseException e){
+            System.out.println("Error en el parser en getPerfil() ");
         }
         return perfil;
     }

@@ -3,11 +3,32 @@ package controlador;
 import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
 
 public class Archivos {
+
+    public static String Leer_Archivo(String path) {
+        String inf = "";
+        java.util.ArrayList<String> lineas = new java.util.ArrayList<>();
+
+        //Lectura 
+        try (java.util.Scanner archivo_entrada = new java.util.Scanner(new java.io.File(path));) {
+            while (archivo_entrada.hasNext()) {
+                lineas.add(archivo_entrada.nextLine());
+            }
+            archivo_entrada.close();
+        } catch (java.io.FileNotFoundException e) {
+            inf = "Error de lectura" + e;
+        }
+        //recorrer el ArrayList lineas
+        for (String string : lineas) {
+            inf += string;
+        }
+        return inf;
+    }
 
     private static void carpeta(String _carpeta) {//revisa que exista si no existe la creara
         String carpeta = "proyectos";
@@ -111,18 +132,31 @@ public class Archivos {
 
         return arrayL_Tests;
     }
-
+    public static boolean existeArchivooCarpeta(String path) {
+        //Si es existe que el archivo o carpeta existe devuelve true
+        boolean estado = false;
+        if (new java.io.File(path).exists()) {
+            estado = true;
+        }
+        return estado;
+    }
     @SuppressWarnings("UnusedAssignment")
     public static boolean crearProyectoSimple(String nomProyecto, String descripcion) {
         boolean a = false;
         String paht = "proyectos/" + nomProyecto + "/";
+        if(existeArchivooCarpeta(paht)){
+            JOptionPane.showMessageDialog(null, "Ya existe el proyecto: "+nomProyecto);
+        }else{
+            carpeta(paht);// creo la carpeta del proyecto
+    //        String jsonProyecto = AES.encrypt(json_proyecto(nomProyecto, descripcion));
+            String jsonProyecto = json_proyecto(nomProyecto, descripcion);
+            a = escribirEnArchivo(paht + nomProyecto + ".json", jsonProyecto); // creo el arcivoproyecto 
 
-        carpeta(paht);// creo la carpeta del proyecto
-        a = escribirEnArchivo(paht + nomProyecto + ".json", json_proyecto(nomProyecto, descripcion)); // creo el arcivoproyecto 
-
-        carpeta(paht + "tests/");//creo la carpetatest
-        a = escribirEnArchivo(paht + "tests/testEjemplo.json", json_test());//creo unteset
-
+            carpeta(paht + "tests/");//creo la carpetatest
+    //        String jsonTest = AES.encrypt(json_test());
+            String jsonTest = json_test();
+            a = escribirEnArchivo(paht + "tests/testEjemplo.json", jsonTest);//creo unteset
+        }
         return a;
     }
 
@@ -137,7 +171,7 @@ public class Archivos {
             jsonobj_proyecto.put("str_nombreProyecto", nombre);
             jsonobj_proyecto.put("str_descripcionDelProyecto", descripcion);
             jsonobj_proyecto.put("llave", GenerarLlave.getLlave(6));
-            
+
             proyecto = "" + jsonobj_proyecto;
 
         } catch (IOException | ParseException ex) {
