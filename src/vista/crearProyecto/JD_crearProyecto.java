@@ -11,6 +11,7 @@ public class JD_crearProyecto extends javax.swing.JDialog {
         Eviu= (vista.Eviu) parent;
         initComponents();
         font() ;
+        this.setTitle("Nuevo proyecto");
         this.setLocationRelativeTo(null);
         jb_crear.setActionCommand("Crear");
     }
@@ -210,7 +211,9 @@ public class JD_crearProyecto extends javax.swing.JDialog {
             if(jb_crear.getActionCommand().equals("Crear")){
                 crearProyectoSimple(nomProyecto,descripcion);
             }else if(jb_crear.getActionCommand().equals("Siguiente")){
-                
+                if(rb_crearTest.isSelected() && rb_perfilEjemplo.isSelected()){
+                    vista.crearProyecto.JD_miTest.main();
+                }
             }
         }
     }//GEN-LAST:event_jb_crearActionPerformed
