@@ -8,7 +8,7 @@ package vista.crearProyecto;
 
 public class JP_miT_item extends javax.swing.JPanel {
     private final JD_miTest JD_miTest;
-    private final int id;
+    private final int key;
     private String pregunta = "";
     private final boolean tiempo;
     private final String t1;
@@ -17,9 +17,9 @@ public class JP_miT_item extends javax.swing.JPanel {
     private String _tiempo="No";
     private String _animo="No";
     private String JSON="hola";
-    public JP_miT_item(JD_miTest JD_miTest,int count,String idpregunta,String pregunta,boolean tiempo,String t1,String t2,boolean animo) {
+    public JP_miT_item(JD_miTest JD_miTest,int key,String idpregunta,String pregunta,boolean tiempo,String t1,String t2,boolean animo) {
         this.JD_miTest=JD_miTest;
-        id=count;
+        this.key=key;
         this.pregunta=pregunta;
         this.tiempo=tiempo;
         this.t1=t1;
@@ -103,12 +103,14 @@ public class JP_miT_item extends javax.swing.JPanel {
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 36, Short.MAX_VALUE)
+            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel4.setText("Eliminar");
+        jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/basura.png"))); // NOI18N
         jLabel4.setToolTipText("Eliminar");
+        jLabel4.setBorder(javax.swing.BorderFactory.createTitledBorder(""));
+        jLabel4.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jLabel4.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel4MouseClicked(evt);
@@ -157,7 +159,7 @@ public class JP_miT_item extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseClicked
-        JD_miTest.quitarPregunta(id);
+        JD_miTest.quitarPregunta(key);
     }//GEN-LAST:event_jLabel4MouseClicked
 
 

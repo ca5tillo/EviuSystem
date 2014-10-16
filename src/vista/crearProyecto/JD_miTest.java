@@ -11,11 +11,15 @@ import java.util.Map;
 import javax.swing.JOptionPane;
 
 public class JD_miTest extends javax.swing.JDialog {
+    private int key = 0;
     private int count = 0;
-    
+    private String nomProyecto="";
+    private String descripcion="";
     private final Map<Integer, JP_miT_item> map_preguntas = new HashMap<>();
-    public JD_miTest(java.awt.Frame parent, boolean modal) {
+    public JD_miTest(java.awt.Frame parent, boolean modal,String nomProyecto,String descripcion) {
         super(parent, modal);
+        this.nomProyecto=nomProyecto;
+        this.descripcion = descripcion;
         initComponents();
         this.setTitle("Nuevo Test");
         this.setLocationRelativeTo(null);
@@ -101,6 +105,7 @@ public class JD_miTest extends javax.swing.JDialog {
         jl_t2_sec.setEnabled(false);
 
         jb_finalizar.setText("Finalizar");
+        jb_finalizar.setEnabled(false);
         jb_finalizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jb_finalizarActionPerformed(evt);
@@ -350,11 +355,13 @@ public class JD_miTest extends javax.swing.JDialog {
             if(rb_animo_si.isSelected()){
                 animo=true;
             }
-            map_preguntas.put(count,new JP_miT_item(this,count,idpregunta,pregunta,tiempo,t1,t2,animo));
+            map_preguntas.put(key,new JP_miT_item(this,key,idpregunta,pregunta,tiempo,t1,t2,animo));
            
-            lp_contenedor.add(map_preguntas.get(count));
+            lp_contenedor.add(map_preguntas.get(key));
             lp_contenedor.updateUI();
+            key++;
             count++;
+            if(count>0)jb_finalizar.setEnabled(true);
             jtf_pregunta.setText("");
             rb_no.setSelected(true);
             rb_animo_no.setSelected(true);
@@ -362,10 +369,13 @@ public class JD_miTest extends javax.swing.JDialog {
         }
         
     }//GEN-LAST:event_jb_añadirPreguntaActionPerformed
-    public void quitarPregunta(int id){
-        lp_contenedor.remove(map_preguntas.get(id));
+    public void quitarPregunta(int _key){
+        count--;
+        lp_contenedor.remove(map_preguntas.get(_key));
         lp_contenedor.updateUI();
-        map_preguntas.remove(id);
+        map_preguntas.remove(_key);
+        if(count==0)jb_finalizar.setEnabled(false);
+        
     }
     private void rb_siActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rb_siActionPerformed
         jl_tiempo1.setEnabled(true);
@@ -403,7 +413,8 @@ public class JD_miTest extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_jb_finalizarActionPerformed
 
-    public static void main() {
+    public static void main(final String nomProyecto,final String descripcion) {
+//        
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
@@ -430,7 +441,7 @@ public class JD_miTest extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                JD_miTest dialog = new JD_miTest(new javax.swing.JFrame(), true);
+                JD_miTest dialog = new JD_miTest(new javax.swing.JFrame(), true,nomProyecto,descripcion );
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {

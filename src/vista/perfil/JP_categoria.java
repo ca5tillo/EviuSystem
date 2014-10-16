@@ -13,7 +13,9 @@ public class JP_categoria extends javax.swing.JPanel {
     private  String categoria="";
     private String opcion="";
     private int bandera=0;
-    public JP_categoria(JD_perfil JD_perfil,String categoria,java.util.ArrayList<String> _opciones) {
+    public JP_categoria(JD_perfil JD_perfil,
+            String categoria,
+            java.util.ArrayList<String> _opciones) {
         opciones=_opciones;
         this.categoria = categoria;
         this.JD_perfil = JD_perfil;

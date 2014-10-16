@@ -212,7 +212,8 @@ public class JD_crearProyecto extends javax.swing.JDialog {
                 crearProyectoSimple(nomProyecto,descripcion);
             }else if(jb_crear.getActionCommand().equals("Siguiente")){
                 if(rb_crearTest.isSelected() && rb_perfilEjemplo.isSelected()){
-                    vista.crearProyecto.JD_miTest.main();
+                    vista.crearProyecto.JD_miTest.main(nomProyecto,descripcion);
+                    this.dispose();
                 }
             }
         }

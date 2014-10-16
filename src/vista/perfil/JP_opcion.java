@@ -11,6 +11,7 @@ public class JP_opcion extends javax.swing.JPanel {
         this.setSize(590,375);
         initComponents();
         jl_nombreopcion.setText(opcion);
+        this.rb_.setSelected(false);
     }
 
     @SuppressWarnings("unchecked")
@@ -18,6 +19,17 @@ public class JP_opcion extends javax.swing.JPanel {
     private void initComponents() {
 
         jl_nombreopcion = new javax.swing.JLabel();
+        rb_ = new javax.swing.JRadioButton();
+
+        addAncestorListener(new javax.swing.event.AncestorListener() {
+            public void ancestorAdded(javax.swing.event.AncestorEvent evt) {
+                formAncestorAdded(evt);
+            }
+            public void ancestorRemoved(javax.swing.event.AncestorEvent evt) {
+            }
+            public void ancestorMoved(javax.swing.event.AncestorEvent evt) {
+            }
+        });
 
         jl_nombreopcion.setText("jLabel1");
         jl_nombreopcion.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -26,24 +38,42 @@ public class JP_opcion extends javax.swing.JPanel {
             }
         });
 
+        rb_.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rb_ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jl_nombreopcion, javax.swing.GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(rb_, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(4, 4, 4)
+                .addComponent(jl_nombreopcion, javax.swing.GroupLayout.DEFAULT_SIZE, 362, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jl_nombreopcion, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(rb_, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jl_nombreopcion, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 49, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void jl_nombreopcionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jl_nombreopcionMouseClicked
+        select();
+        
+    }//GEN-LAST:event_jl_nombreopcionMouseClicked
+    private void select(){
         JP_opcion JP_opcion = JP_categoria.getJP_opcion();
         if (JP_opcion != null){
-            JP_opcion.setBackground(null);
+            JP_opcion.rb_.setSelected(false);
         }
-        this.setBackground(vista.Config.colorDeSeleccionado());
+        this.rb_.setSelected(true);
         JP_categoria.setJP_opcion(this);
         
         if (JP_categoria.getBandera()==0){
@@ -54,11 +84,19 @@ public class JP_opcion extends javax.swing.JPanel {
             JP_categoria.habilitarboton();
         }
         JP_categoria.setOpcion(opcion);
-        
-    }//GEN-LAST:event_jl_nombreopcionMouseClicked
+    }
+    private void rb_ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rb_ActionPerformed
+        // TODO add your handling code here:
+         select();
+    }//GEN-LAST:event_rb_ActionPerformed
+
+    private void formAncestorAdded(javax.swing.event.AncestorEvent evt) {//GEN-FIRST:event_formAncestorAdded
+//        select();
+    }//GEN-LAST:event_formAncestorAdded
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jl_nombreopcion;
+    private javax.swing.JRadioButton rb_;
     // End of variables declaration//GEN-END:variables
 }
