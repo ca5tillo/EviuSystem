@@ -31,11 +31,12 @@
                               <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Group type="103" groupAlignment="1" attributes="0">
-                                      <Component id="jButton3" min="-2" pref="152" max="-2" attributes="0"/>
-                                      <Component id="jButton4" min="-2" pref="152" max="-2" attributes="0"/>
+                                      <Component id="jb_nuevoTest" min="-2" pref="152" max="-2" attributes="0"/>
+                                      <Component id="jb_verAvances" min="-2" pref="152" max="-2" attributes="0"/>
+                                      <Component id="jb_crearReporte" alignment="1" min="-2" pref="152" max="-2" attributes="0"/>
                                   </Group>
                                   <Component id="jLabel1" min="-2" pref="166" max="-2" attributes="0"/>
-                                  <Component id="jButton5" min="-2" pref="152" max="-2" attributes="0"/>
+                                  <Component id="jb_nuevaVersion" min="-2" pref="152" max="-2" attributes="0"/>
                                   <Component id="jLabel2" min="-2" pref="166" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
@@ -63,15 +64,17 @@
               <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
-                      <Component id="jButton3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jb_nuevoTest" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="jButton4" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="171" max="-2" attributes="0"/>
+                      <Component id="jb_verAvances" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="jb_crearReporte" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="123" max="-2" attributes="0"/>
                       <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="jButton5" min="-2" max="-2" attributes="0"/>
+                      <Component id="jb_nuevaVersion" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Component id="jScrollPane1" min="-2" pref="356" max="-2" attributes="0"/>
               </Group>
@@ -117,7 +120,7 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jb_cancelarActionPerformed"/>
       </Events>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton3">
+    <Component class="javax.swing.JButton" name="jb_nuevoTest">
       <Properties>
         <Property name="text" type="java.lang.String" value="Nuevo Test"/>
         <Property name="enabled" type="boolean" value="false"/>
@@ -195,11 +198,14 @@
         </Container>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JButton" name="jButton4">
+    <Component class="javax.swing.JButton" name="jb_verAvances">
       <Properties>
         <Property name="text" type="java.lang.String" value="Ver Avances"/>
         <Property name="enabled" type="boolean" value="false"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jb_verAvancesActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel1">
       <Properties>
@@ -207,7 +213,7 @@
         <Property name="text" type="java.lang.String" value="Versi&#xf3;n de tu proyecto"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton5">
+    <Component class="javax.swing.JButton" name="jb_nuevaVersion">
       <Properties>
         <Property name="text" type="java.lang.String" value="Nueva Version"/>
         <Property name="enabled" type="boolean" value="false"/>
@@ -218,6 +224,15 @@
         <Property name="horizontalAlignment" type="int" value="0"/>
         <Property name="text" type="java.lang.String" value="n"/>
       </Properties>
+    </Component>
+    <Component class="javax.swing.JButton" name="jb_crearReporte">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Crear Reporte"/>
+        <Property name="enabled" type="boolean" value="false"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jb_crearReporteActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

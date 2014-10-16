@@ -38,13 +38,14 @@ public class JP_proyectoAbierto extends javax.swing.JPanel {
         jl_subtitulo = new javax.swing.JLabel();
         jb_abrir = new javax.swing.JButton();
         jb_cancelar = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        jb_nuevoTest = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jp_contenedor = new javax.swing.JPanel();
-        jButton4 = new javax.swing.JButton();
+        jb_verAvances = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        jButton5 = new javax.swing.JButton();
+        jb_nuevaVersion = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
+        jb_crearReporte = new javax.swing.JButton();
 
         jl_nomProyecto.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jl_nomProyecto.setText("Proyecto: "+str_nomProyecto);
@@ -67,8 +68,8 @@ public class JP_proyectoAbierto extends javax.swing.JPanel {
             }
         });
 
-        jButton3.setText("Nuevo Test");
-        jButton3.setEnabled(false);
+        jb_nuevoTest.setText("Nuevo Test");
+        jb_nuevoTest.setEnabled(false);
 
         jp_contenedor.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         seticonoTest();
@@ -77,17 +78,30 @@ public class JP_proyectoAbierto extends javax.swing.JPanel {
         jp_contenedor.setLayout(flowLayout1);
         jScrollPane1.setViewportView(jp_contenedor);
 
-        jButton4.setText("Ver Avances");
-        jButton4.setEnabled(false);
+        jb_verAvances.setText("Ver Avances");
+        jb_verAvances.setEnabled(false);
+        jb_verAvances.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jb_verAvancesActionPerformed(evt);
+            }
+        });
 
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Versión de tu proyecto");
 
-        jButton5.setText("Nueva Version");
-        jButton5.setEnabled(false);
+        jb_nuevaVersion.setText("Nueva Version");
+        jb_nuevaVersion.setEnabled(false);
 
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel2.setText("n");
+
+        jb_crearReporte.setText("Crear Reporte");
+        jb_crearReporte.setEnabled(false);
+        jb_crearReporte.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jb_crearReporteActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -107,10 +121,11 @@ public class JP_proyectoAbierto extends javax.swing.JPanel {
                                 .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(jb_nuevoTest, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jb_verAvances, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jb_crearReporte, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jb_nuevaVersion, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(24, 24, 24)
                                 .addComponent(jScrollPane1)))
@@ -130,15 +145,17 @@ public class JP_proyectoAbierto extends javax.swing.JPanel {
                 .addGap(34, 34, 34)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton3)
+                        .addComponent(jb_nuevoTest)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton4)
-                        .addGap(171, 171, 171)
+                        .addComponent(jb_verAvances)
+                        .addGap(18, 18, 18)
+                        .addComponent(jb_crearReporte)
+                        .addGap(123, 123, 123)
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel2)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton5))
+                        .addComponent(jb_nuevaVersion))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 356, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -158,16 +175,29 @@ public class JP_proyectoAbierto extends javax.swing.JPanel {
         Eviu.pintarPanel_test(str_nomProyecto,str_nomTest);
     }//GEN-LAST:event_jb_abrirActionPerformed
 
+    private void jb_crearReporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_crearReporteActionPerformed
+        /*
+        Codigo de Rafa
+        */
+    }//GEN-LAST:event_jb_crearReporteActionPerformed
+
+    private void jb_verAvancesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_verAvancesActionPerformed
+        /*
+        Codigo de Dani
+        */
+    }//GEN-LAST:event_jb_verAvancesActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton jb_abrir;
     private javax.swing.JButton jb_cancelar;
+    private javax.swing.JButton jb_crearReporte;
+    private javax.swing.JButton jb_nuevaVersion;
+    private javax.swing.JButton jb_nuevoTest;
+    private javax.swing.JButton jb_verAvances;
     private javax.swing.JLabel jl_nomProyecto;
     private javax.swing.JLabel jl_subtitulo;
     private javax.swing.JPanel jp_contenedor;
