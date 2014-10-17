@@ -3,7 +3,7 @@
    "str_descripcionDelProyecto":"Sistema para realizar Test de Usabilidad",
    "str_versiones":"0",
    "ID":"",
-    "perfil":[
+    "lst_perfil":[
       {
          "categoria":"Sexo",
          "opciones":["hombre","mujer"]

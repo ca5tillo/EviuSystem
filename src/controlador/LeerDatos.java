@@ -93,7 +93,7 @@ public class LeerDatos {
 
             JSONObject jsonobj_proyecto = (JSONObject) obj_proyecto;
 
-            JSONArray lst_perfil = (JSONArray) jsonobj_proyecto.get("perfil");
+            JSONArray lst_perfil = (JSONArray) jsonobj_proyecto.get("lst_perfil");
             for (Object categoria : lst_perfil) {
                 org.json.simple.JSONObject json_categoria = (org.json.simple.JSONObject) categoria;
                 String str_categoria = (String) json_categoria.get("categoria");
