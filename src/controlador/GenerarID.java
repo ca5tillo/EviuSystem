@@ -1,6 +1,6 @@
 package controlador;
 
-public class GenerarLlave {
+public class GenerarID {
 private static final String elementos="0,1,2,3,4,5,6,7,8,9,"
         + "a,b,c,d,e,f,g,h,i,j,"
         + "k,l,m,n,ñ,o,p,q,r,s,"
@@ -9,7 +9,7 @@ private static final String elementos="0,1,2,3,4,5,6,7,8,9,"
         + "K,L,M,N,Ñ,O,P,Q,R,S,"
         + "T,U,V,W,X,Y,Z,"
         + "$,%,&,#,@";
-    public static String  getLlave(int tam) {
+    public static String  getID(int tam) {
         String[] lst_elementos = elementos.split(",");
         String llave="";
         
@@ -21,7 +21,7 @@ private static final String elementos="0,1,2,3,4,5,6,7,8,9,"
     }
     public static void main(String[] args) {
         
-        getLlave(6);
+        getID(6);
         
     }
 }

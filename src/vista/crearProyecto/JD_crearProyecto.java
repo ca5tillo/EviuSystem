@@ -219,6 +219,8 @@ public class JD_crearProyecto extends javax.swing.JDialog {
                     this.dispose();
                 }else if(rb_crearTest.isSelected() && rb_perfilEjemplo.isSelected()){
                     JOptionPane.showMessageDialog(null, "seccion en construccion");
+                }else if(rb_testEjemplo.isSelected() && rb_crearPerfil.isSelected()){
+                    JOptionPane.showMessageDialog(null, "seccion en construccion");
                 }
             }
         }

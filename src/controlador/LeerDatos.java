@@ -115,14 +115,16 @@ public class LeerDatos {
     }
 
     /*
-    Las funciones 
-        plantilla_Proyecto()
-        plantilla_Test()
-    Son las que se utilizan para  crear un  proyecto basico 
-    Las dos regresan un string en formato JSON para ser almacenadas en disco.
-        plantilla_Proyecto()
-    Recibe el NUEVO NOMBRE que tendra con su nueva DESCRIPCION.
-    */
+     Las funciones 
+     plantilla_Proyecto()
+     plantilla_Test()
+     Son las que se utilizan para  crear un  proyecto basico 
+     Las dos regresan un string en formato JSON para ser almacenadas en disco.
+     plantilla_Proyecto()
+     Recibe el NUEVO NOMBRE que tendra con su nueva DESCRIPCION.
+    
+     SE USAN EN Archivos.java POR LA FUNCION crearProyectoSimple();
+     */
     public static String plantilla_Proyecto(String nombre, String descripcion) {
         String proyecto = "";
         String pantillaProyect = "lib/plantillas/proyecto.json";
@@ -133,7 +135,7 @@ public class LeerDatos {
 
             jsonobj_proyecto.put("str_nombreProyecto", nombre);
             jsonobj_proyecto.put("str_descripcionDelProyecto", descripcion);
-            jsonobj_proyecto.put("ID", GenerarLlave.getLlave(6));
+            jsonobj_proyecto.put("ID", GenerarID.getID(6));
 
             proyecto = "" + jsonobj_proyecto;
 
@@ -152,7 +154,7 @@ public class LeerDatos {
             Object obj_proyecto = parser.parse(new java.io.FileReader(pantillaProyect));
             JSONObject jsonobj_proyecto = (JSONObject) obj_proyecto;
 
-            jsonobj_proyecto.put("ID", GenerarLlave.getLlave(6));
+            jsonobj_proyecto.put("ID", GenerarID.getID(6));
 
             proyecto = "" + jsonobj_proyecto;
 
@@ -162,5 +164,66 @@ public class LeerDatos {
         }
         return proyecto;
     }
+    /*
+     Crear proyecto con nuevo perfil y nuevo test. CASO UNO
+        
+     En este momento ya deven de tener valor asignado las siguientes variables
+        
+     proyecto;
+     descripcion;
+     nomTest;
+     lst_perfil;
+     lst_preguntas;
+    
+     */
 
+    public static String plantilla_Proyecto(
+            String nombre,
+            String descripcion,
+            org.json.simple.JSONArray lst_perfil) {
+        String proyecto = "";
+        String pantillaProyect = "lib/plantillas/proyecto.json";
+        org.json.simple.parser.JSONParser parser = new org.json.simple.parser.JSONParser();
+        try {
+            Object obj_proyecto = parser.parse(new java.io.FileReader(pantillaProyect));
+            JSONObject jsonobj_proyecto = (JSONObject) obj_proyecto;
+            
+            /* REESCRIBIR VALORES*/
+            jsonobj_proyecto.put("str_nombreProyecto", nombre);
+            jsonobj_proyecto.put("str_descripcionDelProyecto", descripcion);
+            jsonobj_proyecto.put("ID", GenerarID.getID(6));
+            jsonobj_proyecto.put("lst_perfil", lst_perfil);
+            /* FIN REESCRIBIR VALORES*/
+            
+            proyecto = "" + jsonobj_proyecto;
+
+        } catch (IOException | ParseException ex) {
+            System.out.println("Error en el parser de JSON");
+            Logger.getLogger(Archivos.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return proyecto;
+    }
+
+    public static String plantilla_Test(String nomTest,org.json.simple.JSONArray lst_preguntas) {
+        String proyecto = "";
+        String pantillaProyect = "lib/plantillas/testEjemplo.json";
+        org.json.simple.parser.JSONParser parser = new org.json.simple.parser.JSONParser();
+        try {
+            Object obj_proyecto = parser.parse(new java.io.FileReader(pantillaProyect));
+            JSONObject jsonobj_proyecto = (JSONObject) obj_proyecto;
+            
+            /* REESCRIBIR VALORES*/
+            jsonobj_proyecto.put("str_nombreDelTest", nomTest);
+            jsonobj_proyecto.put("ID", GenerarID.getID(6));
+            jsonobj_proyecto.put("lst_preguntas", lst_preguntas);
+            /* FIN REESCRIBIR VALORES*/
+            
+            proyecto = "" + jsonobj_proyecto;
+
+        } catch (IOException | ParseException ex) {
+            System.out.println("Error en el parser de JSON");
+            Logger.getLogger(Archivos.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return proyecto;
+    }
 }

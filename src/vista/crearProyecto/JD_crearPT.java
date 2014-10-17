@@ -1,32 +1,35 @@
 /*
-Existen casos
+ Existen casos
 
-* Crear proyecto con nuevo perfil y nuevo test. CASO UNO
-* Crear proyecto con plantilla perfil y nuevo test
-* Crear proyecto con nuevo perfil y plantilla test
+ * Crear proyecto con nuevo perfil y nuevo test. CASO UNO
+ * Crear proyecto con plantilla perfil y nuevo test
+ * Crear proyecto con nuevo perfil y plantilla test
 
-* crear un nuevo test en un proyecto ya existente.
-*/
+ * crear un nuevo test en un proyecto ya existente.
+ */
 package vista.crearProyecto;
 
 import org.json.simple.JSONArray;
 
 public class JD_crearPT extends javax.swing.JDialog {
-    private int banderadeCasos=0;
+
+    private int banderadeCasos = 0;
     private String proyecto;
     private String descripcion;
     private String nomTest;
-    private org.json.simple.JSONArray lst_perfil= new org.json.simple.JSONArray();
+    private org.json.simple.JSONArray lst_perfil = new org.json.simple.JSONArray();
     private org.json.simple.JSONArray lst_preguntas = new org.json.simple.JSONArray();
+
     public JD_crearPT(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
-        
+
         initComponents();
         this.setLocationRelativeTo(null);
 //        test();
         pintarPerfil();
     }
-    public JD_crearPT(java.awt.Frame parent, boolean modal,String proyecto,String descripcion,int banderadeCasos) {
+
+    public JD_crearPT(java.awt.Frame parent, boolean modal, String proyecto, String descripcion, int banderadeCasos) {
         super(parent, modal);
         this.banderadeCasos = banderadeCasos;
         this.proyecto = proyecto;
@@ -34,11 +37,12 @@ public class JD_crearPT extends javax.swing.JDialog {
         initComponents();
         this.setLocationRelativeTo(null);
         //CASO UNO
-        if(banderadeCasos == 1){
-            jp_contenedor.add(new JP_perfil(this,banderadeCasos,this.proyecto,this.descripcion));
+        if (banderadeCasos == 1) {
+            jp_contenedor.add(new JP_perfil(this, banderadeCasos, this.proyecto, this.descripcion));
         }
-        
+
     }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -71,8 +75,6 @@ public class JD_crearPT extends javax.swing.JDialog {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -112,15 +114,17 @@ public class JD_crearPT extends javax.swing.JDialog {
             }
         });
     }
-    public void pintarPerfil(){
+
+    public void pintarPerfil() {
         jp_contenedor.removeAll();
         jp_contenedor.updateUI();
-        jp_contenedor.add(new JP_perfil(this,banderadeCasos,this.proyecto,this.descripcion));
+        jp_contenedor.add(new JP_perfil(this, banderadeCasos, this.proyecto, this.descripcion));
     }
-    public void pintarTest(){
+
+    public void pintarTest() {
         jp_contenedor.removeAll();
-        jp_contenedor.updateUI();        
-        jp_contenedor.add(new JP_miTest(this,banderadeCasos,this.proyecto,this.descripcion));
+        jp_contenedor.updateUI();
+        jp_contenedor.add(new JP_miTest(this, banderadeCasos, this.proyecto, this.descripcion));
     }
 
     public String getNomTest() {
@@ -146,23 +150,32 @@ public class JD_crearPT extends javax.swing.JDialog {
     public void setLst_preguntas(JSONArray lst_preguntas) {
         this.lst_preguntas = lst_preguntas;
     }
-    
-    public void crearCasoUno(){
+
+    public void crearCasoUno() {
         /*
-        Crear proyecto con nuevo perfil y nuevo test. CASO UNO
+         Crear proyecto con nuevo perfil y nuevo test. CASO UNO
         
-        En este momento ya deven de tener valor asignado las siguientes variables
+         En este momento ya deven de tener valor asignado las siguientes variables
         
-        proyecto;
-        descripcion;
-        nomTest;
-        lst_perfil;
-        lst_preguntas;
-        */
-         
-        javax.swing.JOptionPane.showMessageDialog(null,"sedeberan gurdar los dato");
+         proyecto;
+         descripcion;
+         nomTest;
+         lst_perfil;
+         lst_preguntas;
+         */
+
         
-    }    
+        boolean a = controlador.Archivos.crearProyectoCasoUno(
+                proyecto,
+                descripcion,
+                nomTest,
+                lst_perfil,
+                lst_preguntas);
+        if (a){
+            javax.swing.JOptionPane.showMessageDialog(null, "Proyecto creado exitosamente");
+        }
+        this.dispose();
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel jp_contenedor;
     // End of variables declaration//GEN-END:variables

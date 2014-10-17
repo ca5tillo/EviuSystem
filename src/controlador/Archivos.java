@@ -1,12 +1,6 @@
 package controlador;
 
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.ParseException;
 
 public class Archivos {
 
@@ -153,6 +147,8 @@ public class Archivos {
     Crear un nuevo proyecto usando las pllantillas de PROYECTO Y TEST
     que se encuentran el la carpeta lib/plantillas/
     PROYECTO SIMPLE copia perfil y preguntas de las plantillas.
+    
+    SE USA EN JD_crearProyecto.java
     */
     @SuppressWarnings("UnusedAssignment")
     public static boolean crearProyectoSimple(String nomProyecto, String descripcion) {
@@ -173,5 +169,36 @@ public class Archivos {
         }
         return a;
     }
+    /*
+    La funcion
+        crearProyectoCasoUno();
+            Crear proyecto con nuevo perfil y nuevo test. CASO UNO
+    ES USA EN JD_crearPT.java
+    */
+    public static boolean crearProyectoCasoUno(
+            String nomProyecto, 
+            String descripcion,
+            String nomTest,
+            org.json.simple.JSONArray lst_perfil,
+            org.json.simple.JSONArray lst_preguntas){
+        /*
+        Crear proyecto con nuevo perfil y nuevo test. CASO UNO
+        */
+        boolean a = false;
+        String paht = "proyectos/" + nomProyecto + "/";
+        if(existeArchivooCarpeta(paht)){
+            JOptionPane.showMessageDialog(null, "Ya existe el proyecto: "+nomProyecto);
+        }else{
+            carpeta(paht);// creo la carpeta del proyecto
+            String jsonProyecto = LeerDatos.plantilla_Proyecto(nomProyecto, descripcion,lst_perfil);//crear el objJSON
+            if (vista.Config.AES()) jsonProyecto = AES.encrypt(jsonProyecto);
+            a = escribirEnArchivo(paht + nomProyecto + ".json", jsonProyecto); // creo el arcivoproyecto 
 
+            carpeta(paht + "tests/");//creo la carpetatest
+            String jsonTest = LeerDatos.plantilla_Test(nomTest,lst_preguntas);
+            if (vista.Config.AES()) jsonTest = AES.encrypt(jsonTest);
+            a = escribirEnArchivo(paht + "tests/"+nomTest+".json", jsonTest);//creo unteset
+        }
+        return a;
+    }
 }
