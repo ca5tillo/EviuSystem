@@ -211,14 +211,36 @@ public class JD_crearProyecto extends javax.swing.JDialog {
             if(jb_crear.getActionCommand().equals("Crear")){
                 crearProyectoSimple(nomProyecto,descripcion);
             }else if(jb_crear.getActionCommand().equals("Siguiente")){
-                if(rb_crearTest.isSelected() && rb_perfilEjemplo.isSelected()){
-                    vista.crearProyecto.JD_miTest.main(nomProyecto,descripcion);
+                if (rb_crearTest.isSelected() && rb_crearPerfil.isSelected()){
+                    /*
+                    CASO UNO
+                    */
+                    crearproyectoconNPNT(nomProyecto,descripcion);
                     this.dispose();
+                }else if(rb_crearTest.isSelected() && rb_perfilEjemplo.isSelected()){
+                    JOptionPane.showMessageDialog(null, "seccion en construccion");
                 }
             }
         }
     }//GEN-LAST:event_jb_crearActionPerformed
-
+    private void crearproyectoconNPNT(final String nomProyecto,final String descripcio){
+        /*
+        Crear proyecto con nuevo perfil y nuevo test.
+        CASO UNO
+        */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                final JD_crearPT dialog = new JD_crearPT(new javax.swing.JFrame(), true,nomProyecto,descripcio,1);
+                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                    @Override
+                    public void windowClosing(java.awt.event.WindowEvent e) {
+                        dialog.dispose();
+                    }
+                });
+                dialog.setVisible(true);
+            }
+        });
+    }
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

@@ -6,8 +6,10 @@
 
 package vista.crearProyecto;
 
+import org.json.simple.JSONObject;
+
 public class JP_miT_item extends javax.swing.JPanel {
-    private final JD_miTest JD_miTest;
+    private final JP_miTest JP_miTest;
     private final int key;
     private String pregunta = "";
     private final boolean tiempo;
@@ -17,8 +19,9 @@ public class JP_miT_item extends javax.swing.JPanel {
     private String _tiempo="No";
     private String _animo="No";
     private String JSON="hola";
-    public JP_miT_item(JD_miTest JD_miTest,int key,String idpregunta,String pregunta,boolean tiempo,String t1,String t2,boolean animo) {
-        this.JD_miTest=JD_miTest;
+    private org.json.simple.JSONObject json = new org.json.simple.JSONObject();
+    public JP_miT_item(JP_miTest JP_miTest,int key,String idpregunta,String pregunta,boolean tiempo,String t1,String t2,boolean animo) {
+        this.JP_miTest=JP_miTest;
         this.key=key;
         this.pregunta=pregunta;
         this.tiempo=tiempo;
@@ -48,11 +51,11 @@ public class JP_miT_item extends javax.swing.JPanel {
         obj.put("boolean_EstadoDeAnimo", animo);
         obj.put("str_t1", t1);
         obj.put("str_t2", t2);
-        JSON=""+obj;
+        json=obj;
     }
 
-    public String getJSON() {
-        return JSON;
+    public JSONObject getJson() {
+        return json;
     }
 
     @SuppressWarnings("unchecked")
@@ -159,7 +162,7 @@ public class JP_miT_item extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseClicked
-        JD_miTest.quitarPregunta(key);
+        JP_miTest.quitarPregunta(key);
     }//GEN-LAST:event_jLabel4MouseClicked
 
 

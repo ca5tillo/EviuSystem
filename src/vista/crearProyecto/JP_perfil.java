@@ -1,8 +1,12 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+Existen casos
+
+* Crear proyecto con nuevo perfil y nuevo test. CASO UNO
+* Crear proyecto con plantilla perfil y nuevo test
+* Crear proyecto con nuevo perfil y plantilla test
+
+* crear un nuevo test en un proyecto ya existente.
+*/
 package vista.crearProyecto;
 
 import java.util.Map;
@@ -21,9 +25,19 @@ public class JP_perfil extends javax.swing.JPanel {
     private int count =0;//al crear categoria suma uno al eliminar una categoria resta uno
     private boolean bandera = true;//saber si sigo añadiendo opciones
     private boolean editando=false;
-    public JP_perfil() {
+    private final JD_crearPT JD_crearPT;
+    private final int banderadeCasos;
+    private final String proyecto;
+    private final String descripcion;
+    
+    public JP_perfil(JD_crearPT JD_crearPT, int banderadeCasos,String proyecto,String descripcion) {
+        this.proyecto = proyecto;
+        this.descripcion = descripcion;
+        this.banderadeCasos = banderadeCasos;
+        this.JD_crearPT = JD_crearPT;
         initComponents();
-        this.setSize(732, 427);
+        if(banderadeCasos==1)jb_aceptar.setText("Siguiente");
+        this.setSize(900, 509);
     }
 
     @SuppressWarnings("unchecked")
@@ -88,35 +102,41 @@ public class JP_perfil extends javax.swing.JPanel {
                 .addGap(32, 32, 32)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jl_titulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 460, Short.MAX_VALUE)
-                        .addComponent(jb_cancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jb_aceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jl_categoria)
                             .addComponent(jl_opcion)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jtf_opcion, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jtf_opcion, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jb_aceptarOpcion, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jtf_categoria)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(35, 35, 35)
                                 .addComponent(jb_añadirCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jl_trabajandoEn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jScrollPane1))))
-                .addContainerGap())
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addComponent(jl_trabajandoEn, javax.swing.GroupLayout.DEFAULT_SIZE, 512, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(0, 0, Short.MAX_VALUE)
+                                        .addComponent(jb_cancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(jb_aceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 487, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(25, 25, 25)))))
+                .addGap(26, 26, 26))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(20, 20, 20)
+                .addGap(31, 31, 31)
                 .addComponent(jl_titulo, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(36, 36, 36)
                 .addComponent(jl_trabajandoEn)
                 .addGap(4, 4, 4)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -137,7 +157,7 @@ public class JP_perfil extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jb_aceptar)
                     .addComponent(jb_cancelar))
-                .addContainerGap(31, Short.MAX_VALUE))
+                .addContainerGap(54, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -196,34 +216,12 @@ public class JP_perfil extends javax.swing.JPanel {
 
     private void jb_aceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_aceptarActionPerformed
         // BOTON ACEPTAR
-        org.json.simple.JSONObject jsonobj= new org.json.simple.JSONObject();
-        org.json.simple.JSONArray lst_perfil= new org.json.simple.JSONArray();
+        crearJSON();
         
-        java.util.Iterator it = map_categorias.keySet().iterator();
-        while(it.hasNext()){
-            org.json.simple.JSONObject obj_perfil= new org.json.simple.JSONObject();
-            
-            Integer key = (Integer)it.next();
-            String categoria = map_categorias.get(key).getCategoria();
-            obj_perfil.put("categoria", categoria);
-            
-//            String opciones = 
-            org.json.simple.JSONArray lst_opciones= new org.json.simple.JSONArray();
-            
-            Map<Integer, JP_perfil_ItemOpcion> map_opc = map_categorias.get(key).getMap_opciones();
-            java.util.Iterator it_opc = map_opc.keySet().iterator();
-            while(it_opc.hasNext()){
-                Integer key_opc = (Integer)it_opc.next();
-                String opcion = map_opc.get(key_opc).getOpcion();
-                lst_opciones.add(opcion);
-            }
-            
-            obj_perfil.put("opciones",lst_opciones);
-            lst_perfil.add(obj_perfil);
+        //CASO UNO
+        if(banderadeCasos==1){
+            JD_crearPT.pintarTest();
         }
-        jsonobj.put("lst_perfil",lst_perfil);
-        
-        System.out.println(""+lst_perfil);
     }//GEN-LAST:event_jb_aceptarActionPerformed
     public void removeItem(int id) {
         jp_contenedor.remove(map_categorias.get(id));
@@ -269,5 +267,36 @@ public class JP_perfil extends javax.swing.JPanel {
             }
         }
         return a;
+    }
+    private void crearJSON(){
+        org.json.simple.JSONObject jsonobj= new org.json.simple.JSONObject();
+        org.json.simple.JSONArray lst_perfil= new org.json.simple.JSONArray();
+        
+        java.util.Iterator it = map_categorias.keySet().iterator();
+        while(it.hasNext()){
+            org.json.simple.JSONObject obj_perfil= new org.json.simple.JSONObject();
+            
+            Integer key = (Integer)it.next();
+            String categoria = map_categorias.get(key).getCategoria();
+            obj_perfil.put("categoria", categoria);
+            
+//            String opciones = 
+            org.json.simple.JSONArray lst_opciones= new org.json.simple.JSONArray();
+            
+            Map<Integer, JP_perfil_ItemOpcion> map_opc = map_categorias.get(key).getMap_opciones();
+            java.util.Iterator it_opc = map_opc.keySet().iterator();
+            while(it_opc.hasNext()){
+                Integer key_opc = (Integer)it_opc.next();
+                String opcion = map_opc.get(key_opc).getOpcion();
+                lst_opciones.add(opcion);
+            }
+            
+            obj_perfil.put("opciones",lst_opciones);
+            lst_perfil.add(obj_perfil);
+        }
+        jsonobj.put("lst_perfil",lst_perfil);
+        
+        System.out.println(""+lst_perfil);
+        JD_crearPT.setLst_perfil(lst_perfil);
     }
 }
