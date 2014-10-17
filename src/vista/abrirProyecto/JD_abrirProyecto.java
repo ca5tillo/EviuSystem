@@ -122,8 +122,13 @@ public class JD_abrirProyecto extends javax.swing.JDialog {
          cada proyecto en un panel con un label con el nombre del proyecto
          */
         java.util.ArrayList<String> str_array_proyectos = controlador.Archivos.getProyectos();
-        for (String nomProyecto : str_array_proyectos) {
-            jp_contenedor.add(new JP_itemProyecto(nomProyecto,this));
+        if(str_array_proyectos.isEmpty()){
+            javax.swing.JOptionPane.showMessageDialog(null, "No tienes proyectos ");
+            this.dispose();
+        }else{
+            for (String nomProyecto : str_array_proyectos) {
+                jp_contenedor.add(new JP_itemProyecto(nomProyecto,this));
+            }
         }
 //        str_array_proyectos = null;
     }

@@ -79,7 +79,6 @@ public class JP_proyectoAbierto extends javax.swing.JPanel {
         jScrollPane1.setViewportView(jp_contenedor);
 
         jb_verAvances.setText("Ver Avances");
-        jb_verAvances.setEnabled(false);
         jb_verAvances.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jb_verAvancesActionPerformed(evt);
@@ -96,7 +95,6 @@ public class JP_proyectoAbierto extends javax.swing.JPanel {
         jLabel2.setText("n");
 
         jb_crearReporte.setText("Crear Reporte");
-        jb_crearReporte.setEnabled(false);
         jb_crearReporte.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jb_crearReporteActionPerformed(evt);

@@ -201,7 +201,6 @@
     <Component class="javax.swing.JButton" name="jb_verAvances">
       <Properties>
         <Property name="text" type="java.lang.String" value="Ver Avances"/>
-        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jb_verAvancesActionPerformed"/>
@@ -228,7 +227,6 @@
     <Component class="javax.swing.JButton" name="jb_crearReporte">
       <Properties>
         <Property name="text" type="java.lang.String" value="Crear Reporte"/>
-        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jb_crearReporteActionPerformed"/>
