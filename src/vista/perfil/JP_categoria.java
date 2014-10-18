@@ -9,7 +9,7 @@ package vista.perfil;
 public class JP_categoria extends javax.swing.JPanel {
     private JP_opcion JP_opcion;
     private final JD_perfil JD_perfil;
-    private java.util.ArrayList<String> opciones;
+    private final java.util.ArrayList<String> opciones;
     private  String categoria="";
     private String opcion="";
     private int bandera=0;

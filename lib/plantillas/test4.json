@@ -43,11 +43,12 @@
          "ID":"",
          "version":"",
          "tiempodeencuesta":"",
-         "perfil":{
-            "sexo":"",
-            "edad":"",
-            "ocupacion":""
-         },
+         "perfil":[
+            {
+               "categoria":"",
+               "opciones":""
+            }
+         ],
          "respuestas":[
             {
                "id_pregunta":"",

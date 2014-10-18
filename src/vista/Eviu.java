@@ -1,11 +1,17 @@
 package vista;
 
+import org.json.simple.JSONArray;
 import vista.inicio.*;
 
 public  class Eviu extends javax.swing.JFrame {
 
-    java.awt.Container contenPane = getContentPane();
-    String perfilenJson = "";
+    private final java.awt.Container contenPane = getContentPane();
+    /*JSONArray perfil
+        Es una lista de objetos JSON de la siguiente forma 
+        {"categoria":"categoria",
+         "opcion":"opcion"}
+    */
+    private org.json.simple.JSONArray perfil = new org.json.simple.JSONArray();
     public Eviu() {
         initComponents();
         this.setLocationRelativeTo(null);
@@ -185,12 +191,14 @@ public  class Eviu extends javax.swing.JFrame {
 //        jm_archivo.setEnabled(false);
     }
 
-    public String getPerfilenJson() {
-        return perfilenJson;
+    public JSONArray getPerfil() {
+        return perfil;
     }
 
-    public void setPerfilenJson(String perfilenJson) {
-        this.perfilenJson = perfilenJson;
+    public void setPerfil(JSONArray perfil) {
+        this.perfil = perfil;
     }
+
+
     
 }

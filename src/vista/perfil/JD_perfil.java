@@ -95,11 +95,14 @@ public class JD_perfil extends javax.swing.JDialog {
     }//GEN-LAST:event_jb_cancelarActionPerformed
 
     private void jb_aceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_aceptarActionPerformed
-        org.json.simple.JSONObject jsonobj_perfil= new org.json.simple.JSONObject();
+        org.json.simple.JSONArray perfil = new org.json.simple.JSONArray();
         for (JP_categoria a :lst_JP_categoria){
-            jsonobj_perfil.put(a.getCategoria(), a.getOpcion());
+            org.json.simple.JSONObject jsonobj_perfil= new org.json.simple.JSONObject();
+            jsonobj_perfil.put("categoria",a.getCategoria());
+            jsonobj_perfil.put("opcion",a.getOpcion());
+            perfil.add(jsonobj_perfil);
         }
-        Eviu.setPerfilenJson(""+jsonobj_perfil);
+        Eviu.setPerfil(perfil);
         this.dispose();
     }//GEN-LAST:event_jb_aceptarActionPerformed
 

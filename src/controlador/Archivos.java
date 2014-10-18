@@ -24,12 +24,13 @@ public class Archivos {
         return inf;
     }
     /*
-    La funcion:
-        carpeta(String _carpeta)
-    Se utiliza para crear una Carpeta o un a direccion de carpetas.
-    recibe el nombre que tendra la carpeta la direccion de donse se creara la carpeta 
-    * Si esta direccion no existe la creara.
-    */
+     La funcion:
+     carpeta(String _carpeta)
+     Se utiliza para crear una Carpeta o un a direccion de carpetas.
+     recibe el nombre que tendra la carpeta la direccion de donse se creara la carpeta 
+     * Si esta direccion no existe la creara.
+     */
+
     private static void carpeta(String _carpeta) {//revisa que exista si no existe la creara
         String carpeta = "proyectos";
         if (!_carpeta.equals("")) {
@@ -132,6 +133,7 @@ public class Archivos {
 
         return arrayL_Tests;
     }
+
     public static boolean existeArchivooCarpeta(String path) {
         //Si es existe que el archivo o carpeta existe devuelve true
         boolean estado = false;
@@ -140,65 +142,94 @@ public class Archivos {
         }
         return estado;
     }
-    
+
     /*
-    La funcion
-        crearProyectoSimple()
-    Crear un nuevo proyecto usando las pllantillas de PROYECTO Y TEST
-    que se encuentran el la carpeta lib/plantillas/
-    PROYECTO SIMPLE copia perfil y preguntas de las plantillas.
+     La funcion
+     crearProyectoSimple()
+     Crear un nuevo proyecto usando las pllantillas de PROYECTO Y TEST
+     que se encuentran el la carpeta lib/plantillas/
+     PROYECTO SIMPLE copia perfil y preguntas de las plantillas.
     
-    SE USA EN JD_crearProyecto.java
-    */
+     SE USA EN JD_crearProyecto.java
+     */
     @SuppressWarnings("UnusedAssignment")
     public static boolean crearProyectoSimple(String nomProyecto, String descripcion) {
         boolean a = false;
         String paht = "proyectos/" + nomProyecto + "/";
-        if(existeArchivooCarpeta(paht)){
-            JOptionPane.showMessageDialog(null, "Ya existe el proyecto: "+nomProyecto);
-        }else{
+        if (existeArchivooCarpeta(paht)) {
+            JOptionPane.showMessageDialog(null, "Ya existe el proyecto: " + nomProyecto);
+        } else {
             carpeta(paht);// creo la carpeta del proyecto
             String jsonProyecto = LeerDatos.plantilla_Proyecto(nomProyecto, descripcion);
-            if (vista.Config.AES()) jsonProyecto = AES.encrypt(jsonProyecto);
+            if (vista.Config.AES()) {
+                jsonProyecto = AES.encrypt(jsonProyecto);
+            }
             a = escribirEnArchivo(paht + nomProyecto + ".json", jsonProyecto); // creo el arcivoproyecto 
 
             carpeta(paht + "tests/");//creo la carpetatest
             String jsonTest = LeerDatos.plantilla_Test();
-            if (vista.Config.AES()) jsonTest = AES.encrypt(jsonTest);
+            if (vista.Config.AES()) {
+                jsonTest = AES.encrypt(jsonTest);
+            }
             a = escribirEnArchivo(paht + "tests/testEjemplo.json", jsonTest);//creo unteset
         }
         return a;
     }
     /*
-    La funcion
-        crearProyectoCasoUno();
-            Crear proyecto con nuevo perfil y nuevo test. CASO UNO
-    ES USA EN JD_crearPT.java
-    */
+     La funcion
+     crearProyectoCasoUno();
+     Crear proyecto con nuevo perfil y nuevo test. CASO UNO
+     ES USA EN JD_crearPT.java
+     */
+
     public static boolean crearProyectoCasoUno(
-            String nomProyecto, 
+            String nomProyecto,
             String descripcion,
             String nomTest,
             org.json.simple.JSONArray lst_perfil,
-            org.json.simple.JSONArray lst_preguntas){
+            org.json.simple.JSONArray lst_preguntas) {
         /*
-        Crear proyecto con nuevo perfil y nuevo test. CASO UNO
-        */
+         Crear proyecto con nuevo perfil y nuevo test. CASO UNO
+         */
         boolean a = false;
         String paht = "proyectos/" + nomProyecto + "/";
-        if(existeArchivooCarpeta(paht)){
-            JOptionPane.showMessageDialog(null, "Ya existe el proyecto: "+nomProyecto);
-        }else{
+        if (existeArchivooCarpeta(paht)) {
+            JOptionPane.showMessageDialog(null, "Ya existe el proyecto: " + nomProyecto);
+        } else {
             carpeta(paht);// creo la carpeta del proyecto
-            String jsonProyecto = LeerDatos.plantilla_Proyecto(nomProyecto, descripcion,lst_perfil);//crear el objJSON
-            if (vista.Config.AES()) jsonProyecto = AES.encrypt(jsonProyecto);
+            String jsonProyecto = LeerDatos.plantilla_Proyecto(nomProyecto, descripcion, lst_perfil);//crear el objJSON
+            if (vista.Config.AES()) {
+                jsonProyecto = AES.encrypt(jsonProyecto);
+            }
             a = escribirEnArchivo(paht + nomProyecto + ".json", jsonProyecto); // creo el arcivoproyecto 
 
             carpeta(paht + "tests/");//creo la carpetatest
-            String jsonTest = LeerDatos.plantilla_Test(nomTest,lst_preguntas);
-            if (vista.Config.AES()) jsonTest = AES.encrypt(jsonTest);
-            a = escribirEnArchivo(paht + "tests/"+nomTest+".json", jsonTest);//creo unteset
+            String jsonTest = LeerDatos.plantilla_Test(nomTest, lst_preguntas);
+            if (vista.Config.AES()) {
+                jsonTest = AES.encrypt(jsonTest);
+            }
+            a = escribirEnArchivo(paht + "tests/" + nomTest + ".json", jsonTest);//creo unteset
         }
+        return a;
+    }
+
+    public static boolean guardarRespuestas(
+            String nomProyecto,
+            String nomTest,
+            org.json.simple.JSONArray perfil,
+            org.json.simple.JSONArray lst_respuestas,
+            String tiempodeencuesta) {
+        boolean a = false;
+
+        String pathTest = "proyectos/" + nomProyecto + "/tests/" + nomTest + ".json";
+
+        String jsontest = LeerDatos.guardarRespuestas(nomProyecto, nomTest, perfil, lst_respuestas, tiempodeencuesta);
+        if (vista.Config.AES()) {
+            jsontest = AES.encrypt(jsontest);
+        }
+
+        a = escribirEnArchivo(pathTest, jsontest); // creo el arcivoproyecto 
+        
         return a;
     }
 }

@@ -4,16 +4,15 @@ import javax.swing.Timer;
 
 public class JP_test extends javax.swing.JPanel {
 
-    private String nomProyecto;
-    private String nomTest;
-    private vista.Eviu Eviu;
+    private final String nomProyecto;
+    private final String nomTest;
+    private final vista.Eviu Eviu;
     
-    private java.util.AbstractList<String> respuestas = new java.util.ArrayList();//contiene Json
-    private String perfil;
+    private java.util.ArrayList<String> respuestas = new java.util.ArrayList();//contiene Json
 
     private int count = 0;//cuenta numero de preguntas
     private int countcronometro = 0;// para saber si ya se inicio el cronometro del test
-    private Cronometro cronometro = new Cronometro();
+    private final Cronometro cronometro = new Cronometro();
 
     public JP_test(String nomProyecto, String nomTest, vista.Eviu Eviu) {
         this.nomProyecto = nomProyecto;
@@ -120,15 +119,32 @@ public class JP_test extends javax.swing.JPanel {
     }//GEN-LAST:event_jb_cancelarActionPerformed
 
     private void jb_guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_guardarActionPerformed
-        String perfi=Eviu.getPerfilenJson();
-        System.out.println(perfi);
-        System.out.println("");
-        for(String s:respuestas){
-            System.out.println(s);
+        org.json.simple.JSONArray perfil = Eviu.getPerfil();
+        org.json.simple.JSONArray lst_respuestas = lstRespuestas();
+        String tiempodeencuesta = jl_digitosCronometro.getText();
+
+        boolean guardar = controlador.Archivos.guardarRespuestas(nomProyecto,nomTest,perfil,lst_respuestas,tiempodeencuesta);
+        if(guardar){
+            javax.swing.JOptionPane.showMessageDialog(null,"Las respuestas de han guardado Exitosamente");
+        }else{
+            javax.swing.JOptionPane.showMessageDialog(null,"Error al guardar las Respuestas");
         }
         Eviu.pintarPanel_ProyectoAbierto(nomProyecto);
     }//GEN-LAST:event_jb_guardarActionPerformed
-
+    private org.json.simple.JSONArray lstRespuestas(){
+        org.json.simple.JSONArray respuestaTEMPORAL = new org.json.simple.JSONArray();
+        org.json.simple.parser.JSONParser parser = new org.json.simple.parser.JSONParser();
+        for(String respuesta:respuestas){//respuestas es el ArrayList<String>
+            try{
+                Object obj = parser.parse(respuesta);
+                org.json.simple.JSONObject res = (org.json.simple.JSONObject)obj;
+                respuestaTEMPORAL.add(res);
+            }catch(org.json.simple.parser.ParseException e){
+                System.out.println("Error en el parser en la clase JP_test.java  <<"+e);
+            }
+        }
+        return respuestaTEMPORAL;
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane jScrollPane1;
@@ -145,11 +161,18 @@ public class JP_test extends javax.swing.JPanel {
         jl_nomProyecto.setFont(vista.Config.getTam_Titulo());
     }
 
-    public void setPerfil(String perfil) {
-        this.perfil = perfil;
-    }
 
     private void addComponentePregunta() {
+        /*
+        Se tienen 4 tipos de preguntas y aqui se añaden a la "ventana".
+        Las respuesta de cada pregunta se guardan en un JSON que se encuentra 
+        en el comando de cada boton de pregunta llamado siguiente
+            jb_siguiente.getActionCommand()
+        
+        En esta funcion tambien cacho los eventos de dicos botones.
+        
+        
+        */
         final java.util.ArrayList<controlador.modelos.Pregunta> Preguntas
                 = controlador.LeerDatos.getPreguntas(nomProyecto, nomTest);
 

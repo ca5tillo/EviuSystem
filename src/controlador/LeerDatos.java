@@ -1,6 +1,5 @@
 package controlador;
 
-import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.json.simple.JSONArray;
@@ -129,8 +128,13 @@ public class LeerDatos {
         String proyecto = "";
         String pantillaProyect = "lib/plantillas/proyecto.json";
         org.json.simple.parser.JSONParser parser = new org.json.simple.parser.JSONParser();
+
+        String str_ = Archivos.Leer_Archivo(pantillaProyect);// leeo el Archivo 
+//        if (vista.Config.AES()) {
+//            str_ = AES.decrypt(str_);
+//        }
         try {
-            Object obj_proyecto = parser.parse(new java.io.FileReader(pantillaProyect));
+            Object obj_proyecto = parser.parse(str_);
             JSONObject jsonobj_proyecto = (JSONObject) obj_proyecto;
 
             jsonobj_proyecto.put("str_nombreProyecto", nombre);
@@ -139,8 +143,9 @@ public class LeerDatos {
 
             proyecto = "" + jsonobj_proyecto;
 
-        } catch (IOException | ParseException ex) {
-            System.out.println("Error en el parser de JSON");
+        } catch (ParseException ex) {
+            System.out.println("Error en el parser de JSON"
+                    + " en leerDatos en plantilla_Proyecto(String nombre, String descripcion)");
             Logger.getLogger(Archivos.class.getName()).log(Level.SEVERE, null, ex);
         }
         return proyecto;
@@ -150,16 +155,22 @@ public class LeerDatos {
         String proyecto = "";
         String pantillaProyect = "lib/plantillas/testEjemplo.json";
         org.json.simple.parser.JSONParser parser = new org.json.simple.parser.JSONParser();
+
+        String str_ = Archivos.Leer_Archivo(pantillaProyect);// leeo el Archivo 
+//        if (vista.Config.AES()) {
+//            str_ = AES.decrypt(str_);
+//        }
         try {
-            Object obj_proyecto = parser.parse(new java.io.FileReader(pantillaProyect));
+            Object obj_proyecto = parser.parse(str_);
             JSONObject jsonobj_proyecto = (JSONObject) obj_proyecto;
 
             jsonobj_proyecto.put("ID", GenerarID.getID(6));
 
             proyecto = "" + jsonobj_proyecto;
 
-        } catch (IOException | ParseException ex) {
-            System.out.println("Error en el parser de JSON");
+        } catch (ParseException ex) {
+            System.out.println("Error en el parser de JSON"
+                    + "En leer datos en plantilla_Test()");
             Logger.getLogger(Archivos.class.getName()).log(Level.SEVERE, null, ex);
         }
         return proyecto;
@@ -184,46 +195,141 @@ public class LeerDatos {
         String proyecto = "";
         String pantillaProyect = "lib/plantillas/proyecto.json";
         org.json.simple.parser.JSONParser parser = new org.json.simple.parser.JSONParser();
+        String str_ = Archivos.Leer_Archivo(pantillaProyect);// leeo el Archivo 
+//        if (vista.Config.AES()) {
+//            str_ = AES.decrypt(str_);
+//        }
         try {
-            Object obj_proyecto = parser.parse(new java.io.FileReader(pantillaProyect));
+            Object obj_proyecto = parser.parse(str_);
             JSONObject jsonobj_proyecto = (JSONObject) obj_proyecto;
-            
+
             /* REESCRIBIR VALORES*/
             jsonobj_proyecto.put("str_nombreProyecto", nombre);
             jsonobj_proyecto.put("str_descripcionDelProyecto", descripcion);
             jsonobj_proyecto.put("ID", GenerarID.getID(6));
             jsonobj_proyecto.put("lst_perfil", lst_perfil);
             /* FIN REESCRIBIR VALORES*/
-            
+
             proyecto = "" + jsonobj_proyecto;
 
-        } catch (IOException | ParseException ex) {
-            System.out.println("Error en el parser de JSON");
+        } catch (ParseException ex) {
+            System.out.println("Error en el parser de JSON"
+                    + "En leerDatos en plantilla_Proyecto(\n"
+                    + "            String nombre,\n"
+                    + "            String descripcion,\n"
+                    + "            org.json.simple.JSONArray lst_perfil)");
             Logger.getLogger(Archivos.class.getName()).log(Level.SEVERE, null, ex);
         }
         return proyecto;
     }
 
-    public static String plantilla_Test(String nomTest,org.json.simple.JSONArray lst_preguntas) {
+    public static String plantilla_Test(String nomTest, org.json.simple.JSONArray lst_preguntas) {
         String proyecto = "";
         String pantillaProyect = "lib/plantillas/testEjemplo.json";
         org.json.simple.parser.JSONParser parser = new org.json.simple.parser.JSONParser();
+
+        String str_ = Archivos.Leer_Archivo(pantillaProyect);// leeo el Archivo 
+//        if (vista.Config.AES()) {
+//            str_ = AES.decrypt(str_);
+//        }
         try {
-            Object obj_proyecto = parser.parse(new java.io.FileReader(pantillaProyect));
+            Object obj_proyecto = parser.parse(str_);
             JSONObject jsonobj_proyecto = (JSONObject) obj_proyecto;
-            
+
             /* REESCRIBIR VALORES*/
             jsonobj_proyecto.put("str_nombreDelTest", nomTest);
             jsonobj_proyecto.put("ID", GenerarID.getID(6));
             jsonobj_proyecto.put("lst_preguntas", lst_preguntas);
             /* FIN REESCRIBIR VALORES*/
-            
+
             proyecto = "" + jsonobj_proyecto;
 
-        } catch (IOException | ParseException ex) {
-            System.out.println("Error en el parser de JSON");
+        } catch (ParseException ex) {
+            System.out.println("Error en el parser de JSON"
+                    + "en LeerDatos en \n"
+                    + "plantilla_Test(String nomTest,org.json.simple.JSONArray lst_preguntas)");
             Logger.getLogger(Archivos.class.getName()).log(Level.SEVERE, null, ex);
         }
         return proyecto;
+    }
+    /*  FIN CASO UNO */
+    /*
+     guardarRespuestas  Respuesta de la encuesta
+     Es usada en Archivos.java por la funcion guardarRespuestas();
+    
+     */
+
+    public static String guardarRespuestas(
+            String nomProyecto,
+            String nomTest,
+            org.json.simple.JSONArray perfil,
+            org.json.simple.JSONArray lst_respuestas,
+            String tiempodeencuesta) {
+        String test = "";
+        String pathTest = "proyectos/" + nomProyecto + "/tests/" + nomTest + ".json";
+        org.json.simple.parser.JSONParser parser = new org.json.simple.parser.JSONParser();
+
+        String str_Test = Archivos.Leer_Archivo(pathTest);// leeo el Archivo 
+        if (vista.Config.AES()) {
+            str_Test = AES.decrypt(str_Test);
+        }
+        try {
+            /*CREAR OBJ DE RESPUESTA*/
+
+            org.json.simple.JSONObject jsonobj_respuesta = new org.json.simple.JSONObject();
+            jsonobj_respuesta.put("ID", GenerarID.getID(32));
+            jsonobj_respuesta.put("version", getversion(nomProyecto));
+            jsonobj_respuesta.put("tiempodeencuesta", tiempodeencuesta);
+            jsonobj_respuesta.put("perfil", perfil);
+            jsonobj_respuesta.put("respuestas", lst_respuestas);
+            /*FIN CREAR OBJ DE RESPUESTA*/
+
+            Object obj_Test = parser.parse(str_Test);
+            JSONObject jsonobj_Test = (JSONObject) obj_Test;
+
+            org.json.simple.JSONArray all_respuestas = (org.json.simple.JSONArray) jsonobj_Test.get("lst_respuestas");
+            /* AÑADIR RESPUESTA*/
+            all_respuestas.add(jsonobj_respuesta);
+            /* FIN AÑADIR RESPUESTA*/
+
+            test = "" + jsonobj_Test;
+
+        } catch (ParseException ex) {
+            System.out.println("Error en el parser de JSON"
+                    + "EN leer Datos en \n"
+                    + "guardarRespuestas(\n"
+                    + "            String nomProyecto,\n"
+                    + "            String nomTest,\n"
+                    + "            org.json.simple.JSONArray perfil,\n"
+                    + "            org.json.simple.JSONArray lst_respuestas,\n"
+                    + "            String tiempodeencuesta)");
+            Logger.getLogger(Archivos.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return test;
+    }
+
+    public static String getversion(String nomProyecto) {
+        String version = "";
+        String pehtProyecto = "proyectos/" + nomProyecto + "/" + nomProyecto + ".json";
+
+        String str_Proyecto = Archivos.Leer_Archivo(pehtProyecto);// leeo el Archivo 
+        if (vista.Config.AES()) {
+            str_Proyecto = AES.decrypt(str_Proyecto);
+        }
+        org.json.simple.parser.JSONParser parser = new org.json.simple.parser.JSONParser();
+        try {
+            Object obj_proyecto = parser.parse(str_Proyecto);
+            JSONObject jsonobj_proyecto = (JSONObject) obj_proyecto;
+
+            version = (String) jsonobj_proyecto.get("str_versiones");
+
+        } catch (ParseException ex) {
+            System.out.println("Error en el parser de JSON"
+                    + "en leerDatos en getversion(String nomProyecto)");
+            Logger.getLogger(Archivos.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return version;
     }
 }
