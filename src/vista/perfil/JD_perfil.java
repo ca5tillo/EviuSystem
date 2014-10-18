@@ -1,7 +1,5 @@
 package vista.perfil;
 
-import controlador.modelos.Categoria;
-
 public class JD_perfil extends javax.swing.JDialog {
 
     private int Count = 0;

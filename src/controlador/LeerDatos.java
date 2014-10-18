@@ -1,5 +1,9 @@
 package controlador;
 
+import controlador.modelosRespuestas.Obj_respuestas;
+import controlador.modelosRespuestas.Perfil;
+import controlador.modelosRespuestas.Respuestas;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.json.simple.JSONArray;
@@ -331,5 +335,87 @@ public class LeerDatos {
         }
 
         return version;
+    }
+
+    @SuppressWarnings("UnusedAssignment")
+    public static ArrayList<Obj_respuestas> getRespuestas(String nomProyecto, String nomTest) {
+        String pathTest = "proyectos/" + nomProyecto + "/tests/" + nomTest + ".json";
+        ArrayList<Obj_respuestas> Lst_respuestas = new ArrayList();
+        String test = Archivos.Leer_Archivo(pathTest);
+        if (vista.Config.AES()) {
+            test = AES.decrypt(test);
+        }
+        org.json.simple.parser.JSONParser parser = new org.json.simple.parser.JSONParser();
+        try {
+            Object obj_test = parser.parse(test);
+            JSONObject json_test = (JSONObject) obj_test;
+
+            JSONArray lst_respuestas = (JSONArray) json_test.get("lst_respuestas");
+            for (Object obj_rDencuesta : lst_respuestas) {
+                Obj_respuestas Obj_respuestas = new Obj_respuestas();
+                
+                JSONObject objson_rDencuesta = (JSONObject) obj_rDencuesta;
+
+                String ID = (String) objson_rDencuesta.get("ID");
+                String version = (String) objson_rDencuesta.get("version");
+                String tiempodeencuesta = (String) objson_rDencuesta.get("tiempodeencuesta");
+                JSONArray perfil = (JSONArray) objson_rDencuesta.get("perfil");
+                JSONArray respuestas = (JSONArray) objson_rDencuesta.get("respuestas");
+
+                Obj_respuestas.setID(ID);
+                Obj_respuestas.setVersion(version);
+                Obj_respuestas.setTiempodeencuesta(tiempodeencuesta);
+                for (Object obj_per : perfil) {
+                    JSONObject objson_per = (JSONObject) obj_per;
+                    String categoria = (String) objson_per.get("categoria");
+                    String opcion = (String) objson_per.get("opcion");
+
+                    Obj_respuestas.addPerfil(new Perfil(categoria, opcion));
+
+                }
+                for (Object obj_res : respuestas) {
+                    JSONObject objson_res = (JSONObject) obj_res;
+
+                    String id_pregunta = (String) objson_res.get("id_pregunta");
+                    String pregunta = (String) objson_res.get("pregunta");
+                    String realizo = (String) objson_res.get("realizo");
+                    String tiempo = (String) objson_res.get("tiempo");
+                    String animo = (String) objson_res.get("animo");
+                    String nota = (String) objson_res.get("nota");
+
+                    Obj_respuestas.addRespuestas(
+                            new Respuestas(id_pregunta, pregunta, realizo, tiempo, animo, nota));
+
+                }
+                Lst_respuestas.add(Obj_respuestas);
+            }
+
+        } catch (ParseException e) {
+            System.out.println("Error en parser de Leer datos en getRespuestas(proyecto,test)");
+        }
+        return Lst_respuestas;
+    }
+
+    public static void main(String[] args) {
+        ArrayList<Obj_respuestas> a = getRespuestas("a", "a");
+        for (Obj_respuestas x : a) {
+            System.out.println(x.getID());
+            System.out.println(x.getVersion());
+            System.out.println(x.getTiempodeencuesta());
+            ArrayList<Perfil> perfil = x.getPerfil();
+            for (Perfil per : perfil) {
+                System.out.println(per.getCategoria());
+                System.out.println(per.getOpcion());
+            }
+            ArrayList<Respuestas> Respuestas = x.getRespuestas();
+            for (Respuestas res : Respuestas) {
+                System.out.println(res.getId_pregunta());
+                System.out.println(res.getPregunta());
+                System.out.println(res.getRealizo());
+                System.out.println(res.getTiempo());
+                System.out.println(res.getAnimo());
+                System.out.println(res.getNota());
+            }
+        }
     }
 }
