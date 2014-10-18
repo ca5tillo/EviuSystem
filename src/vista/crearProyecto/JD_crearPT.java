@@ -5,7 +5,7 @@
  * Crear proyecto con plantilla perfil y nuevo test
  * Crear proyecto con nuevo perfil y plantilla test
 
- * crear un nuevo test en un proyecto ya existente.
+ * crear un nuevo test en un proyecto ya existente. CASO 4
  */
 package vista.crearProyecto;
 
@@ -25,8 +25,7 @@ public class JD_crearPT extends javax.swing.JDialog {
 
         initComponents();
         this.setLocationRelativeTo(null);
-//        test();
-        pintarPerfil();
+        
     }
 
     public JD_crearPT(java.awt.Frame parent, boolean modal, String proyecto, String descripcion, int banderadeCasos) {
@@ -40,7 +39,19 @@ public class JD_crearPT extends javax.swing.JDialog {
         if (banderadeCasos == 1) {
             jp_contenedor.add(new JP_perfil(this, banderadeCasos, this.proyecto, this.descripcion));
         }
+        
 
+    }
+    public JD_crearPT(java.awt.Frame parent, boolean modal, String proyecto) {
+        //CASO CUATRO
+        //crear un nuevo test en un proyecto ya existente.
+        super(parent, modal);
+        this.banderadeCasos = 4;
+        this.proyecto = proyecto;
+        initComponents();
+        this.setLocationRelativeTo(null);
+        
+        jp_contenedor.add(new JP_miTest(this, banderadeCasos, this.proyecto));
     }
 
     @SuppressWarnings("unchecked")
@@ -124,7 +135,7 @@ public class JD_crearPT extends javax.swing.JDialog {
     public void pintarTest() {
         jp_contenedor.removeAll();
         jp_contenedor.updateUI();
-        jp_contenedor.add(new JP_miTest(this, banderadeCasos, this.proyecto, this.descripcion));
+        jp_contenedor.add(new JP_miTest(this, banderadeCasos, this.proyecto));
     }
 
     public String getNomTest() {
@@ -171,6 +182,20 @@ public class JD_crearPT extends javax.swing.JDialog {
                 nomTest,
                 lst_perfil,
                 lst_preguntas);
+        if (a){
+            javax.swing.JOptionPane.showMessageDialog(null, "Proyecto creado exitosamente");
+        }
+        this.dispose();
+    }
+    public void crearCasoCuatro(){
+        //CASO CUATRO
+        //crear un nuevo test en un proyecto ya existente.
+        /*
+         proyecto;
+         nomTest;
+         lst_preguntas;
+         */
+        boolean a = controlador.Archivos.crearCasoCuatro(proyecto, nomTest, lst_preguntas);
         if (a){
             javax.swing.JOptionPane.showMessageDialog(null, "Proyecto creado exitosamente");
         }

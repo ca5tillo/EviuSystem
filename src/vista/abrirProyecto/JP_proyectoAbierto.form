@@ -123,8 +123,10 @@
     <Component class="javax.swing.JButton" name="jb_nuevoTest">
       <Properties>
         <Property name="text" type="java.lang.String" value="Nuevo Test"/>
-        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jb_nuevoTestActionPerformed"/>
+      </Events>
     </Component>
     <Container class="javax.swing.JScrollPane" name="jScrollPane1">
 

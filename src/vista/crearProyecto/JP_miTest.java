@@ -8,16 +8,14 @@ public class JP_miTest extends javax.swing.JPanel {
     private int key = 0;
     private int count = 0;
     private final String proyecto;
-    private final String descripcion;
     private final JD_crearPT JD_crearPT;
     private final int banderadeCasos;
     private final Map<Integer, JP_miT_item> map_preguntas = new HashMap<>();
 
-    public JP_miTest(JD_crearPT JD_crearPT, int banderadeCasos,String proyecto,String descripcion) {
+    public JP_miTest(JD_crearPT JD_crearPT, int banderadeCasos,String proyecto) {
         this.JD_crearPT = JD_crearPT;
         this.banderadeCasos = banderadeCasos;
         this.proyecto = proyecto;
-        this.descripcion = descripcion;
         initComponents();
         this.setSize(900, 509);
     }
@@ -327,6 +325,8 @@ public class JP_miTest extends javax.swing.JPanel {
             JD_crearPT.setLst_preguntas(lst_preguntas);// envio la lista de preguntas tipo JSONArray
             if (banderadeCasos==1){
                 JD_crearPT.crearCasoUno();
+            }else if (banderadeCasos==4){
+                JD_crearPT.crearCasoCuatro();
             }
         }else{
             JOptionPane.showMessageDialog(null,"Ingresse nombre del Test");

@@ -212,7 +212,26 @@ public class Archivos {
         }
         return a;
     }
-
+    public static boolean crearCasoCuatro(
+            String nomProyecto, 
+            String nomTest, 
+            org.json.simple.JSONArray lst_preguntas){
+        //CASO CUATRO
+        //crear un nuevo test en un proyecto ya existente.
+        /*
+         proyecto;
+         nomTest;
+         lst_preguntas;
+         */
+        boolean a=false;
+        String path="proyectos/"+nomProyecto+"/tests/"+nomTest+".json";
+        String jsonTest = LeerDatos.plantilla_Test(nomTest, lst_preguntas);
+        if (vista.Config.AES()) {
+                jsonTest = AES.encrypt(jsonTest);
+            }
+        a = escribirEnArchivo(path, jsonTest);//creo unteset
+        return a;
+    }
     public static boolean guardarRespuestas(
             String nomProyecto,
             String nomTest,

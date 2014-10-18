@@ -27,11 +27,6 @@ public class JP_proyectoAbierto extends javax.swing.JPanel {
         this.Eviu = Eviu;
         this.setSize(900, 577);
         font();
-        jp_contenedor.setMaximumSize(new java.awt.Dimension(657, 356));
-        jp_contenedor.setMinimumSize(new java.awt.Dimension(600, 300));
-
-        jScrollPane1.setMaximumSize(new java.awt.Dimension(657, 356));
-        jScrollPane1.setMinimumSize(new java.awt.Dimension(600, 300));
         this.setVisible(true);
     }
 
@@ -79,7 +74,11 @@ public class JP_proyectoAbierto extends javax.swing.JPanel {
         });
 
         jb_nuevoTest.setText("Nuevo Test");
-        jb_nuevoTest.setEnabled(false);
+        jb_nuevoTest.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jb_nuevoTestActionPerformed(evt);
+            }
+        });
 
         jp_contenedor.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         seticonoTest();
@@ -228,6 +227,29 @@ public class JP_proyectoAbierto extends javax.swing.JPanel {
         Ventana.setVisible(true);
     }//GEN-LAST:event_jb_verAvancesActionPerformed
 
+    private void jb_nuevoTestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_nuevoTestActionPerformed
+       
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                final vista.crearProyecto.JD_crearPT dialog = new vista.crearProyecto.JD_crearPT(
+                        new javax.swing.JFrame(), true,str_nomProyecto);
+                
+                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                    @Override
+                    public void windowClosing(java.awt.event.WindowEvent e) {
+                        dialog.dispose();
+                        
+                    }
+                });
+                
+                dialog.setVisible(true);
+                seticonoTest();
+                jp_contenedor.updateUI();
+            }
+        });
+        
+    }//GEN-LAST:event_jb_nuevoTestActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
@@ -249,6 +271,8 @@ public class JP_proyectoAbierto extends javax.swing.JPanel {
     }
 
     public void seticonoTest() {
+        jp_contenedor.removeAll();
+        jp_contenedor.updateUI();
         java.util.ArrayList<String> lst_Tests = controlador.Archivos.getTests(str_nomProyecto);
         for (String test : lst_Tests) {
             jp_contenedor.add(new JP_iconoTest(test, this));
