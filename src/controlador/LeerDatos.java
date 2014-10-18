@@ -282,7 +282,7 @@ public class LeerDatos {
 
             org.json.simple.JSONObject jsonobj_respuesta = new org.json.simple.JSONObject();
             jsonobj_respuesta.put("ID", GenerarID.getID(32));
-            jsonobj_respuesta.put("version", getversion(nomProyecto));
+            jsonobj_respuesta.put("version", getVersion(nomProyecto));
             jsonobj_respuesta.put("tiempodeencuesta", tiempodeencuesta);
             jsonobj_respuesta.put("perfil", perfil);
             jsonobj_respuesta.put("respuestas", lst_respuestas);
@@ -313,7 +313,7 @@ public class LeerDatos {
         return test;
     }
 
-    public static String getversion(String nomProyecto) {
+    public static String getVersion(String nomProyecto) {
         String version = "";
         String pehtProyecto = "proyectos/" + nomProyecto + "/" + nomProyecto + ".json";
 
@@ -336,7 +336,34 @@ public class LeerDatos {
 
         return version;
     }
+    public static void setVersion(String nomP){
+        String pehtProyecto = "proyectos/"+nomP+"/"+nomP+".json";
+        String str_Proyecto = Archivos.Leer_Archivo(pehtProyecto);// leeo el Archivo 
+        if (vista.Config.AES()) {
+            str_Proyecto = AES.decrypt(str_Proyecto);
+        }
+        org.json.simple.parser.JSONParser parser = new org.json.simple.parser.JSONParser();
+        try {
+            Object obj_proyecto = parser.parse(str_Proyecto);
+            JSONObject jsonobj_proyecto = (JSONObject) obj_proyecto;
 
+            int  version = Integer.parseInt((String) jsonobj_proyecto.get("str_versiones"));
+            version++;
+            jsonobj_proyecto.put("str_versiones",""+version);
+            
+            String srt_P=""+jsonobj_proyecto;
+            if (vista.Config.AES()) {
+                srt_P = AES.encrypt(srt_P);
+            }
+            Archivos.escribirEnArchivo(pehtProyecto, srt_P);//creo unteset
+
+        } catch (ParseException ex) {
+            System.out.println("Error en el parser de JSON"
+                    + "en leerDatos en getversion(String nomProyecto)");
+            Logger.getLogger(Archivos.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
     @SuppressWarnings("UnusedAssignment")
     public static ArrayList<Obj_respuestas> getRespuestas(String nomProyecto, String nomTest) {
         String pathTest = "proyectos/" + nomProyecto + "/tests/" + nomTest + ".json";
@@ -395,7 +422,7 @@ public class LeerDatos {
         }
         return Lst_respuestas;
     }
-
+ 
     public static void main(String[] args) {
         ArrayList<Obj_respuestas> a = getRespuestas("a", "a");
         for (Obj_respuestas x : a) {

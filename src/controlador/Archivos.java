@@ -44,7 +44,7 @@ public class Archivos {
 
     }
 
-    private static boolean escribirEnArchivo(String path, String dato) {
+    public static boolean escribirEnArchivo(String path, String dato) {
         @SuppressWarnings("UnusedAssignment")
         boolean b = false;
         final java.util.Formatter archivo;

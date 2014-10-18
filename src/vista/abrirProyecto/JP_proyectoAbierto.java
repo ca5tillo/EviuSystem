@@ -14,7 +14,7 @@ import org.jfree.chart.JFreeChart;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.data.category.DefaultCategoryDataset;
 
-public class JP_proyectoAbierto extends javax.swing.JPanel {
+public final class JP_proyectoAbierto extends javax.swing.JPanel {
 
     vista.Eviu Eviu;
     JP_iconoTest JP_iconoTest;
@@ -27,6 +27,8 @@ public class JP_proyectoAbierto extends javax.swing.JPanel {
         this.Eviu = Eviu;
         this.setSize(900, 577);
         font();
+        seticonoTest();
+        jl_nVersion.setText(""+controlador.LeerDatos.getVersion(str_nomProyecto));
         this.setVisible(true);
     }
 
@@ -44,13 +46,14 @@ public class JP_proyectoAbierto extends javax.swing.JPanel {
         jb_abrir = new javax.swing.JButton();
         jb_cancelar = new javax.swing.JButton();
         jb_nuevoTest = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jp_contenedor = new javax.swing.JPanel();
         jb_verAvances = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jb_nuevaVersion = new javax.swing.JButton();
-        jLabel2 = new javax.swing.JLabel();
+        jl_nVersion = new javax.swing.JLabel();
         jb_crearReporte = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jPanel1 = new javax.swing.JPanel();
+        jp_contenedor = new javax.swing.JPanel();
 
         jl_nomProyecto.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jl_nomProyecto.setText("Proyecto: "+str_nomProyecto);
@@ -80,13 +83,6 @@ public class JP_proyectoAbierto extends javax.swing.JPanel {
             }
         });
 
-        jp_contenedor.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        seticonoTest();
-        java.awt.FlowLayout flowLayout1 = new java.awt.FlowLayout(java.awt.FlowLayout.LEADING);
-        flowLayout1.setAlignOnBaseline(true);
-        jp_contenedor.setLayout(flowLayout1);
-        jScrollPane1.setViewportView(jp_contenedor);
-
         jb_verAvances.setText("Ver Avances");
         jb_verAvances.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -98,10 +94,14 @@ public class JP_proyectoAbierto extends javax.swing.JPanel {
         jLabel1.setText("Versión de tu proyecto");
 
         jb_nuevaVersion.setText("Nueva Version");
-        jb_nuevaVersion.setEnabled(false);
+        jb_nuevaVersion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jb_nuevaVersionActionPerformed(evt);
+            }
+        });
 
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("n");
+        jl_nVersion.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jl_nVersion.setText("n");
 
         jb_crearReporte.setText("Crear Reporte");
         jb_crearReporte.addActionListener(new java.awt.event.ActionListener() {
@@ -110,12 +110,37 @@ public class JP_proyectoAbierto extends javax.swing.JPanel {
             }
         });
 
+        jPanel1.setPreferredSize(new java.awt.Dimension(600, 24));
+
+        java.awt.FlowLayout flowLayout2 = new java.awt.FlowLayout(java.awt.FlowLayout.LEADING);
+        flowLayout2.setAlignOnBaseline(true);
+        jp_contenedor.setLayout(flowLayout2);
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jp_contenedor, javax.swing.GroupLayout.PREFERRED_SIZE, 604, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jp_contenedor, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        jScrollPane1.setViewportView(jPanel1);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(38, 38, 38)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -124,23 +149,22 @@ public class JP_proyectoAbierto extends javax.swing.JPanel {
                                 .addComponent(jb_cancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
                                 .addComponent(jb_abrir, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE)
+                                    .addComponent(jl_nVersion, javax.swing.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE)
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                         .addComponent(jb_nuevoTest, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addComponent(jb_verAvances, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addComponent(jb_crearReporte, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jb_nuevaVersion, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(24, 24, 24)
-                                .addComponent(jScrollPane1)))
+                                    .addComponent(jb_nuevaVersion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 630, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(43, 43, 43))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jl_nomProyecto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addContainerGap())
-                    .addComponent(jl_subtitulo, javax.swing.GroupLayout.DEFAULT_SIZE, 888, Short.MAX_VALUE)))
+                    .addComponent(jl_subtitulo, javax.swing.GroupLayout.DEFAULT_SIZE, 870, Short.MAX_VALUE)))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -149,9 +173,9 @@ public class JP_proyectoAbierto extends javax.swing.JPanel {
                 .addComponent(jl_nomProyecto)
                 .addGap(18, 18, 18)
                 .addComponent(jl_subtitulo)
-                .addGap(34, 34, 34)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(34, 34, 34)
                         .addComponent(jb_nuevoTest)
                         .addGap(18, 18, 18)
                         .addComponent(jb_verAvances)
@@ -160,15 +184,17 @@ public class JP_proyectoAbierto extends javax.swing.JPanel {
                         .addGap(123, 123, 123)
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel2)
+                        .addComponent(jl_nVersion)
                         .addGap(18, 18, 18)
                         .addComponent(jb_nuevaVersion))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 356, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane1)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jb_cancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jb_abrir, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(38, Short.MAX_VALUE))
+                .addGap(55, 55, 55))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -250,10 +276,15 @@ public class JP_proyectoAbierto extends javax.swing.JPanel {
         
     }//GEN-LAST:event_jb_nuevoTestActionPerformed
 
+    private void jb_nuevaVersionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_nuevaVersionActionPerformed
+        controlador.LeerDatos.setVersion(str_nomProyecto);
+        jl_nVersion.setText(""+controlador.LeerDatos.getVersion(str_nomProyecto));
+    }//GEN-LAST:event_jb_nuevaVersionActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton jb_abrir;
     private javax.swing.JButton jb_cancelar;
@@ -261,6 +292,7 @@ public class JP_proyectoAbierto extends javax.swing.JPanel {
     private javax.swing.JButton jb_nuevaVersion;
     private javax.swing.JButton jb_nuevoTest;
     private javax.swing.JButton jb_verAvances;
+    private javax.swing.JLabel jl_nVersion;
     private javax.swing.JLabel jl_nomProyecto;
     private javax.swing.JLabel jl_subtitulo;
     private javax.swing.JPanel jp_contenedor;

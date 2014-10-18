@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<Form version="1.8" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JPanelFormInfo">
+<Form version="1.9" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JPanelFormInfo">
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
     <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
@@ -17,7 +17,7 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
                       <Group type="103" groupAlignment="1" attributes="0">
@@ -27,20 +27,19 @@
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Component id="jb_abrir" min="-2" pref="123" max="-2" attributes="0"/>
                           </Group>
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="103" groupAlignment="1" attributes="0">
+                          <Group type="102" attributes="0">
+                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                  <Component id="jLabel1" pref="166" max="32767" attributes="0"/>
+                                  <Component id="jl_nVersion" pref="166" max="32767" attributes="0"/>
+                                  <Group type="103" alignment="0" groupAlignment="1" attributes="0">
                                       <Component id="jb_nuevoTest" min="-2" pref="152" max="-2" attributes="0"/>
                                       <Component id="jb_verAvances" min="-2" pref="152" max="-2" attributes="0"/>
                                       <Component id="jb_crearReporte" alignment="1" min="-2" pref="152" max="-2" attributes="0"/>
                                   </Group>
-                                  <Component id="jLabel1" min="-2" pref="166" max="-2" attributes="0"/>
-                                  <Component id="jb_nuevaVersion" min="-2" pref="152" max="-2" attributes="0"/>
-                                  <Component id="jLabel2" min="-2" pref="166" max="-2" attributes="0"/>
+                                  <Component id="jb_nuevaVersion" alignment="0" max="32767" attributes="0"/>
                               </Group>
-                              <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
-                              <Component id="jScrollPane1" max="32767" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
+                              <Component id="jScrollPane1" min="-2" pref="630" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
@@ -49,7 +48,7 @@
                       <Component id="jl_nomProyecto" max="32767" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
-                  <Component id="jl_subtitulo" alignment="0" pref="888" max="32767" attributes="0"/>
+                  <Component id="jl_subtitulo" alignment="0" pref="870" max="32767" attributes="0"/>
               </Group>
           </Group>
       </Group>
@@ -59,11 +58,11 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace min="-2" pref="38" max="-2" attributes="0"/>
               <Component id="jl_nomProyecto" min="-2" max="-2" attributes="0"/>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
               <Component id="jl_subtitulo" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
+                      <EmptySpace min="-2" pref="34" max="-2" attributes="0"/>
                       <Component id="jb_nuevoTest" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="jb_verAvances" min="-2" max="-2" attributes="0"/>
@@ -72,18 +71,21 @@
                       <EmptySpace min="-2" pref="123" max="-2" attributes="0"/>
                       <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
+                      <Component id="jl_nVersion" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="jb_nuevaVersion" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <Component id="jScrollPane1" min="-2" pref="356" max="-2" attributes="0"/>
+                  <Group type="102" attributes="0">
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jScrollPane1" max="32767" attributes="0"/>
+                  </Group>
               </Group>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <EmptySpace pref="18" max="32767" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="jb_cancelar" min="-2" pref="39" max="-2" attributes="0"/>
                   <Component id="jb_abrir" alignment="0" min="-2" pref="39" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace pref="38" max="32767" attributes="0"/>
+              <EmptySpace min="-2" pref="55" max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -128,78 +130,6 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jb_nuevoTestActionPerformed"/>
       </Events>
     </Component>
-    <Container class="javax.swing.JScrollPane" name="jScrollPane1">
-
-      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
-      <SubComponents>
-        <Container class="javax.swing.JPanel" name="jp_contenedor">
-          <Properties>
-            <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-              <Border info="org.netbeans.modules.form.compat2.border.LineBorderInfo">
-                <LineBorder/>
-              </Border>
-            </Property>
-          </Properties>
-          <AuxValues>
-            <AuxValue name="JavaCodeGenerator_InitCodePost" type="java.lang.String" value="seticonoTest();"/>
-          </AuxValues>
-          <LayoutCode>
-            <CodeStatement>
-              <CodeExpression id="1_flowLayout1">
-                <CodeVariable name="flowLayout1" type="4096" declaredType="java.awt.FlowLayout"/>
-                <ExpressionOrigin>
-                  <ExpressionProvider type="CodeConstructor">
-                    <CodeConstructor class="java.awt.FlowLayout" parameterTypes="int"/>
-                  </ExpressionProvider>
-                  <Parameters>
-                    <CodeExpression id="2">
-                      <ExpressionOrigin>
-                        <Value type="int" value="3"/>
-                      </ExpressionOrigin>
-                    </CodeExpression>
-                  </Parameters>
-                </ExpressionOrigin>
-              </CodeExpression>
-              <StatementProvider type="CodeExpression">
-                <CodeExpression id="1_flowLayout1"/>
-              </StatementProvider>
-              <Parameters>
-                <CodeExpression id="2"/>
-              </Parameters>
-            </CodeStatement>
-            <CodeStatement>
-              <CodeExpression id="1_flowLayout1"/>
-              <StatementProvider type="CodeMethod">
-                <CodeMethod name="setAlignOnBaseline" class="java.awt.FlowLayout" parameterTypes="boolean"/>
-              </StatementProvider>
-              <Parameters>
-                <CodeExpression id="3">
-                  <ExpressionOrigin>
-                    <Value type="boolean" value="true"/>
-                  </ExpressionOrigin>
-                </CodeExpression>
-              </Parameters>
-            </CodeStatement>
-            <CodeStatement>
-              <CodeExpression id="4_jp_contenedor">
-                <CodeVariable name="jp_contenedor" type="8194" declaredType="javax.swing.JPanel"/>
-                <ExpressionOrigin>
-                  <ExpressionProvider type="ComponentRef">
-                    <ComponentRef name="jp_contenedor"/>
-                  </ExpressionProvider>
-                </ExpressionOrigin>
-              </CodeExpression>
-              <StatementProvider type="CodeMethod">
-                <CodeMethod name="setLayout" class="java.awt.Container" parameterTypes="java.awt.LayoutManager"/>
-              </StatementProvider>
-              <Parameters>
-                <CodeExpression id="1_flowLayout1"/>
-              </Parameters>
-            </CodeStatement>
-          </LayoutCode>
-        </Container>
-      </SubComponents>
-    </Container>
     <Component class="javax.swing.JButton" name="jb_verAvances">
       <Properties>
         <Property name="text" type="java.lang.String" value="Ver Avances"/>
@@ -217,10 +147,12 @@
     <Component class="javax.swing.JButton" name="jb_nuevaVersion">
       <Properties>
         <Property name="text" type="java.lang.String" value="Nueva Version"/>
-        <Property name="enabled" type="boolean" value="false"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jb_nuevaVersionActionPerformed"/>
+      </Events>
     </Component>
-    <Component class="javax.swing.JLabel" name="jLabel2">
+    <Component class="javax.swing.JLabel" name="jl_nVersion">
       <Properties>
         <Property name="horizontalAlignment" type="int" value="0"/>
         <Property name="text" type="java.lang.String" value="n"/>
@@ -234,5 +166,97 @@
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jb_crearReporteActionPerformed"/>
       </Events>
     </Component>
+    <Container class="javax.swing.JScrollPane" name="jScrollPane1">
+
+      <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
+      <SubComponents>
+        <Container class="javax.swing.JPanel" name="jPanel1">
+          <Properties>
+            <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+              <Dimension value="[600, 24]"/>
+            </Property>
+          </Properties>
+
+          <Layout>
+            <DimensionLayout dim="0">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jp_contenedor" min="-2" pref="604" max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
+                  </Group>
+              </Group>
+            </DimensionLayout>
+            <DimensionLayout dim="1">
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" attributes="0">
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Component id="jp_contenedor" max="32767" attributes="0"/>
+                      <EmptySpace max="-2" attributes="0"/>
+                  </Group>
+              </Group>
+            </DimensionLayout>
+          </Layout>
+          <SubComponents>
+            <Container class="javax.swing.JPanel" name="jp_contenedor">
+              <LayoutCode>
+                <CodeStatement>
+                  <CodeExpression id="1_flowLayout2">
+                    <CodeVariable name="flowLayout2" type="4096" declaredType="java.awt.FlowLayout"/>
+                    <ExpressionOrigin>
+                      <ExpressionProvider type="CodeConstructor">
+                        <CodeConstructor class="java.awt.FlowLayout" parameterTypes="int"/>
+                      </ExpressionProvider>
+                      <Parameters>
+                        <CodeExpression id="2">
+                          <ExpressionOrigin>
+                            <Value type="int" value="3"/>
+                          </ExpressionOrigin>
+                        </CodeExpression>
+                      </Parameters>
+                    </ExpressionOrigin>
+                  </CodeExpression>
+                  <StatementProvider type="CodeExpression">
+                    <CodeExpression id="1_flowLayout2"/>
+                  </StatementProvider>
+                  <Parameters>
+                    <CodeExpression id="2"/>
+                  </Parameters>
+                </CodeStatement>
+                <CodeStatement>
+                  <CodeExpression id="1_flowLayout2"/>
+                  <StatementProvider type="CodeMethod">
+                    <CodeMethod name="setAlignOnBaseline" class="java.awt.FlowLayout" parameterTypes="boolean"/>
+                  </StatementProvider>
+                  <Parameters>
+                    <CodeExpression id="3">
+                      <ExpressionOrigin>
+                        <Value type="boolean" value="true"/>
+                      </ExpressionOrigin>
+                    </CodeExpression>
+                  </Parameters>
+                </CodeStatement>
+                <CodeStatement>
+                  <CodeExpression id="4_jp_contenedor">
+                    <CodeVariable name="jp_contenedor" type="8194" declaredType="javax.swing.JPanel"/>
+                    <ExpressionOrigin>
+                      <ExpressionProvider type="ComponentRef">
+                        <ComponentRef name="jp_contenedor"/>
+                      </ExpressionProvider>
+                    </ExpressionOrigin>
+                  </CodeExpression>
+                  <StatementProvider type="CodeMethod">
+                    <CodeMethod name="setLayout" class="java.awt.Container" parameterTypes="java.awt.LayoutManager"/>
+                  </StatementProvider>
+                  <Parameters>
+                    <CodeExpression id="1_flowLayout2"/>
+                  </Parameters>
+                </CodeStatement>
+              </LayoutCode>
+            </Container>
+          </SubComponents>
+        </Container>
+      </SubComponents>
+    </Container>
   </SubComponents>
 </Form>
