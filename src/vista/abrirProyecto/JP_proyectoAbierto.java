@@ -3,25 +3,35 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package vista.abrirProyecto;
+import controlador.modelosRespuestas.Obj_respuestas;
+import controlador.modelosRespuestas.Respuestas;
+import java.util.ArrayList;
+import javax.swing.JFrame;
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.data.category.DefaultCategoryDataset;
 
 public class JP_proyectoAbierto extends javax.swing.JPanel {
+
     vista.Eviu Eviu;
     JP_iconoTest JP_iconoTest;
     String str_nomProyecto;
     String str_nomTest;
+
     public JP_proyectoAbierto(String nombreProyecto, vista.Eviu Eviu) {
-        str_nomProyecto=nombreProyecto;
+        str_nomProyecto = nombreProyecto;
         initComponents();
-        this.Eviu=Eviu;
+        this.Eviu = Eviu;
         this.setSize(900, 577);
         font();
-        jp_contenedor.setMaximumSize ( new java.awt.Dimension ( 657, 356 ) );
-        jp_contenedor.setMinimumSize ( new java.awt.Dimension ( 600, 300 ) );
-        
-        jScrollPane1.setMaximumSize ( new java.awt.Dimension ( 657, 356 ) );
-        jScrollPane1.setMinimumSize ( new java.awt.Dimension ( 600, 300 ) );
+        jp_contenedor.setMaximumSize(new java.awt.Dimension(657, 356));
+        jp_contenedor.setMinimumSize(new java.awt.Dimension(600, 300));
+
+        jScrollPane1.setMaximumSize(new java.awt.Dimension(657, 356));
+        jScrollPane1.setMinimumSize(new java.awt.Dimension(600, 300));
         this.setVisible(true);
     }
 
@@ -169,20 +179,53 @@ public class JP_proyectoAbierto extends javax.swing.JPanel {
 
     private void jb_abrirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_abrirActionPerformed
         Eviu.bloquearVentanaPrincipal();
-        vista.perfil.JD_perfil.main(Eviu,str_nomProyecto);
-        Eviu.pintarPanel_test(str_nomProyecto,str_nomTest);
+        vista.perfil.JD_perfil.main(Eviu, str_nomProyecto);
+        Eviu.pintarPanel_test(str_nomProyecto, str_nomTest);
     }//GEN-LAST:event_jb_abrirActionPerformed
 
     private void jb_crearReporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_crearReporteActionPerformed
         /*
-        Codigo de Rafa
-        */
+         Codigo de Rafa
+         */
     }//GEN-LAST:event_jb_crearReporteActionPerformed
 
     private void jb_verAvancesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_verAvancesActionPerformed
-        /*
-        Codigo de Dani
-        */
+        java.util.ArrayList<controlador.modelos.Pregunta> Preguntas
+                = controlador.LeerDatos.getPreguntas(str_nomProyecto, str_nomTest);
+        
+        int i = 0;
+        JFreeChart Grafica;
+        DefaultCategoryDataset Datos = new DefaultCategoryDataset();
+
+        for (controlador.modelos.Pregunta pregunta : Preguntas) {
+            Datos.addValue(0, "fracaso", pregunta.getStr_pregunta());
+            Datos.addValue(0, "exito", pregunta.getStr_pregunta());
+        }
+        ArrayList<Obj_respuestas> getRespuestas = controlador.LeerDatos.getRespuestas(str_nomProyecto, str_nomTest);
+        for (Obj_respuestas ts : getRespuestas) {
+
+            java.util.ArrayList<Respuestas> x
+                    = ts.getRespuestas();
+            for (Respuestas xx : x) {
+
+                if (xx.getRealizo().equals("si")) {
+                    Datos.incrementValue(1, "exito", xx.getPregunta());
+                } else {
+                    Datos.incrementValue(1, "fracaso", xx.getPregunta());
+                }
+            }
+
+        }
+        Grafica = ChartFactory.createBarChart("Nombre del Proyecto",
+                "Nombre del Test", "numero de respuestas", Datos,
+                PlotOrientation.VERTICAL, true, true, false);
+
+        ChartPanel Panel = new ChartPanel(Grafica);
+        JFrame Ventana = new JFrame("JFreeChart");
+        Ventana.getContentPane().add(Panel);
+        Ventana.pack();
+        Ventana.setVisible(true);
+        Ventana.setVisible(true);
     }//GEN-LAST:event_jb_verAvancesActionPerformed
 
 
@@ -204,12 +247,13 @@ public class JP_proyectoAbierto extends javax.swing.JPanel {
         jl_subtitulo.setFont(vista.Config.getTam_subTitulo());
         jl_nomProyecto.setFont(vista.Config.getTam_Titulo());
     }
+
     public void seticonoTest() {
         java.util.ArrayList<String> lst_Tests = controlador.Archivos.getTests(str_nomProyecto);
-        for(String test:lst_Tests){
-            jp_contenedor.add(new JP_iconoTest(test,this));
+        for (String test : lst_Tests) {
+            jp_contenedor.add(new JP_iconoTest(test, this));
         }
-        
+
     }
 
     public JP_iconoTest getJP_iconoTest() {
@@ -227,7 +271,8 @@ public class JP_proyectoAbierto extends javax.swing.JPanel {
     public void setStr_nomTest(String str_nomTest) {
         this.str_nomTest = str_nomTest;
     }
-    public void activarBotonAbrir(){
+
+    public void activarBotonAbrir() {
         jb_abrir.setEnabled(true);
     }
 }
