@@ -167,7 +167,7 @@ public class Archivos {
             a = escribirEnArchivo(paht + nomProyecto + ".eviu", jsonProyecto); // creo el arcivoproyecto 
 
             carpeta(paht + "tests/");//creo la carpetatest
-            String jsonTest = LeerDatos.plantilla_Test();
+            String jsonTest = LeerDatos.plantilla_Test(nomProyecto);
             if (vista.Config.AES()) {
                 jsonTest = AES.encrypt(jsonTest);
             }
@@ -205,7 +205,7 @@ public class Archivos {
             a = escribirEnArchivo(paht + nomProyecto + ".eviu", jsonProyecto); // creo el arcivoproyecto 
 
             carpeta(paht + "tests/");//creo la carpetatest
-            String jsonTest = LeerDatos.plantilla_Test(nomTest, lst_preguntas);
+            String jsonTest = LeerDatos.plantilla_Test(nomProyecto,nomTest, lst_preguntas);
             if (vista.Config.AES()) {
                 jsonTest = AES.encrypt(jsonTest);
             }
@@ -226,7 +226,7 @@ public class Archivos {
          */
         boolean a=false;
         String path="proyectos/"+nomProyecto+"/tests/"+nomTest+".eviutest";
-        String jsonTest = LeerDatos.plantilla_Test(nomTest, lst_preguntas);
+        String jsonTest = LeerDatos.plantilla_Test(nomProyecto,nomTest, lst_preguntas);
         if (vista.Config.AES()) {
                 jsonTest = AES.encrypt(jsonTest);
             }

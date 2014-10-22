@@ -161,7 +161,8 @@ public class Eviu extends javax.swing.JFrame {
                 int i = s.lastIndexOf('.');
 
                 if (i > 0 && i < s.length() - 1) {
-                    if (s.substring(i + 1).toLowerCase().equals("eviu")) {
+                    if (s.substring(i + 1).toLowerCase().equals("eviu") ||
+                            s.substring(i + 1).toLowerCase().equals("eviutest")) {
                         return true;
                     }
                 }
@@ -171,7 +172,7 @@ public class Eviu extends javax.swing.JFrame {
 
             @Override
             public String getDescription() {
-                return "solo aceptara los archivs con extension .eviu";
+                return "solo aceptara los archivs con extension .eviu y .eviutest";
             }
         }
         javax.swing.JFileChooser selector = new javax.swing.JFileChooser();

@@ -155,7 +155,7 @@ public class LeerDatos {
         return proyecto;
     }
 
-    public static String plantilla_Test() {
+    public static String plantilla_Test(String nomProyecto) {
         String proyecto = "";
         String pantillaProyect = "lib/plantillas/testEjemplo.eviutest";
         org.json.simple.parser.JSONParser parser = new org.json.simple.parser.JSONParser();
@@ -167,7 +167,8 @@ public class LeerDatos {
         try {
             Object obj_proyecto = parser.parse(str_);
             JSONObject jsonobj_proyecto = (JSONObject) obj_proyecto;
-
+            
+            jsonobj_proyecto.put("str_padre", nomProyecto);
             jsonobj_proyecto.put("ID", GenerarID.getID(6));
 
             proyecto = "" + jsonobj_proyecto;
@@ -227,7 +228,7 @@ public class LeerDatos {
         return proyecto;
     }
 
-    public static String plantilla_Test(String nomTest, org.json.simple.JSONArray lst_preguntas) {
+    public static String plantilla_Test(String nomProyecto, String nomTest, org.json.simple.JSONArray lst_preguntas) {
         String proyecto = "";
         String pantillaProyect = "lib/plantillas/testEjemplo.eviutest";
         org.json.simple.parser.JSONParser parser = new org.json.simple.parser.JSONParser();
@@ -241,6 +242,7 @@ public class LeerDatos {
             JSONObject jsonobj_proyecto = (JSONObject) obj_proyecto;
 
             /* REESCRIBIR VALORES*/
+            jsonobj_proyecto.put("str_padre", nomProyecto);
             jsonobj_proyecto.put("str_nombreDelTest", nomTest);
             jsonobj_proyecto.put("ID", GenerarID.getID(6));
             jsonobj_proyecto.put("lst_preguntas", lst_preguntas);
