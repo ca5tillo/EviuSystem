@@ -1,5 +1,9 @@
 package vista;
 
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JFileChooser;
 import org.json.simple.JSONArray;
 import vista.inicio.*;
 
@@ -28,6 +32,7 @@ public class Eviu extends javax.swing.JFrame {
         jm_archivo = new javax.swing.JMenu();
         jmi_abrirProyecto = new javax.swing.JMenuItem();
         jmi_nuevoProyecto = new javax.swing.JMenuItem();
+        jmi_importarRespuestas = new javax.swing.JMenuItem();
         jmi_salir = new javax.swing.JMenuItem();
         jm_editar = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
@@ -56,6 +61,14 @@ public class Eviu extends javax.swing.JFrame {
             }
         });
         jm_archivo.add(jmi_nuevoProyecto);
+
+        jmi_importarRespuestas.setText("Importar Respuestas");
+        jmi_importarRespuestas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmi_importarRespuestasActionPerformed(evt);
+            }
+        });
+        jm_archivo.add(jmi_importarRespuestas);
 
         jmi_salir.setText("Salir");
         jmi_salir.addActionListener(new java.awt.event.ActionListener() {
@@ -136,6 +149,51 @@ public class Eviu extends javax.swing.JFrame {
         cerrar();
     }//GEN-LAST:event_windowClosing
 
+    private void jmi_importarRespuestasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmi_importarRespuestasActionPerformed
+        class Filtro extends javax.swing.filechooser.FileFilter {
+
+            @Override
+            public boolean accept(java.io.File f) {
+                if (f.isDirectory()) {
+                    return true;
+                }
+                String s = f.getName();
+                int i = s.lastIndexOf('.');
+
+                if (i > 0 && i < s.length() - 1) {
+                    if (s.substring(i + 1).toLowerCase().equals("eviu")) {
+                        return true;
+                    }
+                }
+
+                return false;
+            }
+
+            @Override
+            public String getDescription() {
+                return "solo aceptara los archivs con extension .eviu";
+            }
+        }
+        javax.swing.JFileChooser selector = new javax.swing.JFileChooser();
+        selector.setFileFilter(new Filtro());
+        
+        int value = selector.showOpenDialog(null);
+        if (value == JFileChooser.APPROVE_OPTION) {
+            try {
+                java.io.File archivoSeleccionado = selector.getSelectedFile();
+                System.out.println("" + archivoSeleccionado.getAbsolutePath());
+                System.out.println("" + archivoSeleccionado.getCanonicalPath());
+                System.out.println("" + archivoSeleccionado.getName());
+                System.out.println("" + archivoSeleccionado.getParent());
+                System.out.println("" + archivoSeleccionado.getPath());
+
+            } catch (IOException ex) {
+                Logger.getLogger(Eviu.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+    }//GEN-LAST:event_jmi_importarRespuestasActionPerformed
+
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -175,6 +233,7 @@ public class Eviu extends javax.swing.JFrame {
     private javax.swing.JMenu jm_editar;
     private javax.swing.JMenuBar jmb_barra;
     private javax.swing.JMenuItem jmi_abrirProyecto;
+    private javax.swing.JMenuItem jmi_importarRespuestas;
     private javax.swing.JMenuItem jmi_nuevoProyecto;
     private javax.swing.JMenuItem jmi_salir;
     // End of variables declaration//GEN-END:variables

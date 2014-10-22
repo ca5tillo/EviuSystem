@@ -92,10 +92,10 @@ public class Archivos {
                 java.io.File[] lstcontenido = lst_contenido[i].listFiles();
                 boolean esproyecto = false;
                 for (java.io.File file : lstcontenido) {
-                    if (expresionRegular(file.getName(), lst_contenido[i].getName() + ".json")) {
+                    if (expresionRegular(file.getName(), lst_contenido[i].getName() + ".eviu")) {
                         /*
                          dentro de la carpeta proyectos tengo los proyectos en carpetas
-                         para que sea considerado un proyecto la carpeta debe tener un archivo .json 
+                         para que sea considerado un proyecto la carpeta debe tener un archivo .eviu 
                          con el mismo nombre de la carpeta/proyecto
                          */
                         esproyecto = true;
@@ -124,7 +124,7 @@ public class Archivos {
         if (new java.io.File(pathTest).isDirectory()) {//verifica que sea un directorio 
             java.io.File[] lst_contenido = new java.io.File(pathTest).listFiles();  //Saco su contenido
             for (java.io.File archivo : lst_contenido) {
-                if (expresionRegular(archivo.getName(), ".*.json")) {//los test tienen extension .json
+                if (expresionRegular(archivo.getName(), ".*.eviutest")) {//los test tienen extension .eviutest
                     String[] str_nomtest = archivo.getName().split("\\.", 2);
                     arrayL_Tests.add(str_nomtest[0]);
                 }
@@ -164,14 +164,14 @@ public class Archivos {
             if (vista.Config.AES()) {
                 jsonProyecto = AES.encrypt(jsonProyecto);
             }
-            a = escribirEnArchivo(paht + nomProyecto + ".json", jsonProyecto); // creo el arcivoproyecto 
+            a = escribirEnArchivo(paht + nomProyecto + ".eviu", jsonProyecto); // creo el arcivoproyecto 
 
             carpeta(paht + "tests/");//creo la carpetatest
             String jsonTest = LeerDatos.plantilla_Test();
             if (vista.Config.AES()) {
                 jsonTest = AES.encrypt(jsonTest);
             }
-            a = escribirEnArchivo(paht + "tests/testEjemplo.json", jsonTest);//creo unteset
+            a = escribirEnArchivo(paht + "tests/testEjemplo.eviutest", jsonTest);//creo unteset
         }
         return a;
     }
@@ -182,6 +182,7 @@ public class Archivos {
      ES USA EN JD_crearPT.java
      */
 
+    @SuppressWarnings("UnusedAssignment")
     public static boolean crearProyectoCasoUno(
             String nomProyecto,
             String descripcion,
@@ -201,14 +202,14 @@ public class Archivos {
             if (vista.Config.AES()) {
                 jsonProyecto = AES.encrypt(jsonProyecto);
             }
-            a = escribirEnArchivo(paht + nomProyecto + ".json", jsonProyecto); // creo el arcivoproyecto 
+            a = escribirEnArchivo(paht + nomProyecto + ".eviu", jsonProyecto); // creo el arcivoproyecto 
 
             carpeta(paht + "tests/");//creo la carpetatest
             String jsonTest = LeerDatos.plantilla_Test(nomTest, lst_preguntas);
             if (vista.Config.AES()) {
                 jsonTest = AES.encrypt(jsonTest);
             }
-            a = escribirEnArchivo(paht + "tests/" + nomTest + ".json", jsonTest);//creo unteset
+            a = escribirEnArchivo(paht + "tests/" + nomTest + ".eviutest", jsonTest);//creo unteset
         }
         return a;
     }
@@ -224,7 +225,7 @@ public class Archivos {
          lst_preguntas;
          */
         boolean a=false;
-        String path="proyectos/"+nomProyecto+"/tests/"+nomTest+".json";
+        String path="proyectos/"+nomProyecto+"/tests/"+nomTest+".eviutest";
         String jsonTest = LeerDatos.plantilla_Test(nomTest, lst_preguntas);
         if (vista.Config.AES()) {
                 jsonTest = AES.encrypt(jsonTest);
@@ -240,7 +241,7 @@ public class Archivos {
             String tiempodeencuesta) {
         boolean a = false;
 
-        String pathTest = "proyectos/" + nomProyecto + "/tests/" + nomTest + ".json";
+        String pathTest = "proyectos/" + nomProyecto + "/tests/" + nomTest + ".eviutest";
 
         String jsontest = LeerDatos.guardarRespuestas(nomProyecto, nomTest, perfil, lst_respuestas, tiempodeencuesta);
         if (vista.Config.AES()) {

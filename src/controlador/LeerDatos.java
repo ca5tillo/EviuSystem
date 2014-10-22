@@ -20,7 +20,7 @@ public class LeerDatos {
             getPreguntas(String str_nomProyecto, String str_nomTest) {
 
         /* Variables globales de la funcion */
-        String pathTest = "proyectos/" + str_nomProyecto + "/tests/" + str_nomTest + ".json";
+        String pathTest = "proyectos/" + str_nomProyecto + "/tests/" + str_nomTest + ".eviutest";
         java.util.ArrayList<controlador.modelos.Pregunta> arrayL_preguntas = new java.util.ArrayList();
         org.json.simple.parser.JSONParser parser = new org.json.simple.parser.JSONParser();
         /* fin de Varialbes globales de la funcion */
@@ -87,7 +87,7 @@ public class LeerDatos {
 
         try {
             String proyecto = Archivos.Leer_Archivo("proyectos/" + str_nomProyecto + "/"
-                    + str_nomProyecto + ".json");
+                    + str_nomProyecto + ".eviu");
             if (vista.Config.AES()) {
                 proyecto = AES.decrypt(proyecto);
             }
@@ -130,7 +130,7 @@ public class LeerDatos {
      */
     public static String plantilla_Proyecto(String nombre, String descripcion) {
         String proyecto = "";
-        String pantillaProyect = "lib/plantillas/proyecto.json";
+        String pantillaProyect = "lib/plantillas/proyecto.eviu";
         org.json.simple.parser.JSONParser parser = new org.json.simple.parser.JSONParser();
 
         String str_ = Archivos.Leer_Archivo(pantillaProyect);// leeo el Archivo 
@@ -157,7 +157,7 @@ public class LeerDatos {
 
     public static String plantilla_Test() {
         String proyecto = "";
-        String pantillaProyect = "lib/plantillas/testEjemplo.json";
+        String pantillaProyect = "lib/plantillas/testEjemplo.eviutest";
         org.json.simple.parser.JSONParser parser = new org.json.simple.parser.JSONParser();
 
         String str_ = Archivos.Leer_Archivo(pantillaProyect);// leeo el Archivo 
@@ -197,7 +197,7 @@ public class LeerDatos {
             String descripcion,
             org.json.simple.JSONArray lst_perfil) {
         String proyecto = "";
-        String pantillaProyect = "lib/plantillas/proyecto.json";
+        String pantillaProyect = "lib/plantillas/proyecto.eviu";
         org.json.simple.parser.JSONParser parser = new org.json.simple.parser.JSONParser();
         String str_ = Archivos.Leer_Archivo(pantillaProyect);// leeo el Archivo 
 //        if (vista.Config.AES()) {
@@ -229,7 +229,7 @@ public class LeerDatos {
 
     public static String plantilla_Test(String nomTest, org.json.simple.JSONArray lst_preguntas) {
         String proyecto = "";
-        String pantillaProyect = "lib/plantillas/testEjemplo.json";
+        String pantillaProyect = "lib/plantillas/testEjemplo.eviutest";
         org.json.simple.parser.JSONParser parser = new org.json.simple.parser.JSONParser();
 
         String str_ = Archivos.Leer_Archivo(pantillaProyect);// leeo el Archivo 
@@ -270,7 +270,7 @@ public class LeerDatos {
             org.json.simple.JSONArray lst_respuestas,
             String tiempodeencuesta) {
         String test = "";
-        String pathTest = "proyectos/" + nomProyecto + "/tests/" + nomTest + ".json";
+        String pathTest = "proyectos/" + nomProyecto + "/tests/" + nomTest + ".eviutest";
         org.json.simple.parser.JSONParser parser = new org.json.simple.parser.JSONParser();
 
         String str_Test = Archivos.Leer_Archivo(pathTest);// leeo el Archivo 
@@ -315,7 +315,7 @@ public class LeerDatos {
 
     public static String getVersion(String nomProyecto) {
         String version = "";
-        String pehtProyecto = "proyectos/" + nomProyecto + "/" + nomProyecto + ".json";
+        String pehtProyecto = "proyectos/" + nomProyecto + "/" + nomProyecto + ".eviu";
 
         String str_Proyecto = Archivos.Leer_Archivo(pehtProyecto);// leeo el Archivo 
         if (vista.Config.AES()) {
@@ -337,7 +337,7 @@ public class LeerDatos {
         return version;
     }
     public static void setVersion(String nomP){
-        String pehtProyecto = "proyectos/"+nomP+"/"+nomP+".json";
+        String pehtProyecto = "proyectos/"+nomP+"/"+nomP+".eviu";
         String str_Proyecto = Archivos.Leer_Archivo(pehtProyecto);// leeo el Archivo 
         if (vista.Config.AES()) {
             str_Proyecto = AES.decrypt(str_Proyecto);
@@ -366,7 +366,7 @@ public class LeerDatos {
     }
     @SuppressWarnings("UnusedAssignment")
     public static ArrayList<Obj_respuestas> getRespuestas(String nomProyecto, String nomTest) {
-        String pathTest = "proyectos/" + nomProyecto + "/tests/" + nomTest + ".json";
+        String pathTest = "proyectos/" + nomProyecto + "/tests/" + nomTest + ".eviutest";
         ArrayList<Obj_respuestas> Lst_respuestas = new ArrayList();
         String test = Archivos.Leer_Archivo(pathTest);
         if (vista.Config.AES()) {
