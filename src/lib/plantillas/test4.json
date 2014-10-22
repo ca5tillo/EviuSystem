@@ -1,6 +1,6 @@
 {
-   "str_nombreDelTest":"testEjemplo",
-   "ID":"",
+   "str_nombreDelTest":"test nuero 1 prueba de colores",
+   "llave":"",
    "lst_preguntas":[
       {
          "str_pregunta":"pregunta 1",
@@ -39,5 +39,26 @@
    ],
     "lst_respuestas":
    [ 
+      {
+         "ID":"",
+         "version":"",
+         "tiempodeencuesta":"",
+         "perfil":[
+            {
+               "categoria":"",
+               "opcion":""
+            }
+         ],
+         "respuestas":[
+            {
+               "id_pregunta":"",
+               "pregunta":"",
+               "realizo":"si",
+               "tiempo":"",
+               "animo":"",
+               "nota":""
+            }         
+         ]
+      }
    ]
 }

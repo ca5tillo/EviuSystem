@@ -23,8 +23,29 @@ public class JP_iconoTest extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPopupMenu1 = new javax.swing.JPopupMenu();
+        jimPop_eliminarTest = new javax.swing.JMenuItem();
+        jimPop_borrarRespuestas = new javax.swing.JMenuItem();
         jl_icono = new javax.swing.JLabel();
         jl_nomTest = new javax.swing.JLabel();
+
+        jPopupMenu1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+
+        jimPop_eliminarTest.setText("Eliminar Test");
+        jimPop_eliminarTest.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jimPop_eliminarTestActionPerformed(evt);
+            }
+        });
+        jPopupMenu1.add(jimPop_eliminarTest);
+
+        jimPop_borrarRespuestas.setText("Borrar Respuestas");
+        jimPop_borrarRespuestas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jimPop_borrarRespuestasActionPerformed(evt);
+            }
+        });
+        jPopupMenu1.add(jimPop_borrarRespuestas);
 
         addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -34,6 +55,7 @@ public class JP_iconoTest extends javax.swing.JPanel {
 
         jl_icono.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jl_icono.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Test.png"))); // NOI18N
+        jl_icono.setComponentPopupMenu(jPopupMenu1);
         jl_icono.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jl_iconoMouseClicked(evt);
@@ -42,6 +64,7 @@ public class JP_iconoTest extends javax.swing.JPanel {
 
         jl_nomTest.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jl_nomTest.setText(nomTest);
+        jl_nomTest.setComponentPopupMenu(jPopupMenu1);
         jl_nomTest.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jl_nomTestMouseClicked(evt);
@@ -81,6 +104,14 @@ public class JP_iconoTest extends javax.swing.JPanel {
     private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
         seleccionado();
     }//GEN-LAST:event_formMouseClicked
+
+    private void jimPop_borrarRespuestasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jimPop_borrarRespuestasActionPerformed
+        javax.swing.JOptionPane.showMessageDialog(null,"Debe Borrar Respuestas del Test\n Aun no implementado");
+    }//GEN-LAST:event_jimPop_borrarRespuestasActionPerformed
+
+    private void jimPop_eliminarTestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jimPop_eliminarTestActionPerformed
+        javax.swing.JOptionPane.showMessageDialog(null,"Debe Eliminar el test \n Aun no implementado");
+    }//GEN-LAST:event_jimPop_eliminarTestActionPerformed
     private void seleccionado(){
         JP_iconoTest JP_iconoTest = JP_proyectoAbierto.getJP_iconoTest();
         if(JP_iconoTest != null){
@@ -94,6 +125,9 @@ public class JP_iconoTest extends javax.swing.JPanel {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPopupMenu jPopupMenu1;
+    private javax.swing.JMenuItem jimPop_borrarRespuestas;
+    private javax.swing.JMenuItem jimPop_eliminarTest;
     private javax.swing.JLabel jl_icono;
     private javax.swing.JLabel jl_nomTest;
     // End of variables declaration//GEN-END:variables

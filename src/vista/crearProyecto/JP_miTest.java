@@ -23,6 +23,8 @@ public class JP_miTest extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        rbg_cronometro = new javax.swing.ButtonGroup();
+        rbg_animo = new javax.swing.ButtonGroup();
         rb_animo_no = new javax.swing.JRadioButton();
         rb_animo_si = new javax.swing.JRadioButton();
         jLabel1 = new javax.swing.JLabel();
@@ -51,9 +53,11 @@ public class JP_miTest extends javax.swing.JPanel {
         jl_cronometrar = new javax.swing.JLabel();
         jl_t1_min = new javax.swing.JLabel();
 
+        rbg_animo.add(rb_animo_no);
         rb_animo_no.setSelected(true);
         rb_animo_no.setText("No");
 
+        rbg_animo.add(rb_animo_si);
         rb_animo_si.setText("Si");
 
         jLabel1.setText(" Estado de Animo");
@@ -134,6 +138,7 @@ public class JP_miTest extends javax.swing.JPanel {
 
         jLabel2.setText("Tomara en cuenta el");
 
+        rbg_cronometro.add(rb_si);
         rb_si.setText("Si");
         rb_si.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -147,6 +152,7 @@ public class JP_miTest extends javax.swing.JPanel {
 
         jScrollPane1.setViewportView(lp_contenedor);
 
+        rbg_cronometro.add(rb_no);
         rb_no.setSelected(true);
         rb_no.setText("No");
         rb_no.addActionListener(new java.awt.event.ActionListener() {
@@ -307,7 +313,7 @@ public class JP_miTest extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jb_cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_cancelarActionPerformed
- 
+        JD_crearPT.dispose();
     }//GEN-LAST:event_jb_cancelarActionPerformed
 
     private void jb_finalizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_finalizarActionPerformed
@@ -444,6 +450,8 @@ public class JP_miTest extends javax.swing.JPanel {
     private javax.swing.JRadioButton rb_animo_si;
     private javax.swing.JRadioButton rb_no;
     private javax.swing.JRadioButton rb_si;
+    private javax.swing.ButtonGroup rbg_animo;
+    private javax.swing.ButtonGroup rbg_cronometro;
     // End of variables declaration//GEN-END:variables
     private void addItem(){
         
