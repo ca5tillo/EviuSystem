@@ -155,8 +155,11 @@ public class Eviu extends javax.swing.JFrame {
                 int i = s.lastIndexOf('.');
 
                 if (i > 0 && i < s.length() - 1) {
-                    if (s.substring(i + 1).toLowerCase().equals("eviu")
-                            || s.substring(i + 1).toLowerCase().equals("eviutest")) {
+//                    if (s.substring(i + 1).toLowerCase().equals("eviu")
+//                            || s.substring(i + 1).toLowerCase().equals("eviutest")) {
+//                        return true;
+//                    }
+                    if (s.substring(i + 1).toLowerCase().equals("eviutest")) {
                         return true;
                     }
                 }
@@ -276,7 +279,9 @@ public class Eviu extends javax.swing.JFrame {
 
     public void cerrar() {
         Object[] opciones = {"Aceptar", "Cancelar"};
-        int eleccion = javax.swing.JOptionPane.showOptionDialog(rootPane, "En realidad desea realizar cerrar la aplicacion", "Mensaje de Confirmacion",
+        int eleccion = javax.swing.JOptionPane.showOptionDialog(rootPane,
+                "En realidad desea Cerrar la aplicacion",
+                "Mensaje de Confirmacion",
                 javax.swing.JOptionPane.YES_NO_OPTION,
                 javax.swing.JOptionPane.QUESTION_MESSAGE, null, opciones, "Aceptar");
         if (eleccion == javax.swing.JOptionPane.YES_OPTION) {

@@ -210,6 +210,7 @@ public class JD_crearProyecto extends javax.swing.JDialog {
         }else{
             if(jb_crear.getActionCommand().equals("Crear")){
                 crearProyectoSimple(nomProyecto,descripcion);
+                Eviu.pintarPanel_ProyectoAbierto(nomProyecto);
             }else if(jb_crear.getActionCommand().equals("Siguiente")){
                 if (rb_crearTest.isSelected() && rb_crearPerfil.isSelected()){
                     /*

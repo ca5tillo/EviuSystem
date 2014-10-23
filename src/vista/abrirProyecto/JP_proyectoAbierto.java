@@ -5,6 +5,7 @@
  */
 package vista.abrirProyecto;
 import controlador.modelosRespuestas.Obj_respuestas;
+import controlador.modelosRespuestas.Perfil;
 import controlador.modelosRespuestas.Respuestas;
 import java.util.ArrayList;
 import javax.swing.JFrame;
@@ -240,6 +241,7 @@ public final class JP_proyectoAbierto extends javax.swing.JPanel {
     }//GEN-LAST:event_jb_crearReporteActionPerformed
 
     private void jb_verAvancesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_verAvancesActionPerformed
+        respuestas();
         java.util.ArrayList<controlador.modelos.Pregunta> Preguntas
                 = controlador.LeerDatos.getPreguntas(str_nomProyecto, str_nomTest);
         
@@ -277,7 +279,49 @@ public final class JP_proyectoAbierto extends javax.swing.JPanel {
         Ventana.setVisible(true);
         Ventana.setVisible(true);
     }//GEN-LAST:event_jb_verAvancesActionPerformed
+    private void respuestas(){
+        ArrayList<Obj_respuestas> getRespuestas = 
+                 controlador.LeerDatos.getRespuestas(str_nomProyecto, str_nomTest);
+        String ss="";
+        for (Obj_respuestas a : getRespuestas) {
+            String ID = a.getID();
+            String version = a.getVersion();
+            String tiempodeencuesta = a.getTiempodeencuesta();
+            ss+="\nID: "+ID;
+            ss+="\n\t version: "+version;
+            ss+="\n\t tiempodeencuesta: "+tiempodeencuesta;
+            java.util.ArrayList<controlador.modelosRespuestas.Perfil> 
+                    perfil = a.getPerfil();
+            
+            java.util.ArrayList<controlador.modelosRespuestas.Respuestas> 
+                    respuestas = a.getRespuestas();
+            ss+="\n-----PERFIL-----";
+            for (Perfil perfil1 : perfil) {
+                String categoria = perfil1.getCategoria();
+                String opcion = perfil1.getOpcion();
+                
+                ss+="\n\t categoria: "+categoria;
+                ss+="\n\t opcion: "+opcion;
+            }
+            ss+="\n-----RESPUESTAS-----";
+            for (Respuestas respuestas1 : respuestas) {
+                String id_pregunta = respuestas1.getId_pregunta();
+                String pregunta = respuestas1.getPregunta();
+                String realizo = respuestas1.getRealizo();
+                String tiempo = respuestas1.getTiempo();
+                String animo = respuestas1.getAnimo();
+                String nota = respuestas1.getNota();
 
+                ss+="\n\t id_pregunta: "+id_pregunta;
+                ss+="\n\t pregunta: "+pregunta;
+                ss+="\n\t realizo: "+realizo;
+                ss+="\n\t tiempo: "+tiempo;
+                ss+="\n\t animo: "+animo;
+                ss+="\n\t nota: "+nota;
+            }
+        }
+        System.out.println(ss);
+    }
     private void jb_nuevoTestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_nuevoTestActionPerformed
        
         java.awt.EventQueue.invokeLater(new Runnable() {

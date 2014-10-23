@@ -301,11 +301,6 @@ public class Archivos {
         String path = "proyectos/" + nomProyecto + "/tests/" + nomTest + ".eviutest";
         java.io.File fichero = new java.io.File(path);
         a = fichero.delete();
-        if (a) {
-            System.out.println("El fichero ha sido borrado satisfactoriamente");
-        } else {
-            System.out.println("El fichero no puede ser borrado");
-        }
         return a;
     }
 
