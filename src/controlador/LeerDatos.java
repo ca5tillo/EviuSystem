@@ -8,17 +8,17 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 public class LeerDatos {
-    /*
-     FUNCION getPreguntas() REGRES un arreglo de PREGUNTA .
-     Esta funcion RECIBE el nombre del PROYECTO y el nombre del TEST.
-     */
 
     public static java.util.ArrayList<controlador.modelos.Pregunta>
             getPreguntas(String str_nomProyecto, String str_nomTest) {
-
+        /*
+         FUNCION getPreguntas() REGRES un arreglo de PREGUNTA .
+         Esta funcion RECIBE el nombre del PROYECTO y el nombre del TEST.
+         */
         /* Variables globales de la funcion */
         String pathTest = "proyectos/" + str_nomProyecto + "/tests/" + str_nomTest + ".eviutest";
         java.util.ArrayList<controlador.modelos.Pregunta> arrayL_preguntas = new java.util.ArrayList();
@@ -73,12 +73,12 @@ public class LeerDatos {
         return arrayL_preguntas;
     }
 
-    /*
-     FUNCION getPerfil() REGRES un arreglo de categorias con sus opciones cada una.
-     Esta funcion RECIBE el nombre del PROYECTO en formato String
-     */
-    public static java.util.ArrayList<controlador.modelos.Categoria> getPerfil(String str_nomProyecto) {
-
+    public static java.util.ArrayList<controlador.modelos.Categoria>
+            getPerfil(String str_nomProyecto) {
+        /*
+         FUNCION getPerfil() REGRES un arreglo de categorias con sus opciones cada una.
+         Esta funcion RECIBE el nombre del PROYECTO en formato String
+         */
         /* Variables globales de la funcion */
         java.util.ArrayList<controlador.modelos.Categoria> perfil = new java.util.ArrayList();
         java.util.ArrayList<String> opciones = new java.util.ArrayList();
@@ -117,18 +117,11 @@ public class LeerDatos {
         return perfil;
     }
 
-    /*
-     Las funciones 
-     plantilla_Proyecto()
-     plantilla_Test()
-     Son las que se utilizan para  crear un  proyecto basico 
-     Las dos regresan un string en formato JSON para ser almacenadas en disco.
-     plantilla_Proyecto()
-     Recibe el NUEVO NOMBRE que tendra con su nueva DESCRIPCION.
-    
-     SE USAN EN Archivos.java POR LA FUNCION crearProyectoSimple();
-     */
+    /* FUNCIONES PARA PROYECTO BASICO  */
     public static String plantilla_Proyecto(String nombre, String descripcion) {
+        /*
+         SE USAN EN Archivos.java POR LA FUNCION crearProyectoSimple();
+         */
         String proyecto = "";
         String pantillaProyect = "lib/plantillas/proyecto.eviu";
         org.json.simple.parser.JSONParser parser = new org.json.simple.parser.JSONParser();
@@ -156,6 +149,9 @@ public class LeerDatos {
     }
 
     public static String plantilla_Test(String nomProyecto) {
+        /*
+         SE USAN EN Archivos.java POR LA FUNCION crearProyectoSimple();
+         */
         String proyecto = "";
         String pantillaProyect = "lib/plantillas/testEjemplo.eviutest";
         org.json.simple.parser.JSONParser parser = new org.json.simple.parser.JSONParser();
@@ -167,7 +163,7 @@ public class LeerDatos {
         try {
             Object obj_proyecto = parser.parse(str_);
             JSONObject jsonobj_proyecto = (JSONObject) obj_proyecto;
-            
+
             jsonobj_proyecto.put("str_padre", nomProyecto);
             jsonobj_proyecto.put("ID", GenerarID.getID(6));
 
@@ -180,19 +176,10 @@ public class LeerDatos {
         }
         return proyecto;
     }
-    /*
-     Crear proyecto con nuevo perfil y nuevo test. CASO UNO
-        
-     En este momento ya deven de tener valor asignado las siguientes variables
-        
-     proyecto;
-     descripcion;
-     nomTest;
-     lst_perfil;
-     lst_preguntas;
-    
-     */
+    /* FIN FUNCIONES PARA PROYECTO BASICO */
 
+    /* CASO UNO */
+    //Crear proyecto con nuevo perfil y nuevo test
     public static String plantilla_Proyecto(
             String nombre,
             String descripcion,
@@ -259,12 +246,10 @@ public class LeerDatos {
         return proyecto;
     }
     /*  FIN CASO UNO */
-    /*
-     guardarRespuestas  Respuesta de la encuesta
-     Es usada en Archivos.java por la funcion guardarRespuestas();
-    
-     */
 
+    /*GuardarRespuestas  Respuesta de la encuesta
+     Es usada en Archivos.java por la funcion guardarRespuestas();
+     */
     public static String guardarRespuestas(
             String nomProyecto,
             String nomTest,
@@ -338,8 +323,9 @@ public class LeerDatos {
 
         return version;
     }
-    public static void setVersion(String nomP){
-        String pehtProyecto = "proyectos/"+nomP+"/"+nomP+".eviu";
+
+    public static void setVersion(String nomP) {
+        String pehtProyecto = "proyectos/" + nomP + "/" + nomP + ".eviu";
         String str_Proyecto = Archivos.Leer_Archivo(pehtProyecto);// leeo el Archivo 
         if (vista.Config.AES()) {
             str_Proyecto = AES.decrypt(str_Proyecto);
@@ -349,11 +335,11 @@ public class LeerDatos {
             Object obj_proyecto = parser.parse(str_Proyecto);
             JSONObject jsonobj_proyecto = (JSONObject) obj_proyecto;
 
-            int  version = Integer.parseInt((String) jsonobj_proyecto.get("str_versiones"));
+            int version = Integer.parseInt((String) jsonobj_proyecto.get("str_versiones"));
             version++;
-            jsonobj_proyecto.put("str_versiones",""+version);
-            
-            String srt_P=""+jsonobj_proyecto;
+            jsonobj_proyecto.put("str_versiones", "" + version);
+
+            String srt_P = "" + jsonobj_proyecto;
             if (vista.Config.AES()) {
                 srt_P = AES.encrypt(srt_P);
             }
@@ -366,6 +352,7 @@ public class LeerDatos {
         }
 
     }
+
     @SuppressWarnings("UnusedAssignment")
     public static ArrayList<Obj_respuestas> getRespuestas(String nomProyecto, String nomTest) {
         String pathTest = "proyectos/" + nomProyecto + "/tests/" + nomTest + ".eviutest";
@@ -382,7 +369,7 @@ public class LeerDatos {
             JSONArray lst_respuestas = (JSONArray) json_test.get("lst_respuestas");
             for (Object obj_rDencuesta : lst_respuestas) {
                 Obj_respuestas Obj_respuestas = new Obj_respuestas();
-                
+
                 JSONObject objson_rDencuesta = (JSONObject) obj_rDencuesta;
 
                 String ID = (String) objson_rDencuesta.get("ID");
@@ -424,7 +411,104 @@ public class LeerDatos {
         }
         return Lst_respuestas;
     }
- 
+
+    @SuppressWarnings("UnusedAssignment")
+    public static int importar1(String nomT, String pahtorigen) {
+        //Recibo un test
+        int count = 0;//numero de registros importados
+        String str_ = Archivos.Leer_Archivo(pahtorigen + "/" + nomT);// leeo el Archivo 
+        if (vista.Config.AES()) {
+            str_ = AES.decrypt(str_);
+        }
+        JSONParser parser = new JSONParser();
+        try {
+            /*      TEST EXTERNO    */
+            Object obj = parser.parse(str_);
+            JSONObject in_jsonTest = (JSONObject) obj;
+
+            String in_str_padre = (String) in_jsonTest.get("str_padre");
+            String in_str_nombreDelTest = (String) in_jsonTest.get("str_nombreDelTest");
+            String in_ID = (String) in_jsonTest.get("ID");
+            JSONArray in_lst_respuestas = (JSONArray) in_jsonTest.get("lst_respuestas");
+
+            /*      TEST LOCAL      */
+            String path_this_Test = "proyectos/" + in_str_padre + "/tests/" + nomT;
+            String this_test = Archivos.Leer_Archivo(path_this_Test);// leeo el Archivo 
+
+            if (this_test.equals("Error de lectura")) {
+//                System.out.println("en el proyecto local no exites el test");
+                count = -255;
+            } else {
+                if (vista.Config.AES()) {
+                    this_test = AES.decrypt(this_test);
+                }
+                Object obj2 = parser.parse(this_test);
+                JSONObject this_jsonTest = (JSONObject) obj2;
+
+                String this_str_padre = (String) this_jsonTest.get("str_padre");
+                String this_str_nombreDelTest = (String) this_jsonTest.get("str_nombreDelTest");
+                String this_ID = (String) this_jsonTest.get("ID");
+                JSONArray this_lst_respuestas = (JSONArray) this_jsonTest.get("lst_respuestas");
+
+                /* Si los nombres y los IDs coinciden */
+                if (in_str_nombreDelTest.equals(this_str_nombreDelTest)
+                        && in_ID.equals(this_ID)) {
+                    /*-----------------------------------------------------*/
+                    ArrayList<String> this_IDs = new ArrayList();
+
+                    if (!this_lst_respuestas.isEmpty()) {
+
+                        for (Object this_respuesta : this_lst_respuestas) {
+                            JSONObject this_jaosn_respuesta = (JSONObject) this_respuesta;
+                            this_IDs.add((String) this_jaosn_respuesta.get("ID"));
+                        }
+                    }
+////                    System.out.println("ids internos");
+//                    for (String s : this_IDs) {
+//                        System.out.println(s);
+//                    }
+////                    System.out.println("fin ids internos\n\nIds externos");
+                    /*      Sacare las respuestas del archivo externo      */
+                    for (Object in_respuesta : in_lst_respuestas) {
+                        JSONObject in_json_respuesta = (JSONObject) in_respuesta;
+                        String in_id = (String) in_json_respuesta.get("ID");
+//                        System.out.println(in_id);
+                        boolean bandera = true;// si es true puede ser añadido
+                        if (!this_IDs.isEmpty()) {
+                            for (String s : this_IDs) {
+                                if (in_id.equals(s)) {
+                                    bandera = false;
+                                }
+                            }
+                        }
+                        if (bandera) {
+                            count++;
+                            this_lst_respuestas.add(in_json_respuesta);
+                        }
+
+                    }
+                    //se an pasado las respuestas
+//                    System.out.println(this_jsonTest);
+                    String ss = "" + this_jsonTest;
+                    if (vista.Config.AES()) {
+                        ss = AES.encrypt(ss);
+                    }
+                    if (count > 0) {
+                        Archivos.escribirEnArchivo(path_this_Test, ss);
+                    }
+                } else {
+                    count = -254;
+//                    javax.swing.JOptionPane.showMessageDialog(null, "no coincide el test ");
+                }
+            }
+        } catch (ParseException e) {
+
+        }
+
+        return count;
+    }
+
+
     public static void main(String[] args) {
         ArrayList<Obj_respuestas> a = getRespuestas("a", "a");
         for (Obj_respuestas x : a) {

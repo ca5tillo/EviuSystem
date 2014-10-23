@@ -1,8 +1,5 @@
 package vista;
 
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import org.json.simple.JSONArray;
 import vista.inicio.*;
@@ -119,7 +116,6 @@ public class Eviu extends javax.swing.JFrame {
             }
         });
         dialog.setVisible(true);
-
     }//GEN-LAST:event_jmi_abrirProyectoActionPerformed
 
     private void jmi_nuevoProyectoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmi_nuevoProyectoActionPerformed
@@ -131,8 +127,6 @@ public class Eviu extends javax.swing.JFrame {
             }
         });
         dialog.setVisible(true);
-
-
     }//GEN-LAST:event_jmi_nuevoProyectoActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
@@ -161,8 +155,8 @@ public class Eviu extends javax.swing.JFrame {
                 int i = s.lastIndexOf('.');
 
                 if (i > 0 && i < s.length() - 1) {
-                    if (s.substring(i + 1).toLowerCase().equals("eviu") ||
-                            s.substring(i + 1).toLowerCase().equals("eviutest")) {
+                    if (s.substring(i + 1).toLowerCase().equals("eviu")
+                            || s.substring(i + 1).toLowerCase().equals("eviutest")) {
                         return true;
                     }
                 }
@@ -172,25 +166,20 @@ public class Eviu extends javax.swing.JFrame {
 
             @Override
             public String getDescription() {
-                return "solo aceptara los archivs con extension .eviu y .eviutest";
+                return "Abrir archivos Eviu";
             }
         }
         javax.swing.JFileChooser selector = new javax.swing.JFileChooser();
+        selector.setAcceptAllFileFilterUsed(false);//que en opciones no apraresca todos los archivos
         selector.setFileFilter(new Filtro());
-        
+
         int value = selector.showOpenDialog(null);
         if (value == JFileChooser.APPROVE_OPTION) {
-            try {
-                java.io.File archivoSeleccionado = selector.getSelectedFile();
-                System.out.println("" + archivoSeleccionado.getAbsolutePath());
-                System.out.println("" + archivoSeleccionado.getCanonicalPath());
-                System.out.println("" + archivoSeleccionado.getName());
-                System.out.println("" + archivoSeleccionado.getParent());
-                System.out.println("" + archivoSeleccionado.getPath());
 
-            } catch (IOException ex) {
-                Logger.getLogger(Eviu.class.getName()).log(Level.SEVERE, null, ex);
-            }
+            java.io.File archivoSeleccionado = selector.getSelectedFile();
+            controlador.Archivos.importarRespuestas(
+                    archivoSeleccionado.getName(), 
+                    archivoSeleccionado.getParent());
         }
 
     }//GEN-LAST:event_jmi_importarRespuestasActionPerformed

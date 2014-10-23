@@ -15,7 +15,8 @@ public class Archivos {
             }
             archivo_entrada.close();
         } catch (java.io.FileNotFoundException e) {
-            inf = "Error de lectura" + e;
+//            inf = "Error de lectura" + e;
+            inf = "Error de lectura";
         }
         //recorrer el ArrayList lineas
         for (String string : lineas) {
@@ -23,15 +24,15 @@ public class Archivos {
         }
         return inf;
     }
-    /*
-     La funcion:
-     carpeta(String _carpeta)
-     Se utiliza para crear una Carpeta o un a direccion de carpetas.
-     recibe el nombre que tendra la carpeta la direccion de donse se creara la carpeta 
-     * Si esta direccion no existe la creara.
-     */
 
     private static void carpeta(String _carpeta) {//revisa que exista si no existe la creara
+        /*
+         La funcion:
+         carpeta(String _carpeta)
+         Se utiliza para crear una Carpeta o un a direccion de carpetas.
+         recibe el nombre que tendra la carpeta la direccion de donse se creara la carpeta 
+         * Si esta direccion no existe la creara.
+         */
         String carpeta = "proyectos";
         if (!_carpeta.equals("")) {
             carpeta = _carpeta;
@@ -143,17 +144,17 @@ public class Archivos {
         return estado;
     }
 
-    /*
-     La funcion
-     crearProyectoSimple()
-     Crear un nuevo proyecto usando las pllantillas de PROYECTO Y TEST
-     que se encuentran el la carpeta lib/plantillas/
-     PROYECTO SIMPLE copia perfil y preguntas de las plantillas.
-    
-     SE USA EN JD_crearProyecto.java
-     */
     @SuppressWarnings("UnusedAssignment")
     public static boolean crearProyectoSimple(String nomProyecto, String descripcion) {
+        /*
+         La funcion
+         crearProyectoSimple()
+         Crear un nuevo proyecto usando las pllantillas de PROYECTO Y TEST
+         que se encuentran el la carpeta lib/plantillas/
+         PROYECTO SIMPLE copia perfil y preguntas de las plantillas.
+    
+         SE USA EN JD_crearProyecto.java
+         */
         boolean a = false;
         String paht = "proyectos/" + nomProyecto + "/";
         if (existeArchivooCarpeta(paht)) {
@@ -175,12 +176,6 @@ public class Archivos {
         }
         return a;
     }
-    /*
-     La funcion
-     crearProyectoCasoUno();
-     Crear proyecto con nuevo perfil y nuevo test. CASO UNO
-     ES USA EN JD_crearPT.java
-     */
 
     @SuppressWarnings("UnusedAssignment")
     public static boolean crearProyectoCasoUno(
@@ -191,6 +186,12 @@ public class Archivos {
             org.json.simple.JSONArray lst_preguntas) {
         /*
          Crear proyecto con nuevo perfil y nuevo test. CASO UNO
+         */
+        /*
+         La funcion
+         crearProyectoCasoUno();
+         Crear proyecto con nuevo perfil y nuevo test. CASO UNO
+         ES USA EN JD_crearPT.java
          */
         boolean a = false;
         String paht = "proyectos/" + nomProyecto + "/";
@@ -205,7 +206,7 @@ public class Archivos {
             a = escribirEnArchivo(paht + nomProyecto + ".eviu", jsonProyecto); // creo el arcivoproyecto 
 
             carpeta(paht + "tests/");//creo la carpetatest
-            String jsonTest = LeerDatos.plantilla_Test(nomProyecto,nomTest, lst_preguntas);
+            String jsonTest = LeerDatos.plantilla_Test(nomProyecto, nomTest, lst_preguntas);
             if (vista.Config.AES()) {
                 jsonTest = AES.encrypt(jsonTest);
             }
@@ -213,10 +214,11 @@ public class Archivos {
         }
         return a;
     }
+
     public static boolean crearCasoCuatro(
-            String nomProyecto, 
-            String nomTest, 
-            org.json.simple.JSONArray lst_preguntas){
+            String nomProyecto,
+            String nomTest,
+            org.json.simple.JSONArray lst_preguntas) {
         //CASO CUATRO
         //crear un nuevo test en un proyecto ya existente.
         /*
@@ -224,15 +226,16 @@ public class Archivos {
          nomTest;
          lst_preguntas;
          */
-        boolean a=false;
-        String path="proyectos/"+nomProyecto+"/tests/"+nomTest+".eviutest";
-        String jsonTest = LeerDatos.plantilla_Test(nomProyecto,nomTest, lst_preguntas);
+        boolean a = false;
+        String path = "proyectos/" + nomProyecto + "/tests/" + nomTest + ".eviutest";
+        String jsonTest = LeerDatos.plantilla_Test(nomProyecto, nomTest, lst_preguntas);
         if (vista.Config.AES()) {
-                jsonTest = AES.encrypt(jsonTest);
-            }
+            jsonTest = AES.encrypt(jsonTest);
+        }
         a = escribirEnArchivo(path, jsonTest);//creo unteset
         return a;
     }
+
     public static boolean guardarRespuestas(
             String nomProyecto,
             String nomTest,
@@ -249,7 +252,41 @@ public class Archivos {
         }
 
         a = escribirEnArchivo(pathTest, jsontest); // creo el arcivoproyecto 
-        
+
+        return a;
+    }
+
+    public static boolean importarRespuestas(String nombreOrigen, String pathOrigen) {
+        boolean a = false;
+        /*si i == -255 es no existe el archivo
+         si i == -254 el archivo no coincide con el nombre y el id
+         si i == -253 se cancela la operacion
+         si i > 0 es el numero de registros insertados
+         */
+//        System.out.println(nombreOrigen);
+//        System.out.println(pathOrigen);
+        int i = 0;
+        String[] nombreO = nombreOrigen.split("\\.");
+        switch (nombreO[1]) {
+            case "eviu":
+                System.out.println("Seleccionaste un Proyecto");
+                break;
+            case "eviutest":
+                System.out.println("Seleccionaste un test");
+                Object[] opciones = {"Aceptar", "Cancelar"};
+                int eleccion = javax.swing.JOptionPane.showOptionDialog(null,
+                        "Se importaran las respuestas de " + nombreOrigen,
+                        "Mensaje de Confirmacion",
+                        javax.swing.JOptionPane.YES_NO_OPTION,
+                        javax.swing.JOptionPane.QUESTION_MESSAGE, null, opciones, "Aceptar");
+                if (eleccion == javax.swing.JOptionPane.YES_OPTION) {
+                    i = controlador.LeerDatos.importar1(nombreOrigen, pathOrigen);
+                }else{
+                    i= -253;
+                }
+                break;
+        }
+        System.out.println("i = "+i);
         return a;
     }
 }
