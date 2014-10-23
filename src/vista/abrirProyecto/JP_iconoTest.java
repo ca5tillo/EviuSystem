@@ -26,6 +26,7 @@ public class JP_iconoTest extends javax.swing.JPanel {
         jPopupMenu1 = new javax.swing.JPopupMenu();
         jimPop_eliminarTest = new javax.swing.JMenuItem();
         jimPop_borrarRespuestas = new javax.swing.JMenuItem();
+        jimPop_eliminarProyecto = new javax.swing.JMenuItem();
         jl_icono = new javax.swing.JLabel();
         jl_nomTest = new javax.swing.JLabel();
 
@@ -46,6 +47,14 @@ public class JP_iconoTest extends javax.swing.JPanel {
             }
         });
         jPopupMenu1.add(jimPop_borrarRespuestas);
+
+        jimPop_eliminarProyecto.setText("Eliminar Proyecto");
+        jimPop_eliminarProyecto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jimPop_eliminarProyectoActionPerformed(evt);
+            }
+        });
+        jPopupMenu1.add(jimPop_eliminarProyecto);
 
         addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -131,8 +140,29 @@ public class JP_iconoTest extends javax.swing.JPanel {
     }//GEN-LAST:event_jimPop_borrarRespuestasActionPerformed
 
     private void jimPop_eliminarTestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jimPop_eliminarTestActionPerformed
-        javax.swing.JOptionPane.showMessageDialog(null, "Debe Eliminar el test \n Aun no implementado");
+        Object[] opciones = {"Aceptar","Cancelar"};
+        int eleccion = javax.swing.JOptionPane.showOptionDialog(JP_proyectoAbierto,
+                "Esta seguro de Eliminar el Test "+nomTest,
+                "Mensaje de confirmacion",
+                javax.swing.JOptionPane.YES_NO_OPTION,
+                javax.swing.JOptionPane.QUESTION_MESSAGE,null,opciones,"Aceptar");
+        if(eleccion == javax.swing.JOptionPane.YES_OPTION){
+            boolean a = controlador.Archivos.eliminarTest(
+                    JP_proyectoAbierto.getStr_nomProyecto(), nomTest);
+            if (a){
+                JP_proyectoAbierto.seticonoTest();
+                javax.swing.JOptionPane.showMessageDialog(null,
+                        "El Test ha sido borrado satisfactoriamente");
+            }else{
+                javax.swing.JOptionPane.showMessageDialog(null,
+                        "No se pudo Borrar el Test");
+            }
+        }
     }//GEN-LAST:event_jimPop_eliminarTestActionPerformed
+
+    private void jimPop_eliminarProyectoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jimPop_eliminarProyectoActionPerformed
+        JP_proyectoAbierto.eliminarProyecto();
+    }//GEN-LAST:event_jimPop_eliminarProyectoActionPerformed
     private void seleccionado() {
         JP_iconoTest JP_iconoTest = JP_proyectoAbierto.getJP_iconoTest();
         if (JP_iconoTest != null) {
@@ -148,6 +178,7 @@ public class JP_iconoTest extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JMenuItem jimPop_borrarRespuestas;
+    private javax.swing.JMenuItem jimPop_eliminarProyecto;
     private javax.swing.JMenuItem jimPop_eliminarTest;
     private javax.swing.JLabel jl_icono;
     private javax.swing.JLabel jl_nomTest;

@@ -41,6 +41,8 @@ public final class JP_proyectoAbierto extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPopupMenu1 = new javax.swing.JPopupMenu();
+        jmiPop_eliminarProyecto = new javax.swing.JMenuItem();
         jl_nomProyecto = new javax.swing.JLabel();
         jl_subtitulo = new javax.swing.JLabel();
         jb_abrir = new javax.swing.JButton();
@@ -54,7 +56,15 @@ public final class JP_proyectoAbierto extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         jPanel1 = new javax.swing.JPanel();
         jp_contenedor = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
+        jb_eliminarProyecto = new javax.swing.JButton();
+
+        jmiPop_eliminarProyecto.setText("Eliminar Proyecto");
+        jmiPop_eliminarProyecto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jmiPop_eliminarProyectoActionPerformed(evt);
+            }
+        });
+        jPopupMenu1.add(jmiPop_eliminarProyecto);
 
         jl_nomProyecto.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jl_nomProyecto.setText("Proyecto: "+str_nomProyecto);
@@ -113,6 +123,7 @@ public final class JP_proyectoAbierto extends javax.swing.JPanel {
 
         jPanel1.setPreferredSize(new java.awt.Dimension(600, 24));
 
+        jp_contenedor.setComponentPopupMenu(jPopupMenu1);
         java.awt.FlowLayout flowLayout2 = new java.awt.FlowLayout(java.awt.FlowLayout.LEADING);
         flowLayout2.setAlignOnBaseline(true);
         jp_contenedor.setLayout(flowLayout2);
@@ -136,10 +147,10 @@ public final class JP_proyectoAbierto extends javax.swing.JPanel {
 
         jScrollPane1.setViewportView(jPanel1);
 
-        jButton1.setText("Eliminar Proyecto");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jb_eliminarProyecto.setText("Eliminar Proyecto");
+        jb_eliminarProyecto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jb_eliminarProyectoActionPerformed(evt);
             }
         });
 
@@ -162,7 +173,7 @@ public final class JP_proyectoAbierto extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(jb_eliminarProyecto, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(184, 184, 184)
                                 .addComponent(jb_cancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(18, 18, 18)
@@ -207,7 +218,7 @@ public final class JP_proyectoAbierto extends javax.swing.JPanel {
                         .addGap(55, 55, 55))
                     .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton1)
+                        .addComponent(jb_eliminarProyecto)
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -295,25 +306,49 @@ public final class JP_proyectoAbierto extends javax.swing.JPanel {
         jl_nVersion.setText(""+controlador.LeerDatos.getVersion(str_nomProyecto));
     }//GEN-LAST:event_jb_nuevaVersionActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        javax.swing.JOptionPane.showMessageDialog(null, "Debe Eliminar El proyecto \n Aun no implementado");
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void jb_eliminarProyectoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_eliminarProyectoActionPerformed
+        eliminarProyecto();
+    }//GEN-LAST:event_jb_eliminarProyectoActionPerformed
 
+    private void jmiPop_eliminarProyectoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiPop_eliminarProyectoActionPerformed
+        eliminarProyecto();
+    }//GEN-LAST:event_jmiPop_eliminarProyectoActionPerformed
+    public void eliminarProyecto(){
+        Object[] opciones = {"Aceptar","Cancelar"};
+        int eleccion = javax.swing.JOptionPane.showOptionDialog(this,
+                "Esta seguro de Eliminar el Proyecto "+str_nomProyecto,
+                "Mensaje de confirmacion",
+                javax.swing.JOptionPane.YES_NO_OPTION,
+                javax.swing.JOptionPane.QUESTION_MESSAGE,null,opciones,"Aceptar");
+        if(eleccion == javax.swing.JOptionPane.YES_OPTION){
+            boolean eliminar = controlador.Archivos.eliminarProyecto(str_nomProyecto);
+            if (eliminar){
+                javax.swing.JOptionPane.showMessageDialog(null,
+                        "El Proyecto ha sido Eliminado satisfactoriamente");
+                Eviu.pintarPanelInicio();
+            }else{
+                javax.swing.JOptionPane.showMessageDialog(null,
+                        "No se pudo Eliminar el Proyecto ");
+            }
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton jb_abrir;
     private javax.swing.JButton jb_cancelar;
     private javax.swing.JButton jb_crearReporte;
+    private javax.swing.JButton jb_eliminarProyecto;
     private javax.swing.JButton jb_nuevaVersion;
     private javax.swing.JButton jb_nuevoTest;
     private javax.swing.JButton jb_verAvances;
     private javax.swing.JLabel jl_nVersion;
     private javax.swing.JLabel jl_nomProyecto;
     private javax.swing.JLabel jl_subtitulo;
+    private javax.swing.JMenuItem jmiPop_eliminarProyecto;
     private javax.swing.JPanel jp_contenedor;
     // End of variables declaration//GEN-END:variables
     private void font() {

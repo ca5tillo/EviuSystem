@@ -1,5 +1,6 @@
 package controlador;
 
+import java.io.File;
 import javax.swing.JOptionPane;
 
 public class Archivos {
@@ -279,19 +280,57 @@ public class Archivos {
                         javax.swing.JOptionPane.QUESTION_MESSAGE, null, opciones, "Aceptar");
                 if (eleccion == javax.swing.JOptionPane.YES_OPTION) {
                     i = controlador.LeerDatos.importar1(nombreOrigen, pathOrigen);
-                }else{
-                    i= -253;
+                } else {
+                    i = -253;
                 }
                 break;
         }
-        System.out.println("i = "+i);
+        System.out.println("i = " + i);
         return a;
     }
 
-    public static boolean borrarRespuestas(String nomProyecto,String nomTest){
-        boolean a= false;
+    public static boolean borrarRespuestas(String nomProyecto, String nomTest) {
+        boolean a = false;
         a = controlador.LeerDatos.borrarRespuestas(nomProyecto, nomTest);
-        
+
         return a;
     }
+
+    public static boolean eliminarTest(String nomProyecto, String nomTest) {
+        boolean a = false;
+        String path = "proyectos/" + nomProyecto + "/tests/" + nomTest + ".eviutest";
+        java.io.File fichero = new java.io.File(path);
+        a = fichero.delete();
+        if (a) {
+            System.out.println("El fichero ha sido borrado satisfactoriamente");
+        } else {
+            System.out.println("El fichero no puede ser borrado");
+        }
+        return a;
+    }
+
+    public static boolean eliminarProyecto(String nomProyecto) {
+        boolean a = false;
+        try {
+            String path = "proyectos/" + nomProyecto;
+            java.io.File fichero = new java.io.File(path);
+            eliminarCarpeta(fichero);
+            a = fichero.delete();
+        } catch (java.lang.NullPointerException e) {
+            System.out.println("error en Archivos.eliminarProyecto()");
+            a = false;
+        }
+        return a;
+    }
+
+    private static void eliminarCarpeta(java.io.File carpeta) {
+        java.io.File[] ficheros = carpeta.listFiles();
+        for (java.io.File fichero : ficheros) {
+            if (fichero.isDirectory()) {
+                eliminarCarpeta(fichero);
+            }
+            fichero.delete();
+        }
+    }
+
 }

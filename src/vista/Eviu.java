@@ -130,7 +130,7 @@ public class Eviu extends javax.swing.JFrame {
     }//GEN-LAST:event_jmi_nuevoProyectoActionPerformed
 
     private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        pintarPanel_ProyectoAbierto("Eviu");
+        javax.swing.JOptionPane.showMessageDialog(null, "nose");
     }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     private void jmi_salirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmi_salirActionPerformed
