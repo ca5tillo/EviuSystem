@@ -81,6 +81,11 @@ public class JP_p extends javax.swing.JPanel {
 
         jTextArea1.setColumns(17);
         jTextArea1.setRows(5);
+        jTextArea1.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jTextArea1FocusLost(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTextArea1);
 
         jLabel8.setText("Observaciones (Opcional)");
@@ -165,6 +170,10 @@ private void seleccion(){
     private void rb_noActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rb_noActionPerformed
         seleccion();
     }//GEN-LAST:event_rb_noActionPerformed
+
+    private void jTextArea1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextArea1FocusLost
+        seleccion();
+    }//GEN-LAST:event_jTextArea1FocusLost
   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

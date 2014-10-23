@@ -88,6 +88,11 @@ public class JP_pta extends javax.swing.JPanel {
 
         jTextArea1.setColumns(17);
         jTextArea1.setRows(5);
+        jTextArea1.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jTextArea1FocusLost(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTextArea1);
 
         jbg_animo.add(rb_na);
@@ -369,6 +374,10 @@ public class JP_pta extends javax.swing.JPanel {
     private void rb_noActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rb_noActionPerformed
         setCommandaBotonsiguiente();
     }//GEN-LAST:event_rb_noActionPerformed
+
+    private void jTextArea1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextArea1FocusLost
+        setCommandaBotonsiguiente();
+    }//GEN-LAST:event_jTextArea1FocusLost
     private void botonPlay_y_pausa() {
         if (jb_iniciar.getActionCommand().equals("iniciar")) {
             cronometro.iniciar();

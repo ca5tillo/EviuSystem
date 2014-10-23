@@ -303,7 +303,8 @@ public class Archivos {
         a = fichero.delete();
         return a;
     }
-
+    
+    /*      PARA ELIMINAR UN PROYECTO     */
     public static boolean eliminarProyecto(String nomProyecto) {
         boolean a = false;
         try {
@@ -327,5 +328,10 @@ public class Archivos {
             fichero.delete();
         }
     }
-
+    /*      FIN PARA ELIMINAR UN PROYECTO     */
+    
+    public static void reporte(String reporte){
+        String path="proyectos/reporte.txt";
+        escribirEnArchivo(path,reporte);
+    }
 }

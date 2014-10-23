@@ -184,6 +184,11 @@ public class JP_pt extends javax.swing.JPanel {
 
         jTextArea1.setColumns(17);
         jTextArea1.setRows(5);
+        jTextArea1.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jTextArea1FocusLost(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTextArea1);
 
         jLabel8.setText("Observaciones (Opcional)");
@@ -321,6 +326,10 @@ public class JP_pt extends javax.swing.JPanel {
     private void rb_siActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rb_siActionPerformed
         seleccion();
     }//GEN-LAST:event_rb_siActionPerformed
+
+    private void jTextArea1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextArea1FocusLost
+        seleccion();
+    }//GEN-LAST:event_jTextArea1FocusLost
     private void cambiarLabel(String[] t1, String[] t2) {
         rb_tiempo1.setText("Hasta " + t1[1] + ":" + t1[2] + " min.");
         rb_tiempo2.setText("Hasta " + t2[1] + ":" + t2[2] + " min.");

@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package vista.abrirProyecto;
+
 import controlador.modelosRespuestas.Obj_respuestas;
 import controlador.modelosRespuestas.Perfil;
 import controlador.modelosRespuestas.Respuestas;
@@ -29,7 +30,7 @@ public final class JP_proyectoAbierto extends javax.swing.JPanel {
         this.setSize(900, 577);
         font();
         seticonoTest();
-        jl_nVersion.setText(""+controlador.LeerDatos.getVersion(str_nomProyecto));
+        jl_nVersion.setText("" + controlador.LeerDatos.getVersion(str_nomProyecto));
         this.setVisible(true);
     }
 
@@ -242,68 +243,31 @@ public final class JP_proyectoAbierto extends javax.swing.JPanel {
 
     private void jb_verAvancesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_verAvancesActionPerformed
         respuestas();
-        java.util.ArrayList<controlador.modelos.Pregunta> Preguntas
-                = controlador.LeerDatos.getPreguntas(str_nomProyecto, str_nomTest);
-        
-        int i = 0;
-        JFreeChart Grafica;
-        DefaultCategoryDataset Datos = new DefaultCategoryDataset();
-
-        for (controlador.modelos.Pregunta pregunta : Preguntas) {
-            Datos.addValue(0, "fracaso", pregunta.getStr_pregunta());
-            Datos.addValue(0, "exito", pregunta.getStr_pregunta());
-        }
-        ArrayList<Obj_respuestas> getRespuestas = controlador.LeerDatos.getRespuestas(str_nomProyecto, str_nomTest);
-        for (Obj_respuestas ts : getRespuestas) {
-
-            java.util.ArrayList<Respuestas> x
-                    = ts.getRespuestas();
-            for (Respuestas xx : x) {
-
-                if (xx.getRealizo().equals("si")) {
-                    Datos.incrementValue(1, "exito", xx.getPregunta());
-                } else {
-                    Datos.incrementValue(1, "fracaso", xx.getPregunta());
-                }
-            }
-
-        }
-        Grafica = ChartFactory.createBarChart("Nombre del Proyecto",
-                "Nombre del Test", "numero de respuestas", Datos,
-                PlotOrientation.VERTICAL, true, true, false);
-
-        ChartPanel Panel = new ChartPanel(Grafica);
-        JFrame Ventana = new JFrame("JFreeChart");
-        Ventana.getContentPane().add(Panel);
-        Ventana.pack();
-        Ventana.setVisible(true);
-        Ventana.setVisible(true);
+  
     }//GEN-LAST:event_jb_verAvancesActionPerformed
-    private void respuestas(){
-        ArrayList<Obj_respuestas> getRespuestas = 
-                 controlador.LeerDatos.getRespuestas(str_nomProyecto, str_nomTest);
-        String ss="";
+    
+    private void respuestas() {
+        ArrayList<Obj_respuestas> getRespuestas
+                = controlador.LeerDatos.getRespuestas(str_nomProyecto, str_nomTest);
+        String ss = "";
         for (Obj_respuestas a : getRespuestas) {
             String ID = a.getID();
             String version = a.getVersion();
             String tiempodeencuesta = a.getTiempodeencuesta();
-            ss+="\nID: "+ID;
-            ss+="\n\t version: "+version;
-            ss+="\n\t tiempodeencuesta: "+tiempodeencuesta;
-            java.util.ArrayList<controlador.modelosRespuestas.Perfil> 
-                    perfil = a.getPerfil();
-            
-            java.util.ArrayList<controlador.modelosRespuestas.Respuestas> 
-                    respuestas = a.getRespuestas();
-            ss+="\n-----PERFIL-----";
+            ss += "\nID: " + ID;
+            ss += "\n\t version: " + version;
+            ss += "\n\t tiempodeencuesta: " + tiempodeencuesta;
+            java.util.ArrayList<controlador.modelosRespuestas.Perfil> perfil = a.getPerfil();
+
+            java.util.ArrayList<controlador.modelosRespuestas.Respuestas> respuestas = a.getRespuestas();
+            ss += "\n\t\t-----PERFIL-----";
             for (Perfil perfil1 : perfil) {
                 String categoria = perfil1.getCategoria();
                 String opcion = perfil1.getOpcion();
-                
-                ss+="\n\t categoria: "+categoria;
-                ss+="\n\t opcion: "+opcion;
+
+                ss += "\n\t\t\t" + opcion;
             }
-            ss+="\n-----RESPUESTAS-----";
+            ss += "\n\t\t-----RESPUESTAS-----";
             for (Respuestas respuestas1 : respuestas) {
                 String id_pregunta = respuestas1.getId_pregunta();
                 String pregunta = respuestas1.getPregunta();
@@ -312,42 +276,42 @@ public final class JP_proyectoAbierto extends javax.swing.JPanel {
                 String animo = respuestas1.getAnimo();
                 String nota = respuestas1.getNota();
 
-                ss+="\n\t id_pregunta: "+id_pregunta;
-                ss+="\n\t pregunta: "+pregunta;
-                ss+="\n\t realizo: "+realizo;
-                ss+="\n\t tiempo: "+tiempo;
-                ss+="\n\t animo: "+animo;
-                ss+="\n\t nota: "+nota;
+                ss += "\n\t\t\tpregunta: " + pregunta;
+                ss += "\n\t\t\t\trealizo: " + realizo;
+                ss += "\n\t\t\t\ttiempo: " + tiempo;
+                ss += "\n\t\t\t\tanimo: " + animo;
+                ss += "\n\t\t\t\tnota: " + nota;
             }
         }
-        System.out.println(ss);
+        controlador.Archivos.reporte(ss);
     }
+    
     private void jb_nuevoTestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_nuevoTestActionPerformed
-       
+
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 final vista.crearProyecto.JD_crearPT dialog = new vista.crearProyecto.JD_crearPT(
-                        new javax.swing.JFrame(), true,str_nomProyecto);
-                
+                        new javax.swing.JFrame(), true, str_nomProyecto);
+
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
                         dialog.dispose();
-                        
+
                     }
                 });
-                
+
                 dialog.setVisible(true);
                 seticonoTest();
                 jp_contenedor.updateUI();
             }
         });
-        
+
     }//GEN-LAST:event_jb_nuevoTestActionPerformed
 
     private void jb_nuevaVersionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_nuevaVersionActionPerformed
         controlador.LeerDatos.setVersion(str_nomProyecto);
-        jl_nVersion.setText(""+controlador.LeerDatos.getVersion(str_nomProyecto));
+        jl_nVersion.setText("" + controlador.LeerDatos.getVersion(str_nomProyecto));
     }//GEN-LAST:event_jb_nuevaVersionActionPerformed
 
     private void jb_eliminarProyectoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_eliminarProyectoActionPerformed
@@ -357,20 +321,21 @@ public final class JP_proyectoAbierto extends javax.swing.JPanel {
     private void jmiPop_eliminarProyectoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiPop_eliminarProyectoActionPerformed
         eliminarProyecto();
     }//GEN-LAST:event_jmiPop_eliminarProyectoActionPerformed
-    public void eliminarProyecto(){
-        Object[] opciones = {"Aceptar","Cancelar"};
+    
+    public void eliminarProyecto() {
+        Object[] opciones = {"Aceptar", "Cancelar"};
         int eleccion = javax.swing.JOptionPane.showOptionDialog(this,
-                "Esta seguro de Eliminar el Proyecto "+str_nomProyecto,
+                "Esta seguro de Eliminar el Proyecto " + str_nomProyecto,
                 "Mensaje de confirmacion",
                 javax.swing.JOptionPane.YES_NO_OPTION,
-                javax.swing.JOptionPane.QUESTION_MESSAGE,null,opciones,"Aceptar");
-        if(eleccion == javax.swing.JOptionPane.YES_OPTION){
+                javax.swing.JOptionPane.QUESTION_MESSAGE, null, opciones, "Aceptar");
+        if (eleccion == javax.swing.JOptionPane.YES_OPTION) {
             boolean eliminar = controlador.Archivos.eliminarProyecto(str_nomProyecto);
-            if (eliminar){
+            if (eliminar) {
                 javax.swing.JOptionPane.showMessageDialog(null,
                         "El Proyecto ha sido Eliminado satisfactoriamente");
                 Eviu.pintarPanelInicio();
-            }else{
+            } else {
                 javax.swing.JOptionPane.showMessageDialog(null,
                         "No se pudo Eliminar el Proyecto ");
             }
@@ -433,5 +398,5 @@ public final class JP_proyectoAbierto extends javax.swing.JPanel {
     public String getStr_nomProyecto() {
         return str_nomProyecto;
     }
-    
+
 }
