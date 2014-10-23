@@ -263,8 +263,6 @@ public class Archivos {
          si i == -253 se cancela la operacion
          si i > 0 es el numero de registros insertados
          */
-//        System.out.println(nombreOrigen);
-//        System.out.println(pathOrigen);
         int i = 0;
         String[] nombreO = nombreOrigen.split("\\.");
         switch (nombreO[1]) {
@@ -287,6 +285,13 @@ public class Archivos {
                 break;
         }
         System.out.println("i = "+i);
+        return a;
+    }
+
+    public static boolean borrarRespuestas(String nomProyecto,String nomTest){
+        boolean a= false;
+        a = controlador.LeerDatos.borrarRespuestas(nomProyecto, nomTest);
+        
         return a;
     }
 }

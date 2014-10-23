@@ -1,16 +1,16 @@
-
 package vista.abrirProyecto;
 
 public class JP_iconoTest extends javax.swing.JPanel {
+
     String nomTest;
     JP_proyectoAbierto JP_proyectoAbierto;
-    
-    public JP_iconoTest(String nomTest,JP_proyectoAbierto JP_proyectoAbierto) {
-        this.nomTest=nomTest;
-        this.JP_proyectoAbierto=JP_proyectoAbierto;
-        
+
+    public JP_iconoTest(String nomTest, JP_proyectoAbierto JP_proyectoAbierto) {
+        this.nomTest = nomTest;
+        this.JP_proyectoAbierto = JP_proyectoAbierto;
+
         this.setSize(140, 144);
-        initComponents();        
+        initComponents();
         this.setVisible(true);
     }
 
@@ -106,22 +106,43 @@ public class JP_iconoTest extends javax.swing.JPanel {
     }//GEN-LAST:event_formMouseClicked
 
     private void jimPop_borrarRespuestasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jimPop_borrarRespuestasActionPerformed
-        javax.swing.JOptionPane.showMessageDialog(null,"Debe Borrar Respuestas del Test\n Aun no implementado");
+        String nomP = JP_proyectoAbierto.getStr_nomProyecto();
+
+        Object[] opciones = {"Aceptar", "Cancelar"};
+        int eleccion = javax.swing.JOptionPane.showOptionDialog(JP_proyectoAbierto,
+                "Esta realmente seguro de eliminar las respuestas de este Test",
+                "Mensaje de confirmación",
+                javax.swing.JOptionPane.YES_NO_OPTION,
+                javax.swing.JOptionPane.QUESTION_MESSAGE, null, opciones, "Aceptar");
+        if (eleccion == javax.swing.JOptionPane.YES_OPTION) {
+            boolean a = controlador.Archivos.borrarRespuestas(nomP, nomTest);
+            if (a) {
+                javax.swing.JOptionPane.showMessageDialog(
+                        null,
+                        "Las Respuestas de este Test se han borrado satisfactoriamente");
+            } else {
+                javax.swing.JOptionPane.showMessageDialog(
+                        null,
+                        "Error");
+            }
+        }
+
+
     }//GEN-LAST:event_jimPop_borrarRespuestasActionPerformed
 
     private void jimPop_eliminarTestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jimPop_eliminarTestActionPerformed
-        javax.swing.JOptionPane.showMessageDialog(null,"Debe Eliminar el test \n Aun no implementado");
+        javax.swing.JOptionPane.showMessageDialog(null, "Debe Eliminar el test \n Aun no implementado");
     }//GEN-LAST:event_jimPop_eliminarTestActionPerformed
-    private void seleccionado(){
+    private void seleccionado() {
         JP_iconoTest JP_iconoTest = JP_proyectoAbierto.getJP_iconoTest();
-        if(JP_iconoTest != null){
+        if (JP_iconoTest != null) {
             JP_iconoTest.setBackground(null);
         }
         this.setBackground(vista.Config.colorDeSeleccionado());
         JP_proyectoAbierto.setJP_iconoTest(this);
         JP_proyectoAbierto.setStr_nomTest(jl_nomTest.getText());
         JP_proyectoAbierto.activarBotonAbrir();
-        
+
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

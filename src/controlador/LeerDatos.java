@@ -508,6 +508,50 @@ public class LeerDatos {
         return count;
     }
 
+    public static boolean borrarRespuestas(
+            String nomProyecto,
+            String nomTest) {
+        boolean retorno = false;
+        String test = "";
+        String pathTest = "proyectos/" + nomProyecto + "/tests/" + nomTest + ".eviutest";
+        org.json.simple.parser.JSONParser parser = new org.json.simple.parser.JSONParser();
+
+        String str_Test = Archivos.Leer_Archivo(pathTest);// leeo el Archivo 
+        if (vista.Config.AES()) {
+            str_Test = AES.decrypt(str_Test);
+        }
+        try {
+
+            Object obj_Test = parser.parse(str_Test);
+            JSONObject jsonobj_Test = (JSONObject) obj_Test;
+
+            org.json.simple.JSONArray all_respuestas = (org.json.simple.JSONArray) jsonobj_Test.get("lst_respuestas");
+            /* AÑADIR RESPUESTA*/
+            all_respuestas.clear();
+            /* FIN AÑADIR RESPUESTA*/
+
+            test = "" + jsonobj_Test;
+            
+            if (vista.Config.AES()) {
+                test = AES.encrypt(test);
+            }
+            retorno=Archivos.escribirEnArchivo(pathTest, test);
+            
+            
+        } catch (ParseException ex) {
+            System.out.println("Error en el parser de JSON"
+                    + "EN leer Datos en \n"
+                    + "guardarRespuestas(\n"
+                    + "            String nomProyecto,\n"
+                    + "            String nomTest,\n"
+                    + "            org.json.simple.JSONArray perfil,\n"
+                    + "            org.json.simple.JSONArray lst_respuestas,\n"
+                    + "            String tiempodeencuesta)");
+            Logger.getLogger(Archivos.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return retorno;
+    }
 
     public static void main(String[] args) {
         ArrayList<Obj_respuestas> a = getRespuestas("a", "a");

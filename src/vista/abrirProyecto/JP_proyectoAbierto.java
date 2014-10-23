@@ -350,4 +350,9 @@ public final class JP_proyectoAbierto extends javax.swing.JPanel {
     public void activarBotonAbrir() {
         jb_abrir.setEnabled(true);
     }
+
+    public String getStr_nomProyecto() {
+        return str_nomProyecto;
+    }
+    
 }
