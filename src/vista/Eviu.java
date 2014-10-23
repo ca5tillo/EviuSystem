@@ -180,9 +180,20 @@ public class Eviu extends javax.swing.JFrame {
         if (value == JFileChooser.APPROVE_OPTION) {
 
             java.io.File archivoSeleccionado = selector.getSelectedFile();
-            controlador.Archivos.importarRespuestas(
+            int i = controlador.Archivos.importarRespuestas(
                     archivoSeleccionado.getName(), 
                     archivoSeleccionado.getParent());
+            if (i == 0){
+                javax.swing.JOptionPane.showMessageDialog(null,"El archivo local ya esta actualizado");
+            }else if (i > 0){
+                javax.swing.JOptionPane.showMessageDialog(null,"Se importaron "+i+" Registros");
+            }else if (i == -255){
+                javax.swing.JOptionPane.showMessageDialog(null,"No existe el archivo dentor de mis proyectos locales");
+            }else if (i == -254){
+                javax.swing.JOptionPane.showMessageDialog(null,"El archivo no coincide ");
+            }else if (i == -253){
+                javax.swing.JOptionPane.showMessageDialog(null,"Se cancelo la operacion");
+            }
         }
 
     }//GEN-LAST:event_jmi_importarRespuestasActionPerformed

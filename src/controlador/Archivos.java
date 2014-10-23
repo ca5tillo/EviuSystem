@@ -257,7 +257,7 @@ public class Archivos {
         return a;
     }
 
-    public static boolean importarRespuestas(String nombreOrigen, String pathOrigen) {
+    public static int importarRespuestas(String nombreOrigen, String pathOrigen) {
         boolean a = false;
         /*si i == -255 es no existe el archivo
          si i == -254 el archivo no coincide con el nombre y el id
@@ -286,7 +286,7 @@ public class Archivos {
                 break;
         }
         System.out.println("i = " + i);
-        return a;
+        return i;
     }
 
     public static boolean borrarRespuestas(String nomProyecto, String nomTest) {
