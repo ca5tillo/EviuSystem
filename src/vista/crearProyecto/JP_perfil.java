@@ -206,12 +206,7 @@ public class JP_perfil extends javax.swing.JPanel {
     }//GEN-LAST:event_jb_aceptarOpcionActionPerformed
 
     private void jb_añadirCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_añadirCategoriaActionPerformed
-        bandera = true;
-        jtf_categoria.setEnabled(true);
-        jtf_categoria.setText("");
-        id++;
-        editando=false;
-        jtf_opcion.setText("");
+        crearCategoria();
     }//GEN-LAST:event_jb_añadirCategoriaActionPerformed
 
     private void jb_aceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_aceptarActionPerformed
@@ -223,18 +218,26 @@ public class JP_perfil extends javax.swing.JPanel {
             JD_crearPT.pintarTest();
         }
     }//GEN-LAST:event_jb_aceptarActionPerformed
+    
     public void removeItem(int id) {
+        /*
+        un Item esta compuestao de la categoria y sus Opciones
+        */
         jp_contenedor.remove(map_categorias.get(id));
         jp_contenedor.updateUI();
         map_categorias.remove(id);
+        crearCategoria();
         count--;
         if (count==0){
-            jtf_categoria.setText("");
-            jtf_categoria.setEnabled(true);
+            /*
+            count es el numero de categorias si es = 0
+            no se puede continuar 
+            */
             bandera=true;
             jb_aceptar.setEnabled(false);
         }
     }
+    
     public void editarCategorial(int id){
         item = map_categorias.get(id);
         jl_trabajandoEn.setText("Trabajando en la categoria:  "+item.getCategoria());
@@ -242,6 +245,7 @@ public class JP_perfil extends javax.swing.JPanel {
         jtf_opcion.setText("");
         editando=true;
     }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton jb_aceptar;
@@ -257,6 +261,16 @@ public class JP_perfil extends javax.swing.JPanel {
     private javax.swing.JTextField jtf_opcion;
     // End of variables declaration//GEN-END:variables
     //regresa True si no son iguales
+    
+    private void crearCategoria(){
+        bandera = true;
+        jtf_categoria.setEnabled(true);
+        jtf_categoria.setText("");
+        id++;
+        editando=false;
+        jtf_opcion.setText("");
+    }
+    
     private boolean noExisteCategoria(String categoria) {
         boolean a = true;
         java.util.Iterator it = map_categorias.keySet().iterator();
@@ -268,6 +282,7 @@ public class JP_perfil extends javax.swing.JPanel {
         }
         return a;
     }
+    
     private void crearJSON(){
         org.json.simple.JSONObject jsonobj= new org.json.simple.JSONObject();
         org.json.simple.JSONArray lst_perfil= new org.json.simple.JSONArray();

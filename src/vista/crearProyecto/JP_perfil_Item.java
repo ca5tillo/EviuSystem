@@ -95,13 +95,19 @@ public class JP_perfil_Item extends javax.swing.JPanel {
         JP_perfil.editarCategorial(id);
         
     }//GEN-LAST:event_jl_editarMouseClicked
+    
     public void addOpcion(String opcion){
         map_opciones.put(id_opcion, new JP_perfil_ItemOpcion(this,id_opcion,opcion));
         jp_contenedor.add(map_opciones.get(id_opcion));
         id_opcion++;
         count++;
     }
+    
     public void removeOpcion(int id){
+        /*
+        Quita opcion seleccionada 
+        Si la categoria se queda sin opciones se elimina automaticamente 
+        */
         jp_contenedor.remove(map_opciones.get(id));
         jp_contenedor.updateUI();
         map_opciones.remove(id);
@@ -110,6 +116,7 @@ public class JP_perfil_Item extends javax.swing.JPanel {
             JP_perfil.removeItem(this.id);
         }
     }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jl_editar;
     private javax.swing.JLabel jl_eliminar;
