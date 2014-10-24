@@ -106,16 +106,29 @@ public class Eviu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jmi_abrirProyectoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmi_abrirProyectoActionPerformed
-        final vista.abrirProyecto.JD_abrirProyecto dialog
-                = new vista.abrirProyecto.JD_abrirProyecto(this, true);
-        //si se cierra la ventana cierro el proceso
-        dialog.addWindowListener(new java.awt.event.WindowAdapter() {
-            @Override
-            public void windowClosing(java.awt.event.WindowEvent e) {
-                dialog.dispose();
+        java.util.ArrayList<String> str_array_proyectos = controlador.Archivos.getProyectos();
+        if(str_array_proyectos.isEmpty()){
+            Object[] opciones = {"Aceptar","Cancelar"};
+            int seleccion = javax.swing.JOptionPane.showOptionDialog(this,
+                    "Aun no tienes Proyectos\nDeseas Crear uno en este momento",
+                    "Confirmar",
+                    javax.swing.JOptionPane.YES_NO_OPTION,
+                    javax.swing.JOptionPane.QUESTION_MESSAGE,null,opciones,"Aceptar");
+            if(seleccion == javax.swing.JOptionPane.YES_OPTION){
+                jmi_nuevoProyectoActionPerformed(evt);
             }
-        });
-        dialog.setVisible(true);
+        }else{
+            final vista.abrirProyecto.JD_abrirProyecto dialog
+                    = new vista.abrirProyecto.JD_abrirProyecto(this, true, str_array_proyectos);
+            //si se cierra la ventana cierro el proceso
+            dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                @Override
+                public void windowClosing(java.awt.event.WindowEvent e) {
+                    dialog.dispose();
+                }
+            });
+            dialog.setVisible(true);
+        }
     }//GEN-LAST:event_jmi_abrirProyectoActionPerformed
 
     private void jmi_nuevoProyectoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmi_nuevoProyectoActionPerformed

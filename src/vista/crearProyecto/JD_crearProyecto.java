@@ -226,6 +226,9 @@ public class JD_crearProyecto extends javax.swing.JDialog {
             }
         }
     }//GEN-LAST:event_jb_crearActionPerformed
+    public void abrirProyecto(String nomP){
+        Eviu.pintarPanel_ProyectoAbierto(nomP);
+    }
     private void crearproyectoconNPNT(final String nomProyecto,final String descripcio){
         /*
         Crear proyecto con nuevo perfil y nuevo test.

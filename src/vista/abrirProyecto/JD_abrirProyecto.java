@@ -13,14 +13,17 @@ public class JD_abrirProyecto extends javax.swing.JDialog {
     String proyectoSeleccionado;
     JP_itemProyecto JP_itemProyecto;
     vista.Eviu Eviu;
+    java.util.ArrayList<String> str_array_proyectos;
     /**
      * Creates new form JD_abrirProyecto
      * @param parent
      * @param modal
+     * @param str_array_proyectos
      */
-    public JD_abrirProyecto(java.awt.Frame parent, boolean modal) {
+    public JD_abrirProyecto(java.awt.Frame parent, boolean modal,java.util.ArrayList<String> str_array_proyectos) {
         super(parent, modal);
         this.Eviu=(vista.Eviu) parent;
+        this.str_array_proyectos = str_array_proyectos;
         initComponents();
         this.setLocationRelativeTo(null);
         font();
@@ -121,15 +124,9 @@ public class JD_abrirProyecto extends javax.swing.JDialog {
          este contenedor tiene un scroll 
          cada proyecto en un panel con un label con el nombre del proyecto
          */
-        java.util.ArrayList<String> str_array_proyectos = controlador.Archivos.getProyectos();
-        if(str_array_proyectos.isEmpty()){
-            javax.swing.JOptionPane.showMessageDialog(null, "No tienes proyectos ");
-            this.dispose();
-        }else{
             for (String nomProyecto : str_array_proyectos) {
                 jp_contenedor.add(new JP_itemProyecto(nomProyecto,this));
             }
-        }
 //        str_array_proyectos = null;
     }
 
