@@ -164,7 +164,8 @@ public class LeerDatos {
             Object obj_proyecto = parser.parse(str_);
             JSONObject jsonobj_proyecto = (JSONObject) obj_proyecto;
 
-            jsonobj_proyecto.put("str_padre", nomProyecto);
+            jsonobj_proyecto.put("str_padre", getnomProyecto(nomProyecto));
+            jsonobj_proyecto.put("str_IDpadre", getIDProyecto(nomProyecto));
             jsonobj_proyecto.put("ID", GenerarID.getID(6));
 
             proyecto = "" + jsonobj_proyecto;
@@ -229,7 +230,8 @@ public class LeerDatos {
             JSONObject jsonobj_proyecto = (JSONObject) obj_proyecto;
 
             /* REESCRIBIR VALORES*/
-            jsonobj_proyecto.put("str_padre", nomProyecto);
+            jsonobj_proyecto.put("str_padre", getnomProyecto(nomProyecto));
+            jsonobj_proyecto.put("str_IDpadre", getIDProyecto(nomProyecto));
             jsonobj_proyecto.put("str_nombreDelTest", nomTest);
             jsonobj_proyecto.put("ID", GenerarID.getID(6));
             jsonobj_proyecto.put("lst_preguntas", lst_preguntas);
@@ -352,7 +354,109 @@ public class LeerDatos {
         }
 
     }
+        
+    public static String getnomProyecto(String nomProyecto) {
+        String str_nombreProyecto = "";
+        String pehtProyecto = "proyectos/" + nomProyecto + "/" + nomProyecto + ".eviu";
 
+        String str_Proyecto = Archivos.Leer_Archivo(pehtProyecto);// leeo el Archivo 
+        if (vista.Config.AES()) {
+            str_Proyecto = AES.decrypt(str_Proyecto);
+        }
+        org.json.simple.parser.JSONParser parser = new org.json.simple.parser.JSONParser();
+        try {
+            Object obj_proyecto = parser.parse(str_Proyecto);
+            JSONObject jsonobj_proyecto = (JSONObject) obj_proyecto;
+
+            str_nombreProyecto = (String) jsonobj_proyecto.get("str_nombreProyecto");
+
+        } catch (ParseException ex) {
+            System.out.println("Error en el parser de JSON"
+                    + "en leerDatos en getversion(String nomProyecto)");
+            Logger.getLogger(Archivos.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return str_nombreProyecto;
+    }
+    
+    public static String getIDProyecto(String nomProyecto) {
+        String ID = "";
+        String pehtProyecto = "proyectos/" + nomProyecto + "/" + nomProyecto + ".eviu";
+
+        String str_Proyecto = Archivos.Leer_Archivo(pehtProyecto);// leeo el Archivo 
+        if (vista.Config.AES()) {
+            str_Proyecto = AES.decrypt(str_Proyecto);
+        }
+        org.json.simple.parser.JSONParser parser = new org.json.simple.parser.JSONParser();
+        try {
+            Object obj_proyecto = parser.parse(str_Proyecto);
+            JSONObject jsonobj_proyecto = (JSONObject) obj_proyecto;
+
+            ID = (String) jsonobj_proyecto.get("ID");
+
+        } catch (ParseException ex) {
+            System.out.println("Error en el parser de JSON"
+                    + "en leerDatos en getversion(String nomProyecto)");
+            Logger.getLogger(Archivos.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return ID;
+    }
+    
+    public static String getDescripcionProyecto(String nomProyecto) {
+        String str_descripcionDelProyecto = "";
+        String pehtProyecto = "proyectos/" + nomProyecto + "/" + nomProyecto + ".eviu";
+
+        String str_Proyecto = Archivos.Leer_Archivo(pehtProyecto);// leeo el Archivo 
+        if (vista.Config.AES()) {
+            str_Proyecto = AES.decrypt(str_Proyecto);
+        }
+        org.json.simple.parser.JSONParser parser = new org.json.simple.parser.JSONParser();
+        try {
+            Object obj_proyecto = parser.parse(str_Proyecto);
+            JSONObject jsonobj_proyecto = (JSONObject) obj_proyecto;
+
+            str_descripcionDelProyecto = (String) jsonobj_proyecto.get("str_descripcionDelProyecto");
+
+        } catch (ParseException ex) {
+            System.out.println("Error en el parser de JSON"
+                    + "en leerDatos en getversion(String nomProyecto)");
+            Logger.getLogger(Archivos.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return str_descripcionDelProyecto;
+    }
+
+    /*   que el test realmente pertenesca al proyecto 
+         Funcion usada en Archivos.getTest()*/
+    public static boolean validarTest(String nomProyecto,String nomTest){
+        boolean a= false;
+        String pathTest = "proyectos/" + nomProyecto + "/tests/"+nomTest;
+        String str_Test = Archivos.Leer_Archivo(pathTest);// leeo el Archivo 
+        if (vista.Config.AES()) {
+            str_Test = AES.decrypt(str_Test);
+        }
+        org.json.simple.parser.JSONParser parser = new org.json.simple.parser.JSONParser();
+        try {
+            Object obj_Test = parser.parse(str_Test);
+            JSONObject jsonobj_Test = (JSONObject) obj_Test;
+
+            String str_padre = (String) jsonobj_Test.get("str_padre");
+            String str_IDpadre = (String) jsonobj_Test.get("str_IDpadre");
+            
+            if(str_padre.equals(getnomProyecto(nomProyecto)) &&
+                    str_IDpadre.equals(getIDProyecto(nomProyecto))){
+                a = true;
+            }
+        } catch (ParseException ex) {
+            System.out.println("Error en el parser de JSON"
+                    + "en leerDatos en validarTest(String nomProyecto,String nomTest)");
+            Logger.getLogger(Archivos.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return a;
+    }
+    
     @SuppressWarnings("UnusedAssignment")
     public static ArrayList<Obj_respuestas> getRespuestas(String nomProyecto, String nomTest) {
         String pathTest = "proyectos/" + nomProyecto + "/tests/" + nomTest + ".eviutest";
@@ -554,25 +658,10 @@ public class LeerDatos {
     }
 
     public static void main(String[] args) {
-        ArrayList<Obj_respuestas> a = getRespuestas("a", "a");
-        for (Obj_respuestas x : a) {
-            System.out.println(x.getID());
-            System.out.println(x.getVersion());
-            System.out.println(x.getTiempodeencuesta());
-            ArrayList<Perfil> perfil = x.getPerfil();
-            for (Perfil per : perfil) {
-                System.out.println(per.getCategoria());
-                System.out.println(per.getOpcion());
-            }
-            ArrayList<Respuestas> Respuestas = x.getRespuestas();
-            for (Respuestas res : Respuestas) {
-                System.out.println(res.getId_pregunta());
-                System.out.println(res.getPregunta());
-                System.out.println(res.getRealizo());
-                System.out.println(res.getTiempo());
-                System.out.println(res.getAnimo());
-                System.out.println(res.getNota());
-            }
-        }
+           
+        System.out.println(getVersion("casa"));
+        System.out.println(getnomProyecto("casa"));
+        System.out.println(getIDProyecto("casa"));
+        System.out.println(getDescripcionProyecto("casa"));
     }
 }

@@ -121,14 +121,15 @@ public class Archivos {
          */
         java.util.ArrayList<String> arrayL_Tests = new java.util.ArrayList();
         String pathTest = "proyectos/" + str_proyecto + "/tests";
-//        carpeta(pathTest);//si la carpeta no existe la creara
 
         if (new java.io.File(pathTest).isDirectory()) {//verifica que sea un directorio 
             java.io.File[] lst_contenido = new java.io.File(pathTest).listFiles();  //Saco su contenido
             for (java.io.File archivo : lst_contenido) {
                 if (expresionRegular(archivo.getName(), ".*.eviutest")) {//los test tienen extension .eviutest
-                    String[] str_nomtest = archivo.getName().split("\\.", 2);
-                    arrayL_Tests.add(str_nomtest[0]);
+                    if(controlador.LeerDatos.validarTest(str_proyecto, archivo.getName())){
+                        String[] str_nomtest = archivo.getName().split("\\.", 2);
+                        arrayL_Tests.add(str_nomtest[0]);
+                    }
                 }
             }
         }
