@@ -14,22 +14,28 @@ import org.json.simple.JSONArray;
 public class JD_crearPT extends javax.swing.JDialog {
 
     private int banderadeCasos = 0;
+    vista.Eviu Eviu;
     private String proyecto;
     private String descripcion;
     private String nomTest;
     private org.json.simple.JSONArray lst_perfil = new org.json.simple.JSONArray();
     private org.json.simple.JSONArray lst_preguntas = new org.json.simple.JSONArray();
-
+    /* contructor por default*/
     public JD_crearPT(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
 
         initComponents();
         this.setLocationRelativeTo(null);
-        
-    }
 
-    public JD_crearPT(java.awt.Frame parent, boolean modal, String proyecto, String descripcion, int banderadeCasos) {
+    }
+    /*
+     Este lo llama el crear desde la barra de menu
+     */
+
+    public JD_crearPT(java.awt.Frame parent, boolean modal, 
+            String proyecto, String descripcion, int banderadeCasos,vista.Eviu Eviu) {
         super(parent, modal);
+        this.Eviu = Eviu;
         this.banderadeCasos = banderadeCasos;
         this.proyecto = proyecto;
         this.descripcion = descripcion;
@@ -39,9 +45,9 @@ public class JD_crearPT extends javax.swing.JDialog {
         if (banderadeCasos == 1) {
             jp_contenedor.add(new JP_perfil(this, banderadeCasos, this.proyecto, this.descripcion));
         }
-        
 
     }
+
     public JD_crearPT(java.awt.Frame parent, boolean modal, String proyecto) {
         //CASO CUATRO
         //crear un nuevo test en un proyecto ya existente.
@@ -50,7 +56,7 @@ public class JD_crearPT extends javax.swing.JDialog {
         this.proyecto = proyecto;
         initComponents();
         this.setLocationRelativeTo(null);
-        
+
         jp_contenedor.add(new JP_miTest(this, banderadeCasos, this.proyecto));
     }
 
@@ -175,19 +181,20 @@ public class JD_crearPT extends javax.swing.JDialog {
          lst_preguntas;
          */
 
-        
         boolean a = controlador.Archivos.crearProyectoCasoUno(
                 proyecto,
                 descripcion,
                 nomTest,
                 lst_perfil,
                 lst_preguntas);
-        if (a){
+        if (a) {
             javax.swing.JOptionPane.showMessageDialog(null, "Proyecto creado exitosamente");
+            Eviu.pintarPanel_ProyectoAbierto(proyecto);
         }
         this.dispose();
     }
-    public void crearCasoCuatro(){
+
+    public void crearCasoCuatro() {
         //CASO CUATRO
         //crear un nuevo test en un proyecto ya existente.
         /*
@@ -196,7 +203,7 @@ public class JD_crearPT extends javax.swing.JDialog {
          lst_preguntas;
          */
         boolean a = controlador.Archivos.crearCasoCuatro(proyecto, nomTest, lst_preguntas);
-        if (a){
+        if (a) {
             javax.swing.JOptionPane.showMessageDialog(null, "Proyecto creado exitosamente");
         }
         this.dispose();

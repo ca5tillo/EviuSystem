@@ -77,6 +77,11 @@ public class JP_perfil extends javax.swing.JPanel {
         });
 
         jb_cancelar.setText("Cancelar");
+        jb_cancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jb_cancelarActionPerformed(evt);
+            }
+        });
 
         jb_añadirCategoria.setText("Añadir otra categoria.");
         jb_añadirCategoria.setEnabled(false);
@@ -218,6 +223,10 @@ public class JP_perfil extends javax.swing.JPanel {
             JD_crearPT.pintarTest();
         }
     }//GEN-LAST:event_jb_aceptarActionPerformed
+
+    private void jb_cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_cancelarActionPerformed
+        JD_crearPT.dispose();
+    }//GEN-LAST:event_jb_cancelarActionPerformed
     
     public void removeItem(int id) {
         /*

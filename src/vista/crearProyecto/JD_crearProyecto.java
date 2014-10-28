@@ -236,7 +236,14 @@ public class JD_crearProyecto extends javax.swing.JDialog {
         */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                final JD_crearPT dialog = new JD_crearPT(new javax.swing.JFrame(), true,nomProyecto,descripcio,1);
+                final JD_crearPT dialog = 
+                        new JD_crearPT(
+                                new javax.swing.JFrame(), 
+                                true,
+                                nomProyecto,
+                                descripcio,
+                                1,
+                                Eviu);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {

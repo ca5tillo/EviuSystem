@@ -5,11 +5,8 @@
         <group>
             <file>file:/home/lp-ub-14/NetBeansProjects/EviuSystem/src/vista/crearProyecto/JP_perfil.java</file>
             <file>file:/home/lp-ub-14/NetBeansProjects/EviuSystem/src/vista/crearProyecto/JD_crearPT.java</file>
-            <file>file:/home/lp-ub-14/NetBeansProjects/EviuSystem/src/vista/Eviu.java</file>
-            <file>file:/home/lp-ub-14/NetBeansProjects/EviuSystem/src/controlador/LeerDatos.java</file>
-            <file>file:/home/lp-ub-14/NetBeansProjects/EviuSystem/src/controlador/Archivos.java</file>
-            <file>file:/home/lp-ub-14/NetBeansProjects/EviuSystem/src/vista/crearProyecto/JP_perfil_Item.java</file>
-            <file>file:/home/lp-ub-14/NetBeansProjects/EviuSystem/src/vista/crearProyecto/JP_perfil_ItemOpcion.java</file>
+            <file>file:/home/lp-ub-14/NetBeansProjects/EviuSystem/src/vista/crearProyecto/JD_crearProyecto.java</file>
+            <file>file:/home/lp-ub-14/NetBeansProjects/EviuSystem/src/vista/crearProyecto/JP_miTest.java</file>
         </group>
     </open-files>
 </project-private>

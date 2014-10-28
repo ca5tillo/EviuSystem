@@ -26,6 +26,6 @@ public class Config {
         return java.awt.Color.MAGENTA;
     }
     public static boolean AES(){
-        return false;
+        return true;
     }
 }

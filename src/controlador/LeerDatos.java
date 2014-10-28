@@ -12,7 +12,13 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 public class LeerDatos {
-
+    private static String modTest(){
+        return "{\"str_padre\":\"proyecto\",\"str_nombreDelTest\":\"testEjemplo\",\"lst_respuestas\":[],\"ID\":\"4db(AP\",\"str_IDpadre\":\"w?]amW\",\"lst_preguntas\":[{\"boolean_seMediraPorTiempo\":true,\"str_pregunta\":\"pregunta 1\",\"str_id\":\"01\",\"str_t2\":\"00:00:08:00\",\"str_t1\":\"00:00:03:01\",\"boolean_EstadoDeAnimo\":true},{\"boolean_seMediraPorTiempo\":true,\"str_pregunta\":\"pregunta 2\",\"str_id\":\"02\",\"str_t2\":\"00:00:06:00\",\"str_t1\":\"00:00:02:01\",\"boolean_EstadoDeAnimo\":false},{\"boolean_seMediraPorTiempo\":false,\"str_pregunta\":\"pregunta 3\",\"str_id\":\"03\",\"str_t2\":\"\",\"str_t1\":\"\",\"boolean_EstadoDeAnimo\":true},{\"boolean_seMediraPorTiempo\":false,\"str_pregunta\":\"pregunta 4\",\"str_id\":\"04\",\"str_t2\":\"\",\"str_t1\":\"\",\"boolean_EstadoDeAnimo\":false}]}";
+    }
+    private static String  modProyecto(){
+        return "{\"str_descripcionDelProyecto\":\"proyecto\",\"lst_perfil\":[{\"categoria\":\"Sexo\",\"opciones\":[\"hombre\",\"mujer\"]},{\"categoria\":\"Edad\",\"opciones\":[\"De 5 a 10\",\"De 10 a 15\",\"De 15 a 20\"]},{\"categoria\":\"Ocupacion\",\"opciones\":[\"estudiante\",\"profesor\",\"desempleado\"]}],\"ID\":\"w?]amW\",\"str_nombreProyecto\":\"proyecto\",\"str_versiones\":\"0\"}";
+    }
+    
     public static java.util.ArrayList<controlador.modelos.Pregunta>
             getPreguntas(String str_nomProyecto, String str_nomTest) {
         /*
@@ -125,8 +131,11 @@ public class LeerDatos {
         String proyecto = "";
         String pantillaProyect = "lib/plantillas/proyecto.eviu";
         org.json.simple.parser.JSONParser parser = new org.json.simple.parser.JSONParser();
-
-        String str_ = Archivos.Leer_Archivo(pantillaProyect);// leeo el Archivo 
+            
+        String str_= modProyecto();
+                    
+                    
+//        String str_ = Archivos.Leer_Archivo(pantillaProyect);// leeo el Archivo 
 //        if (vista.Config.AES()) {
 //            str_ = AES.decrypt(str_);
 //        }
@@ -156,7 +165,8 @@ public class LeerDatos {
         String pantillaProyect = "lib/plantillas/testEjemplo.eviutest";
         org.json.simple.parser.JSONParser parser = new org.json.simple.parser.JSONParser();
 
-        String str_ = Archivos.Leer_Archivo(pantillaProyect);// leeo el Archivo 
+        String str_ =  modTest();
+//        String str_ = Archivos.Leer_Archivo(pantillaProyect);// leeo el Archivo 
 //        if (vista.Config.AES()) {
 //            str_ = AES.decrypt(str_);
 //        }
@@ -188,7 +198,9 @@ public class LeerDatos {
         String proyecto = "";
         String pantillaProyect = "lib/plantillas/proyecto.eviu";
         org.json.simple.parser.JSONParser parser = new org.json.simple.parser.JSONParser();
-        String str_ = Archivos.Leer_Archivo(pantillaProyect);// leeo el Archivo 
+        
+        String str_= modProyecto();
+//        String str_ = Archivos.Leer_Archivo(pantillaProyect);// leeo el Archivo 
 //        if (vista.Config.AES()) {
 //            str_ = AES.decrypt(str_);
 //        }
@@ -221,7 +233,8 @@ public class LeerDatos {
         String pantillaProyect = "lib/plantillas/testEjemplo.eviutest";
         org.json.simple.parser.JSONParser parser = new org.json.simple.parser.JSONParser();
 
-        String str_ = Archivos.Leer_Archivo(pantillaProyect);// leeo el Archivo 
+        String str_ =  modTest();
+//        String str_ = Archivos.Leer_Archivo(pantillaProyect);// leeo el Archivo 
 //        if (vista.Config.AES()) {
 //            str_ = AES.decrypt(str_);
 //        }
