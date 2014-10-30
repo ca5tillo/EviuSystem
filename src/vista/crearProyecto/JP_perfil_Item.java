@@ -87,13 +87,26 @@ public class JP_perfil_Item extends javax.swing.JPanel {
 
     private void jl_eliminarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jl_eliminarMouseClicked
         //botecito de basura
-        JP_perfil.removeItem(id);
+        Object[] opciones = {"Aceptar", "Cancelar"};
+        int eleccion = javax.swing.JOptionPane.showOptionDialog(this,
+                "Realmente desea Eliminar la Categoria "+categoria,
+                "Mensaje de Confirmacion",
+                javax.swing.JOptionPane.YES_NO_OPTION,
+                javax.swing.JOptionPane.QUESTION_MESSAGE, null, opciones, "Aceptar");
+        if (eleccion == javax.swing.JOptionPane.YES_OPTION) {
+            JP_perfil.removeItem(id);
+        }
     }//GEN-LAST:event_jl_eliminarMouseClicked
     
     private void jl_editarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jl_editarMouseClicked
         //Editar esta categoria
-        JP_perfil.editarCategorial(id);
-        
+        if(JP_perfil.getBandera()){
+            javax.swing.JOptionPane.showMessageDialog(null, "No de puede editar porque seleccionaste\n"
+                    + "Añadir Categoria");
+        }else{
+            javax.swing.JOptionPane.showMessageDialog(null, "Seleccionaste Editar "+categoria);
+            JP_perfil.editarCategorial(id);
+        }
     }//GEN-LAST:event_jl_editarMouseClicked
     
     public void addOpcion(String opcion){

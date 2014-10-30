@@ -1,21 +1,10 @@
-/*
-Existen casos
 
-* Crear proyecto con nuevo perfil y nuevo test. CASO UNO
-* Crear proyecto con plantilla perfil y nuevo test
-* Crear proyecto con nuevo perfil y plantilla test
-
-* crear un nuevo test en un proyecto ya existente.
-*/
 package vista.crearProyecto;
 
 import java.util.Map;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author lp-ub-14
- */
+
 public class JP_perfil extends javax.swing.JPanel {
 
     private String categoria = "";
@@ -168,7 +157,7 @@ public class JP_perfil extends javax.swing.JPanel {
 
     private void jb_aceptarOpcionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_aceptarOpcionActionPerformed
         boolean continuar = true;
-        if (bandera) {
+        if (bandera) {//nueva categoria
             categoria = jtf_categoria.getText();
             if (!categoria.equals("")) {
                 //validar que no este repetido
@@ -211,6 +200,7 @@ public class JP_perfil extends javax.swing.JPanel {
     }//GEN-LAST:event_jb_aceptarOpcionActionPerformed
 
     private void jb_añadirCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_añadirCategoriaActionPerformed
+        jb_añadirCategoria.setEnabled(false);
         crearCategoria();
     }//GEN-LAST:event_jb_añadirCategoriaActionPerformed
 
@@ -279,7 +269,9 @@ public class JP_perfil extends javax.swing.JPanel {
         editando=false;
         jtf_opcion.setText("");
     }
-    
+    public boolean getBandera(){
+        return bandera;
+    }
     private boolean noExisteCategoria(String categoria) {
         boolean a = true;
         java.util.Iterator it = map_categorias.keySet().iterator();
