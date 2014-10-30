@@ -5,6 +5,7 @@
  */
 package vista.abrirProyecto;
 
+import controlador.modelos.Categoria;
 import controlador.modelosRespuestas.Obj_respuestas;
 import controlador.modelosRespuestas.Perfil;
 import controlador.modelosRespuestas.Respuestas;
@@ -230,7 +231,7 @@ public final class JP_proyectoAbierto extends javax.swing.JPanel {
     }//GEN-LAST:event_jb_cancelarActionPerformed
 
     private void jb_abrirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_abrirActionPerformed
-        Eviu.bloquearVentanaPrincipal();
+        
         vista.perfil.JD_perfil.main(Eviu, str_nomProyecto);
         Eviu.pintarPanel_test(str_nomProyecto, str_nomTest);
     }//GEN-LAST:event_jb_abrirActionPerformed
@@ -242,10 +243,10 @@ public final class JP_proyectoAbierto extends javax.swing.JPanel {
     }//GEN-LAST:event_jb_crearReporteActionPerformed
 
     private void jb_verAvancesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_verAvancesActionPerformed
-        respuestas();
-  
+//        respuestas();
+        grafia();
     }//GEN-LAST:event_jb_verAvancesActionPerformed
-    
+
     private void respuestas() {
         ArrayList<Obj_respuestas> getRespuestas
                 = controlador.LeerDatos.getRespuestas(str_nomProyecto, str_nomTest);
@@ -285,7 +286,52 @@ public final class JP_proyectoAbierto extends javax.swing.JPanel {
         }
         controlador.Archivos.reporte(ss);
     }
-    
+
+    private void grafia() {
+        JFreeChart Grafica;
+        DefaultCategoryDataset Datos = new DefaultCategoryDataset();
+        
+        /*CREO LA BASE DE LA GRAFICA*/
+        java.util.ArrayList<controlador.modelos.Categoria> perfil = new java.util.ArrayList();
+        perfil = controlador.LeerDatos.getPerfil(str_nomProyecto);
+        for (Categoria cat : perfil) {
+            String categoria = cat.getCategoria();
+            java.util.ArrayList<String> opciones = cat.getOpciones();
+            for (String opcion : opciones) {
+                Datos.addValue(0, categoria, opcion);
+            }
+        }
+        /* FIN DE CREO LA BASE DE LA GRAFICA*/
+        
+        /* INCREMENTO LOS VALORES */
+        /*TIENES QUE SELECCINAR UN TEST PARA QUE str_nomTest TENGA UN VALOR */
+        ArrayList<Obj_respuestas> getRespuestas
+                = controlador.LeerDatos.getRespuestas(str_nomProyecto, str_nomTest);
+        for (Obj_respuestas a : getRespuestas) {
+            
+            java.util.ArrayList<controlador.modelosRespuestas.Perfil> 
+                    lst_perfil = a.getPerfil();
+
+            for (Perfil perfil1 : lst_perfil) {
+                String categoria = perfil1.getCategoria();
+                String opcion = perfil1.getOpcion();
+                
+                Datos.incrementValue(1, categoria, opcion);
+            }
+        }
+
+        Grafica = ChartFactory.createBarChart("Grafica del Perfiles",
+                "Opciones", "Número", Datos,
+                PlotOrientation.VERTICAL, true, true, false);
+
+        ChartPanel Panel = new ChartPanel(Grafica);
+        JFrame Ventana = new JFrame("JFreeChart");
+        Ventana.getContentPane().add(Panel);
+        Ventana.pack();
+        Ventana.setVisible(true);
+        Ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    }
+
     private void jb_nuevoTestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_nuevoTestActionPerformed
 
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -321,7 +367,7 @@ public final class JP_proyectoAbierto extends javax.swing.JPanel {
     private void jmiPop_eliminarProyectoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmiPop_eliminarProyectoActionPerformed
         eliminarProyecto();
     }//GEN-LAST:event_jmiPop_eliminarProyectoActionPerformed
-    
+
     public void eliminarProyecto() {
         Object[] opciones = {"Aceptar", "Cancelar"};
         int eleccion = javax.swing.JOptionPane.showOptionDialog(this,
