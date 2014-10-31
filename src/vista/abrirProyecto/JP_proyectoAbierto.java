@@ -253,13 +253,95 @@ public final class JP_proyectoAbierto extends javax.swing.JPanel {
         /*
          Codigo de Rafa
          */
+        crearreporte();
     }//GEN-LAST:event_jb_crearReporteActionPerformed
 
     private void jb_verAvancesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_verAvancesActionPerformed
 //        respuestas();
         grafia();
     }//GEN-LAST:event_jb_verAvancesActionPerformed
+    
+    private void crearreporte(){
+        try{
+        Document documento = new Document();
 
+        FileOutputStream ficheroPdf = new FileOutputStream("fichero.pdf");
+
+        PdfWriter.getInstance(documento, ficheroPdf).setInitialLeading(20);
+
+// Se abre el documento.
+        documento.open();
+        documento.add(new Paragraph("Reporte del Proyecto "+str_nomProyecto,
+                FontFactory.getFont("arial", // fuente
+                        26, // tamaño
+                        Font.BOLD, // estilo
+                        BaseColor.BLACK)));  
+        documento.add(new Paragraph("\n\nDescripción:"));
+        documento.add(new Paragraph(""+controlador.LeerDatos.getDescripcionProyecto(str_nomProyecto)));
+        documento.add(new Paragraph("\n\n"));
+        documento.add(new Paragraph("Este proyecto con tiene los siguientes Test:\n"));
+        String Tests="";
+        
+        java.util.ArrayList<String> lst_Tests = controlador.Archivos.getTests(str_nomProyecto);
+        for (String test : lst_Tests) {
+            int numRegistros=0;
+            ArrayList<Obj_respuestas> getRespuestas
+                = controlador.LeerDatos.getRespuestas(str_nomProyecto, test);
+            for (Obj_respuestas obj_respuestas : getRespuestas) {
+                java.util.ArrayList<controlador.modelosRespuestas.Respuestas> 
+                    respuestas = obj_respuestas.getRespuestas();
+                numRegistros=respuestas.size();
+            }
+            Tests += "* "+test+"  (Se realizo "+numRegistros+" veces)\n";
+            
+        }
+        
+        documento.add(new Paragraph(Tests));
+        documento.add(new Paragraph("\n\n"));
+        documento.add(new Paragraph("Este proyecto tine definido el siguiente Opcion de Perfil\n\n"));
+        
+        /*CREO LA BASE DE LA GRAFICA*/
+        String pdf_perfil= "";
+        java.util.ArrayList<controlador.modelos.Categoria> perfil = new java.util.ArrayList();
+        perfil = controlador.LeerDatos.getPerfil(str_nomProyecto);
+        for (Categoria cat : perfil) {
+            String pdf_categoria = cat.getCategoria();
+            java.util.ArrayList<String> opciones = cat.getOpciones();
+            String pdf_opciones="";
+            for (String opcion : opciones) {
+                pdf_opciones += "\t* "+opcion+"\n";
+            }
+            pdf_perfil+=pdf_categoria+"\n"+pdf_opciones+"\n";
+        }
+        documento.add(new Paragraph(pdf_perfil));
+        
+        /* FIN DE CREO LA BASE DE LA GRAFICA*/
+        documento.add(new Paragraph("\n\n\nPrueba de insertar grafica de perfil se tuvo que haver seleccinado un test "));
+        documento.add(new Paragraph("\n"));
+        
+        String path = grafia();
+        try {
+            
+            Image foto = Image.getInstance(path);
+            foto.scaleToFit(100, 100);
+            foto.setAlignment(Chunk.ALIGN_MIDDLE);
+            documento.add(foto);
+            
+            
+        } catch (DocumentException | IOException e) {
+        }
+        
+        documento.add(new Paragraph("hola parrafo de prueba "));
+        
+        documento.close();
+        //eliminar la imagen
+            java.io.File fichero = new java.io.File(path);
+            fichero.delete();
+        }catch(FileNotFoundException | DocumentException e){
+            System.out.println("error al crear reporte ");
+        }
+    }
+    
     private void respuestas() {
         ArrayList<Obj_respuestas> getRespuestas
                 = controlador.LeerDatos.getRespuestas(str_nomProyecto, str_nomTest);
@@ -273,7 +355,8 @@ public final class JP_proyectoAbierto extends javax.swing.JPanel {
             ss += "\n\t tiempodeencuesta: " + tiempodeencuesta;
             java.util.ArrayList<controlador.modelosRespuestas.Perfil> perfil = a.getPerfil();
 
-            java.util.ArrayList<controlador.modelosRespuestas.Respuestas> respuestas = a.getRespuestas();
+            java.util.ArrayList<controlador.modelosRespuestas.Respuestas> 
+                    respuestas = a.getRespuestas();
             ss += "\n\t\t-----PERFIL-----";
             for (Perfil perfil1 : perfil) {
                 String categoria = perfil1.getCategoria();
@@ -300,7 +383,8 @@ public final class JP_proyectoAbierto extends javax.swing.JPanel {
         controlador.Archivos.reporte(ss);
     }
 
-    private void grafia() {
+    private String grafia() {
+        String path = "ImagenGuardada.jpg";
         JFreeChart Grafica;
         DefaultCategoryDataset Datos = new DefaultCategoryDataset();
 
@@ -337,17 +421,18 @@ public final class JP_proyectoAbierto extends javax.swing.JPanel {
                 PlotOrientation.VERTICAL, true, true, false);
 
         ChartPanel Panel = new ChartPanel(Grafica);
-        JFrame Ventana = new JFrame("JFreeChart");
-        Ventana.getContentPane().add(Panel);
-        Ventana.pack();
-        Ventana.setVisible(true);
-        Ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//        JFrame Ventana = new JFrame("JFreeChart");
+//        Ventana.getContentPane().add(Panel);
+//        Ventana.pack();
+//        Ventana.setVisible(true);
+//        Ventana.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
         try {
-            org.jfree.chart.ChartUtilities.saveChartAsJPEG(new java.io.File("ImagenGuardada.jpg"), Grafica, Panel.getWidth(), Panel.getHeight());
+            org.jfree.chart.ChartUtilities.saveChartAsJPEG(new java.io.File(path), Grafica, 500, 500);
         } catch (java.io.IOException ex) {
             javax.swing.JOptionPane.showMessageDialog(this, "Se ha producido un error al intentar guardar", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
         }
+        return path;
     }
 
     private void pdf() throws FileNotFoundException, DocumentException {
