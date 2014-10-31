@@ -18,7 +18,7 @@ public class Eviu extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
         this.setTitle("Eviu");
-        contenPane.add(new JP_inicio());
+        contenPane.add(new JP_inicio(this));
     }
 
     @SuppressWarnings("unchecked")
@@ -31,8 +31,9 @@ public class Eviu extends javax.swing.JFrame {
         jmi_nuevoProyecto = new javax.swing.JMenuItem();
         jmi_importarRespuestas = new javax.swing.JMenuItem();
         jmi_salir = new javax.swing.JMenuItem();
-        jm_editar = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
+        jm_ayuda = new javax.swing.JMenu();
+        jMenuItem2 = new javax.swing.JMenuItem();
+        jmi_ayuda_acercade = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -77,17 +78,20 @@ public class Eviu extends javax.swing.JFrame {
 
         jmb_barra.add(jm_archivo);
 
-        jm_editar.setText("Editar");
+        jm_ayuda.setText("Ayuda");
 
-        jMenuItem1.setText("jMenuItem1");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+        jMenuItem2.setText("Ver Guia");
+        jm_ayuda.add(jMenuItem2);
+
+        jmi_ayuda_acercade.setText("Acerda De...");
+        jmi_ayuda_acercade.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
+                jmi_ayuda_acercadeActionPerformed(evt);
             }
         });
-        jm_editar.add(jMenuItem1);
+        jm_ayuda.add(jmi_ayuda_acercade);
 
-        jmb_barra.add(jm_editar);
+        jmb_barra.add(jm_ayuda);
 
         setJMenuBar(jmb_barra);
 
@@ -106,6 +110,10 @@ public class Eviu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jmi_abrirProyectoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmi_abrirProyectoActionPerformed
+        jmi_abrirProyectoActionPerformed();
+    }//GEN-LAST:event_jmi_abrirProyectoActionPerformed
+
+    public  void jmi_abrirProyectoActionPerformed() {                                                  
         java.util.ArrayList<String> str_array_proyectos = controlador.Archivos.getProyectos();
         if(str_array_proyectos.isEmpty()){
             Object[] opciones = {"Aceptar","Cancelar"};
@@ -115,7 +123,7 @@ public class Eviu extends javax.swing.JFrame {
                     javax.swing.JOptionPane.YES_NO_OPTION,
                     javax.swing.JOptionPane.QUESTION_MESSAGE,null,opciones,"Aceptar");
             if(seleccion == javax.swing.JOptionPane.YES_OPTION){
-                jmi_nuevoProyectoActionPerformed(evt);
+                jmi_nuevoProyectoActionPerformed();
             }
         }else{
             final vista.abrirProyecto.JD_abrirProyecto dialog
@@ -129,9 +137,13 @@ public class Eviu extends javax.swing.JFrame {
             });
             dialog.setVisible(true);
         }
-    }//GEN-LAST:event_jmi_abrirProyectoActionPerformed
-
+    }
+    
     private void jmi_nuevoProyectoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmi_nuevoProyectoActionPerformed
+        jmi_nuevoProyectoActionPerformed();
+    }//GEN-LAST:event_jmi_nuevoProyectoActionPerformed
+    
+    public void jmi_nuevoProyectoActionPerformed(){
         final vista.crearProyecto.JD_crearProyecto dialog = new vista.crearProyecto.JD_crearProyecto(this, true);
         dialog.addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
@@ -140,11 +152,19 @@ public class Eviu extends javax.swing.JFrame {
             }
         });
         dialog.setVisible(true);
-    }//GEN-LAST:event_jmi_nuevoProyectoActionPerformed
-
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        javax.swing.JOptionPane.showMessageDialog(null, "nose");
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
+    }
+    
+    private void jmi_ayuda_acercadeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmi_ayuda_acercadeActionPerformed
+        
+                final JD_acercade dialog = new JD_acercade(this, true);
+                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                    @Override
+                    public void windowClosing(java.awt.event.WindowEvent e) {
+                        dialog.dispose();
+                    }
+                });
+                dialog.setVisible(true);
+    }//GEN-LAST:event_jmi_ayuda_acercadeActionPerformed
 
     private void jmi_salirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmi_salirActionPerformed
         // TODO add your handling code here:
@@ -157,6 +177,10 @@ public class Eviu extends javax.swing.JFrame {
     }//GEN-LAST:event_windowClosing
 
     private void jmi_importarRespuestasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmi_importarRespuestasActionPerformed
+        jmi_importarRespuestasActionPerformed();
+    }//GEN-LAST:event_jmi_importarRespuestasActionPerformed
+
+    public void jmi_importarRespuestasActionPerformed() {                                                       
         class Filtro extends javax.swing.filechooser.FileFilter {
 
             @Override
@@ -209,8 +233,8 @@ public class Eviu extends javax.swing.JFrame {
             }
         }
 
-    }//GEN-LAST:event_jmi_importarRespuestasActionPerformed
-
+    }        
+    
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -245,11 +269,12 @@ public class Eviu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenu jm_archivo;
-    private javax.swing.JMenu jm_editar;
+    private javax.swing.JMenu jm_ayuda;
     private javax.swing.JMenuBar jmb_barra;
     private javax.swing.JMenuItem jmi_abrirProyecto;
+    private javax.swing.JMenuItem jmi_ayuda_acercade;
     private javax.swing.JMenuItem jmi_importarRespuestas;
     private javax.swing.JMenuItem jmi_nuevoProyecto;
     private javax.swing.JMenuItem jmi_salir;
@@ -260,7 +285,7 @@ public class Eviu extends javax.swing.JFrame {
         contenPane.removeAll();
         contenPane.repaint();
         // Pintar pantalla de inicio
-        JP_inicio JP_inicio = new JP_inicio();
+        JP_inicio JP_inicio = new JP_inicio(this);
         contenPane.add(JP_inicio);
         JP_inicio.updateUI();
 

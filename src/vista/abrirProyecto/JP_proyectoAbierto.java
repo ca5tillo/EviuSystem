@@ -5,10 +5,23 @@
  */
 package vista.abrirProyecto;
 
+import com.itextpdf.text.BaseColor;
+import com.itextpdf.text.Chunk;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.FontFactory;
+import com.itextpdf.text.Image;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
 import controlador.modelos.Categoria;
 import controlador.modelosRespuestas.Obj_respuestas;
 import controlador.modelosRespuestas.Perfil;
 import controlador.modelosRespuestas.Respuestas;
+import java.awt.Font;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import javax.swing.JFrame;
 import org.jfree.chart.ChartFactory;
@@ -231,7 +244,7 @@ public final class JP_proyectoAbierto extends javax.swing.JPanel {
     }//GEN-LAST:event_jb_cancelarActionPerformed
 
     private void jb_abrirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_abrirActionPerformed
-        
+
         vista.perfil.JD_perfil.main(Eviu, str_nomProyecto);
         Eviu.pintarPanel_test(str_nomProyecto, str_nomTest);
     }//GEN-LAST:event_jb_abrirActionPerformed
@@ -290,7 +303,7 @@ public final class JP_proyectoAbierto extends javax.swing.JPanel {
     private void grafia() {
         JFreeChart Grafica;
         DefaultCategoryDataset Datos = new DefaultCategoryDataset();
-        
+
         /*CREO LA BASE DE LA GRAFICA*/
         java.util.ArrayList<controlador.modelos.Categoria> perfil = new java.util.ArrayList();
         perfil = controlador.LeerDatos.getPerfil(str_nomProyecto);
@@ -302,20 +315,19 @@ public final class JP_proyectoAbierto extends javax.swing.JPanel {
             }
         }
         /* FIN DE CREO LA BASE DE LA GRAFICA*/
-        
+
         /* INCREMENTO LOS VALORES */
         /*TIENES QUE SELECCINAR UN TEST PARA QUE str_nomTest TENGA UN VALOR */
         ArrayList<Obj_respuestas> getRespuestas
                 = controlador.LeerDatos.getRespuestas(str_nomProyecto, str_nomTest);
         for (Obj_respuestas a : getRespuestas) {
-            
-            java.util.ArrayList<controlador.modelosRespuestas.Perfil> 
-                    lst_perfil = a.getPerfil();
+
+            java.util.ArrayList<controlador.modelosRespuestas.Perfil> lst_perfil = a.getPerfil();
 
             for (Perfil perfil1 : lst_perfil) {
                 String categoria = perfil1.getCategoria();
                 String opcion = perfil1.getOpcion();
-                
+
                 Datos.incrementValue(1, categoria, opcion);
             }
         }
@@ -330,6 +342,49 @@ public final class JP_proyectoAbierto extends javax.swing.JPanel {
         Ventana.pack();
         Ventana.setVisible(true);
         Ventana.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        try {
+            org.jfree.chart.ChartUtilities.saveChartAsJPEG(new java.io.File("ImagenGuardada.jpg"), Grafica, Panel.getWidth(), Panel.getHeight());
+        } catch (java.io.IOException ex) {
+            javax.swing.JOptionPane.showMessageDialog(this, "Se ha producido un error al intentar guardar", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    private void pdf() throws FileNotFoundException, DocumentException {
+        Document documento = new Document();
+
+// Se crea el OutputStream para el fichero donde queremos dejar el pdf.
+        FileOutputStream ficheroPdf = new FileOutputStream("fichero.pdf");
+
+// Se asocia el documento al OutputStream y se indica que el espaciado entre
+// lineas sera de 20. Esta llamada debe hacerse antes de abrir el documento
+        PdfWriter.getInstance(documento, ficheroPdf).setInitialLeading(20);
+
+// Se abre el documento.
+        documento.open();
+
+        documento.add(new Paragraph("Esto es el primer párrafo, normalito"));
+
+        documento.add(new Paragraph("Este es el segundo y tiene una fuente rara",
+                FontFactory.getFont("arial", // fuente
+                        22, // tamaño
+                        Font.ITALIC, // estilo
+                        BaseColor.CYAN)));             // color
+
+        try {
+            Image foto = Image.getInstance("ImagenGuardada.jpg");
+            foto.scaleToFit(500, 500);
+            foto.setAlignment(Chunk.ALIGN_MIDDLE);
+            documento.add(foto);
+        } catch (DocumentException | IOException e) {
+        }
+
+        PdfPTable tabla = new PdfPTable(3);
+        for (int i = 0; i < 15; i++) {
+            tabla.addCell("celda " + i);
+        }
+        documento.add(tabla);
+        documento.close();
     }
 
     private void jb_nuevoTestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_nuevoTestActionPerformed
@@ -445,4 +500,8 @@ public final class JP_proyectoAbierto extends javax.swing.JPanel {
         return str_nomProyecto;
     }
 
+    public static void main(String[] args) throws FileNotFoundException, DocumentException {
+        JP_proyectoAbierto a = new JP_proyectoAbierto("", null);
+        a.pdf();
+    }
 }
