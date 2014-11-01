@@ -210,7 +210,7 @@ public class Eviu extends javax.swing.JFrame {
             }
         }
         javax.swing.JFileChooser selector = new javax.swing.JFileChooser();
-        selector.setAcceptAllFileFilterUsed(false);//que en opciones no apraresca todos los archivos
+        selector.setAcceptAllFileFilterUsed(false);//que en opciones, no apraresca todos los archivos
         selector.setFileFilter(new Filtro());
 
         int value = selector.showOpenDialog(null);

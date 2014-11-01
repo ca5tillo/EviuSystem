@@ -62,7 +62,7 @@ public class Archivos {
         return b;
     }
 
-    private static boolean expresionRegular(String dato, String expRegular) {
+    public static boolean expresionRegular(String dato, String expRegular) {
         boolean a = false;
         java.util.regex.Pattern pat = java.util.regex.Pattern.compile(expRegular);
         java.util.regex.Matcher mat = pat.matcher(dato);

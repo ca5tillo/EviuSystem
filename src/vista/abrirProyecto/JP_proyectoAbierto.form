@@ -18,6 +18,8 @@
         </MenuItem>
       </SubComponents>
     </Container>
+    <Component class="javax.swing.JProgressBar" name="jProgressBar1">
+    </Component>
   </NonVisualComponents>
   <AuxValues>
     <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
@@ -41,10 +43,11 @@
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Component id="jLabel1" pref="166" max="32767" attributes="0"/>
                           <Component id="jl_nVersion" pref="166" max="32767" attributes="0"/>
-                          <Group type="103" alignment="0" groupAlignment="1" attributes="0">
-                              <Component id="jb_nuevoTest" min="-2" pref="152" max="-2" attributes="0"/>
-                              <Component id="jb_verAvances" min="-2" pref="152" max="-2" attributes="0"/>
-                              <Component id="jb_crearReporte" alignment="1" min="-2" pref="152" max="-2" attributes="0"/>
+                          <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
+                              <Component id="jb_nuevoTest" alignment="0" pref="152" max="32767" attributes="0"/>
+                              <Component id="jb_verAvances" alignment="0" pref="152" max="32767" attributes="0"/>
+                              <Component id="jb_crearReporte" alignment="0" pref="152" max="32767" attributes="0"/>
+                              <Component id="jb_reporteRapido" alignment="0" max="32767" attributes="0"/>
                           </Group>
                           <Component id="jb_nuevaVersion" alignment="0" max="32767" attributes="0"/>
                       </Group>
@@ -85,7 +88,9 @@
                       <Component id="jb_verAvances" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="jb_crearReporte" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="123" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="jb_reporteRapido" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="75" max="-2" attributes="0"/>
                       <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jl_nVersion" min="-2" max="-2" attributes="0"/>
@@ -295,6 +300,14 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jb_eliminarProyectoActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="jb_reporteRapido">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Reporte Rapido"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jb_reporteRapidoActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>

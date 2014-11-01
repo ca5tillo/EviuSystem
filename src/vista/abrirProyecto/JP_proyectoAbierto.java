@@ -18,11 +18,13 @@ import controlador.modelos.Categoria;
 import controlador.modelosRespuestas.Obj_respuestas;
 import controlador.modelosRespuestas.Perfil;
 import controlador.modelosRespuestas.Respuestas;
+import controlador.reporteRapido.Reporte;
 import java.awt.Font;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
@@ -59,6 +61,7 @@ public final class JP_proyectoAbierto extends javax.swing.JPanel {
 
         jPopupMenu1 = new javax.swing.JPopupMenu();
         jmiPop_eliminarProyecto = new javax.swing.JMenuItem();
+        jProgressBar1 = new javax.swing.JProgressBar();
         jl_nomProyecto = new javax.swing.JLabel();
         jl_subtitulo = new javax.swing.JLabel();
         jb_abrir = new javax.swing.JButton();
@@ -73,6 +76,7 @@ public final class JP_proyectoAbierto extends javax.swing.JPanel {
         jPanel1 = new javax.swing.JPanel();
         jp_contenedor = new javax.swing.JPanel();
         jb_eliminarProyecto = new javax.swing.JButton();
+        jb_reporteRapido = new javax.swing.JButton();
 
         jmiPop_eliminarProyecto.setText("Eliminar Proyecto");
         jmiPop_eliminarProyecto.addActionListener(new java.awt.event.ActionListener() {
@@ -170,6 +174,13 @@ public final class JP_proyectoAbierto extends javax.swing.JPanel {
             }
         });
 
+        jb_reporteRapido.setText("Reporte Rapido");
+        jb_reporteRapido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jb_reporteRapidoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -181,10 +192,11 @@ public final class JP_proyectoAbierto extends javax.swing.JPanel {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE)
                             .addComponent(jl_nVersion, javax.swing.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE)
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(jb_nuevoTest, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jb_verAvances, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jb_crearReporte, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(jb_nuevoTest, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 152, Short.MAX_VALUE)
+                                .addComponent(jb_verAvances, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 152, Short.MAX_VALUE)
+                                .addComponent(jb_crearReporte, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 152, Short.MAX_VALUE)
+                                .addComponent(jb_reporteRapido, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addComponent(jb_nuevaVersion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -216,7 +228,9 @@ public final class JP_proyectoAbierto extends javax.swing.JPanel {
                         .addComponent(jb_verAvances)
                         .addGap(18, 18, 18)
                         .addComponent(jb_crearReporte)
-                        .addGap(123, 123, 123)
+                        .addGap(18, 18, 18)
+                        .addComponent(jb_reporteRapido)
+                        .addGap(75, 75, 75)
                         .addComponent(jLabel1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jl_nVersion)
@@ -253,12 +267,11 @@ public final class JP_proyectoAbierto extends javax.swing.JPanel {
         /*
          Codigo de Rafa
          */
-        crearreporte();
+        
     }//GEN-LAST:event_jb_crearReporteActionPerformed
 
     private void jb_verAvancesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_verAvancesActionPerformed
 //        respuestas();
-        grafia();
     }//GEN-LAST:event_jb_verAvancesActionPerformed
     
     private void crearreporte(){
@@ -508,6 +521,51 @@ public final class JP_proyectoAbierto extends javax.swing.JPanel {
         eliminarProyecto();
     }//GEN-LAST:event_jmiPop_eliminarProyectoActionPerformed
 
+    private void jb_reporteRapidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_reporteRapidoActionPerformed
+        class Filtro extends javax.swing.filechooser.FileFilter {
+
+            @Override
+            public boolean accept(java.io.File f) {
+                if (f.isDirectory()) {
+                    return true;
+                }
+                String s = f.getName();
+                int i = s.lastIndexOf('.');
+
+                if (i > 0 && i < s.length() - 1) {
+//                    if (s.substring(i + 1).toLowerCase().equals("eviu")
+//                            || s.substring(i + 1).toLowerCase().equals("eviutest")) {
+//                        return true;
+//                    }
+                    if (s.substring(i + 1).toLowerCase().equalsIgnoreCase("pdf")) {
+                        return true;
+                    }
+                }
+
+                return false;
+            }
+
+            @Override
+            public String getDescription() {
+                return "Guardar en pdf";
+            }
+        }
+        
+        javax.swing.JFileChooser selector = new javax.swing.JFileChooser(".");
+        selector.setAcceptAllFileFilterUsed(false);//que en opciones, no apraresca todos los archivos
+        selector.setFileFilter(new Filtro());
+        
+        int value = selector.showSaveDialog(null);
+        if (value == JFileChooser.APPROVE_OPTION) {
+            java.io.File archivoSeleccionado = selector.getSelectedFile();
+            String nombre = archivoSeleccionado.getName();
+            String direccion = archivoSeleccionado.getParent();
+//            System.out.println(direccion );
+            Reporte reporte = new controlador.reporteRapido.Reporte(
+                    Eviu,str_nomProyecto,nombre,direccion);
+        }
+    }//GEN-LAST:event_jb_reporteRapidoActionPerformed
+
     public void eliminarProyecto() {
         Object[] opciones = {"Aceptar", "Cancelar"};
         int eleccion = javax.swing.JOptionPane.showOptionDialog(this,
@@ -532,6 +590,7 @@ public final class JP_proyectoAbierto extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPopupMenu jPopupMenu1;
+    private javax.swing.JProgressBar jProgressBar1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton jb_abrir;
     private javax.swing.JButton jb_cancelar;
@@ -539,6 +598,7 @@ public final class JP_proyectoAbierto extends javax.swing.JPanel {
     private javax.swing.JButton jb_eliminarProyecto;
     private javax.swing.JButton jb_nuevaVersion;
     private javax.swing.JButton jb_nuevoTest;
+    private javax.swing.JButton jb_reporteRapido;
     private javax.swing.JButton jb_verAvances;
     private javax.swing.JLabel jl_nVersion;
     private javax.swing.JLabel jl_nomProyecto;
