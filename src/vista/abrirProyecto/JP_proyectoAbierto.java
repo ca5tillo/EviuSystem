@@ -267,11 +267,14 @@ public final class JP_proyectoAbierto extends javax.swing.JPanel {
         /*
          Codigo de Rafa
          */
-        
+        javax.swing.JOptionPane.showMessageDialog(null,"Seccion en Construccion");
     }//GEN-LAST:event_jb_crearReporteActionPerformed
 
     private void jb_verAvancesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_verAvancesActionPerformed
-//        respuestas();
+        /*
+         Codigo de Dani
+         */
+        javax.swing.JOptionPane.showMessageDialog(null,"Seccion en Construccion");
     }//GEN-LAST:event_jb_verAvancesActionPerformed
     
     private void crearreporte(){
@@ -533,10 +536,6 @@ public final class JP_proyectoAbierto extends javax.swing.JPanel {
                 int i = s.lastIndexOf('.');
 
                 if (i > 0 && i < s.length() - 1) {
-//                    if (s.substring(i + 1).toLowerCase().equals("eviu")
-//                            || s.substring(i + 1).toLowerCase().equals("eviutest")) {
-//                        return true;
-//                    }
                     if (s.substring(i + 1).toLowerCase().equalsIgnoreCase("pdf")) {
                         return true;
                     }
@@ -649,4 +648,5 @@ public final class JP_proyectoAbierto extends javax.swing.JPanel {
         JP_proyectoAbierto a = new JP_proyectoAbierto("", null);
         a.pdf();
     }
+
 }
