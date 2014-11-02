@@ -5,32 +5,12 @@
  */
 package vista.abrirProyecto;
 
-import com.itextpdf.text.BaseColor;
-import com.itextpdf.text.Chunk;
-import com.itextpdf.text.Document;
-import com.itextpdf.text.DocumentException;
-import com.itextpdf.text.FontFactory;
-import com.itextpdf.text.Image;
-import com.itextpdf.text.Paragraph;
-import com.itextpdf.text.pdf.PdfPTable;
-import com.itextpdf.text.pdf.PdfWriter;
-import controlador.modelos.Categoria;
 import controlador.modelosRespuestas.Obj_respuestas;
 import controlador.modelosRespuestas.Perfil;
 import controlador.modelosRespuestas.Respuestas;
 import controlador.reporteRapido.Reporte;
-import java.awt.Font;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.util.ArrayList;
 import javax.swing.JFileChooser;
-import javax.swing.JFrame;
-import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartPanel;
-import org.jfree.chart.JFreeChart;
-import org.jfree.chart.plot.PlotOrientation;
-import org.jfree.data.category.DefaultCategoryDataset;
 
 public final class JP_proyectoAbierto extends javax.swing.JPanel {
 
@@ -267,227 +247,61 @@ public final class JP_proyectoAbierto extends javax.swing.JPanel {
         /*
          Codigo de Rafa
          */
-        javax.swing.JOptionPane.showMessageDialog(null,"Seccion en Construccion");
+        javax.swing.JOptionPane.showMessageDialog(null, "Seccion en Construccion");
     }//GEN-LAST:event_jb_crearReporteActionPerformed
 
     private void jb_verAvancesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_verAvancesActionPerformed
         /*
          Codigo de Dani
          */
-        javax.swing.JOptionPane.showMessageDialog(null,"Seccion en Construccion");
+        javax.swing.JOptionPane.showMessageDialog(null, "Seccion en Construccion");
     }//GEN-LAST:event_jb_verAvancesActionPerformed
-    
-    private void crearreporte(){
-        try{
-        Document documento = new Document();
 
-        FileOutputStream ficheroPdf = new FileOutputStream("fichero.pdf");
-
-        PdfWriter.getInstance(documento, ficheroPdf).setInitialLeading(20);
-
-// Se abre el documento.
-        documento.open();
-        documento.add(new Paragraph("Reporte del Proyecto "+str_nomProyecto,
-                FontFactory.getFont("arial", // fuente
-                        26, // tamaño
-                        Font.BOLD, // estilo
-                        BaseColor.BLACK)));  
-        documento.add(new Paragraph("\n\nDescripción:"));
-        documento.add(new Paragraph(""+controlador.LeerDatos.getDescripcionProyecto(str_nomProyecto)));
-        documento.add(new Paragraph("\n\n"));
-        documento.add(new Paragraph("Este proyecto con tiene los siguientes Test:\n"));
-        String Tests="";
-        
-        java.util.ArrayList<String> lst_Tests = controlador.Archivos.getTests(str_nomProyecto);
-        for (String test : lst_Tests) {
-            int numRegistros=0;
-            ArrayList<Obj_respuestas> getRespuestas
-                = controlador.LeerDatos.getRespuestas(str_nomProyecto, test);
-            for (Obj_respuestas obj_respuestas : getRespuestas) {
-                java.util.ArrayList<controlador.modelosRespuestas.Respuestas> 
-                    respuestas = obj_respuestas.getRespuestas();
-                numRegistros=respuestas.size();
-            }
-            Tests += "* "+test+"  (Se realizo "+numRegistros+" veces)\n";
-            
-        }
-        
-        documento.add(new Paragraph(Tests));
-        documento.add(new Paragraph("\n\n"));
-        documento.add(new Paragraph("Este proyecto tine definido el siguiente Opcion de Perfil\n\n"));
-        
-        /*CREO LA BASE DE LA GRAFICA*/
-        String pdf_perfil= "";
-        java.util.ArrayList<controlador.modelos.Categoria> perfil = new java.util.ArrayList();
-        perfil = controlador.LeerDatos.getPerfil(str_nomProyecto);
-        for (Categoria cat : perfil) {
-            String pdf_categoria = cat.getCategoria();
-            java.util.ArrayList<String> opciones = cat.getOpciones();
-            String pdf_opciones="";
-            for (String opcion : opciones) {
-                pdf_opciones += "\t* "+opcion+"\n";
-            }
-            pdf_perfil+=pdf_categoria+"\n"+pdf_opciones+"\n";
-        }
-        documento.add(new Paragraph(pdf_perfil));
-        
-        /* FIN DE CREO LA BASE DE LA GRAFICA*/
-        documento.add(new Paragraph("\n\n\nPrueba de insertar grafica de perfil se tuvo que haver seleccinado un test "));
-        documento.add(new Paragraph("\n"));
-        
-        String path = grafia();
-        try {
-            
-            Image foto = Image.getInstance(path);
-            foto.scaleToFit(100, 100);
-            foto.setAlignment(Chunk.ALIGN_MIDDLE);
-            documento.add(foto);
-            
-            
-        } catch (DocumentException | IOException e) {
-        }
-        
-        documento.add(new Paragraph("hola parrafo de prueba "));
-        
-        documento.close();
-        //eliminar la imagen
-            java.io.File fichero = new java.io.File(path);
-            fichero.delete();
-        }catch(FileNotFoundException | DocumentException e){
-            System.out.println("error al crear reporte ");
-        }
-    }
-    
     private void respuestas() {
-        ArrayList<Obj_respuestas> getRespuestas
-                = controlador.LeerDatos.getRespuestas(str_nomProyecto, str_nomTest);
         String ss = "";
-        for (Obj_respuestas a : getRespuestas) {
-            String ID = a.getID();
-            String version = a.getVersion();
-            String tiempodeencuesta = a.getTiempodeencuesta();
-            ss += "\nID: " + ID;
-            ss += "\n\t version: " + version;
-            ss += "\n\t tiempodeencuesta: " + tiempodeencuesta;
-            java.util.ArrayList<controlador.modelosRespuestas.Perfil> perfil = a.getPerfil();
+        if (str_nomTest == null || str_nomTest.equals("")) {
+            ss = "Tenias que selecionar un test para generar esta seccion.";
+        } else {
+            ArrayList<Obj_respuestas> getRespuestas
+                    = controlador.LeerDatos.getRespuestas(str_nomProyecto, str_nomTest);
+            for (Obj_respuestas a : getRespuestas) {
+                String ID = a.getID();
+                String version = a.getVersion();
+                String tiempodeencuesta = a.getTiempodeencuesta();
+                ss += "\nID: " + ID;
+                ss += "\n\t version: " + version;
+                ss += "\n\t tiempodeencuesta: " + tiempodeencuesta;
+                java.util.ArrayList<controlador.modelosRespuestas.Perfil> perfil = a.getPerfil();
 
-            java.util.ArrayList<controlador.modelosRespuestas.Respuestas> 
-                    respuestas = a.getRespuestas();
-            ss += "\n\t\t-----PERFIL-----";
-            for (Perfil perfil1 : perfil) {
-                String categoria = perfil1.getCategoria();
-                String opcion = perfil1.getOpcion();
+                java.util.ArrayList<controlador.modelosRespuestas.Respuestas> 
+                        respuestas = a.getRespuestas();
+                ss += "\n\t\t-----PERFIL-----";
+                for (Perfil perfil1 : perfil) {
+                    String categoria = perfil1.getCategoria();
+                    String opcion = perfil1.getOpcion();
 
-                ss += "\n\t\t\t" + opcion;
-            }
-            ss += "\n\t\t-----RESPUESTAS-----";
-            for (Respuestas respuestas1 : respuestas) {
-                String id_pregunta = respuestas1.getId_pregunta();
-                String pregunta = respuestas1.getPregunta();
-                String realizo = respuestas1.getRealizo();
-                String tiempo = respuestas1.getTiempo();
-                String animo = respuestas1.getAnimo();
-                String nota = respuestas1.getNota();
+                    ss += "\n\t\t\t" + opcion;
+                }
+                ss += "\n\t\t-----RESPUESTAS-----";
+                for (Respuestas respuestas1 : respuestas) {
+                    String id_pregunta = respuestas1.getId_pregunta();
+                    String pregunta = respuestas1.getPregunta();
+                    String realizo = respuestas1.getRealizo();
+                    String tiempo = respuestas1.getTiempo();
+                    String animo = respuestas1.getAnimo();
+                    String nota = respuestas1.getNota();
 
-                ss += "\n\t\t\tpregunta: " + pregunta;
-                ss += "\n\t\t\t\trealizo: " + realizo;
-                ss += "\n\t\t\t\ttiempo: " + tiempo;
-                ss += "\n\t\t\t\tanimo: " + animo;
-                ss += "\n\t\t\t\tnota: " + nota;
+                    ss += "\n\t\t\tpregunta: " + pregunta;
+                    ss += "\n\t\t\t\trealizo: " + realizo;
+                    ss += "\n\t\t\t\ttiempo: " + tiempo;
+                    ss += "\n\t\t\t\tanimo: " + animo;
+                    ss += "\n\t\t\t\tnota: " + nota;
+                }
             }
         }
         controlador.Archivos.reporte(ss);
-    }
-
-    private String grafia() {
-        String path = "ImagenGuardada.jpg";
-        JFreeChart Grafica;
-        DefaultCategoryDataset Datos = new DefaultCategoryDataset();
-
-        /*CREO LA BASE DE LA GRAFICA*/
-        java.util.ArrayList<controlador.modelos.Categoria> perfil = new java.util.ArrayList();
-        perfil = controlador.LeerDatos.getPerfil(str_nomProyecto);
-        for (Categoria cat : perfil) {
-            String categoria = cat.getCategoria();
-            java.util.ArrayList<String> opciones = cat.getOpciones();
-            for (String opcion : opciones) {
-                Datos.addValue(0, categoria, opcion);
-            }
-        }
-        /* FIN DE CREO LA BASE DE LA GRAFICA*/
-
-        /* INCREMENTO LOS VALORES */
-        /*TIENES QUE SELECCINAR UN TEST PARA QUE str_nomTest TENGA UN VALOR */
-        ArrayList<Obj_respuestas> getRespuestas
-                = controlador.LeerDatos.getRespuestas(str_nomProyecto, str_nomTest);
-        for (Obj_respuestas a : getRespuestas) {
-
-            java.util.ArrayList<controlador.modelosRespuestas.Perfil> lst_perfil = a.getPerfil();
-
-            for (Perfil perfil1 : lst_perfil) {
-                String categoria = perfil1.getCategoria();
-                String opcion = perfil1.getOpcion();
-
-                Datos.incrementValue(1, categoria, opcion);
-            }
-        }
-
-        Grafica = ChartFactory.createBarChart("Grafica del Perfiles",
-                "Opciones", "Número", Datos,
-                PlotOrientation.VERTICAL, true, true, false);
-
-        ChartPanel Panel = new ChartPanel(Grafica);
-//        JFrame Ventana = new JFrame("JFreeChart");
-//        Ventana.getContentPane().add(Panel);
-//        Ventana.pack();
-//        Ventana.setVisible(true);
-//        Ventana.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-
-        try {
-            org.jfree.chart.ChartUtilities.saveChartAsJPEG(new java.io.File(path), Grafica, 500, 500);
-        } catch (java.io.IOException ex) {
-            javax.swing.JOptionPane.showMessageDialog(this, "Se ha producido un error al intentar guardar", "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
-        }
-        return path;
-    }
-
-    private void pdf() throws FileNotFoundException, DocumentException {
-        Document documento = new Document();
-
-// Se crea el OutputStream para el fichero donde queremos dejar el pdf.
-        FileOutputStream ficheroPdf = new FileOutputStream("fichero.pdf");
-
-// Se asocia el documento al OutputStream y se indica que el espaciado entre
-// lineas sera de 20. Esta llamada debe hacerse antes de abrir el documento
-        PdfWriter.getInstance(documento, ficheroPdf).setInitialLeading(20);
-
-// Se abre el documento.
-        documento.open();
-
-        documento.add(new Paragraph("Esto es el primer párrafo, normalito"));
-
-        documento.add(new Paragraph("Este es el segundo y tiene una fuente rara",
-                FontFactory.getFont("arial", // fuente
-                        22, // tamaño
-                        Font.ITALIC, // estilo
-                        BaseColor.CYAN)));             // color
-
-        try {
-            Image foto = Image.getInstance("ImagenGuardada.jpg");
-            foto.scaleToFit(500, 500);
-            foto.setAlignment(Chunk.ALIGN_MIDDLE);
-            documento.add(foto);
-        } catch (DocumentException | IOException e) {
-        }
-
-        PdfPTable tabla = new PdfPTable(3);
-        for (int i = 0; i < 15; i++) {
-            tabla.addCell("celda " + i);
-        }
-        documento.add(tabla);
-        documento.close();
-    }
-
+    }    
+    
     private void jb_nuevoTestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_nuevoTestActionPerformed
 
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -549,11 +363,11 @@ public final class JP_proyectoAbierto extends javax.swing.JPanel {
                 return "Guardar en pdf";
             }
         }
-        
+        respuestas();
         javax.swing.JFileChooser selector = new javax.swing.JFileChooser(".");
         selector.setAcceptAllFileFilterUsed(false);//que en opciones, no apraresca todos los archivos
         selector.setFileFilter(new Filtro());
-        
+
         int value = selector.showSaveDialog(null);
         if (value == JFileChooser.APPROVE_OPTION) {
             java.io.File archivoSeleccionado = selector.getSelectedFile();
@@ -561,7 +375,7 @@ public final class JP_proyectoAbierto extends javax.swing.JPanel {
             String direccion = archivoSeleccionado.getParent();
 //            System.out.println(direccion );
             Reporte reporte = new controlador.reporteRapido.Reporte(
-                    Eviu,str_nomProyecto,nombre,direccion);
+                    Eviu, str_nomProyecto, nombre, direccion);
         }
     }//GEN-LAST:event_jb_reporteRapidoActionPerformed
 
@@ -642,11 +456,6 @@ public final class JP_proyectoAbierto extends javax.swing.JPanel {
 
     public String getStr_nomProyecto() {
         return str_nomProyecto;
-    }
-
-    public static void main(String[] args) throws FileNotFoundException, DocumentException {
-        JP_proyectoAbierto a = new JP_proyectoAbierto("", null);
-        a.pdf();
     }
 
 }

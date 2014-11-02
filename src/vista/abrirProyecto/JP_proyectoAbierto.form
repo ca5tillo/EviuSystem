@@ -43,12 +43,10 @@
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Component id="jLabel1" pref="166" max="32767" attributes="0"/>
                           <Component id="jl_nVersion" pref="166" max="32767" attributes="0"/>
-                          <Group type="103" alignment="0" groupAlignment="1" max="-2" attributes="0">
-                              <Component id="jb_nuevoTest" alignment="0" pref="152" max="32767" attributes="0"/>
-                              <Component id="jb_verAvances" alignment="0" pref="152" max="32767" attributes="0"/>
-                              <Component id="jb_crearReporte" alignment="0" pref="152" max="32767" attributes="0"/>
-                              <Component id="jb_reporteRapido" alignment="0" max="32767" attributes="0"/>
-                          </Group>
+                          <Component id="jb_nuevoTest" alignment="0" pref="152" max="32767" attributes="0"/>
+                          <Component id="jb_verAvances" alignment="0" pref="152" max="32767" attributes="0"/>
+                          <Component id="jb_crearReporte" alignment="0" pref="152" max="32767" attributes="0"/>
+                          <Component id="jb_reporteRapido" alignment="0" max="32767" attributes="0"/>
                           <Component id="jb_nuevaVersion" alignment="0" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="32767" attributes="0"/>
