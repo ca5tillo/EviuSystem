@@ -213,15 +213,17 @@ public class JD_crearProyecto extends javax.swing.JDialog {
                 Eviu.pintarPanel_ProyectoAbierto(nomProyecto);
             }else if(jb_crear.getActionCommand().equals("Siguiente")){
                 if (rb_crearTest.isSelected() && rb_crearPerfil.isSelected()){
-                    /*
-                    CASO UNO
-                    */
-                    crearproyectoconNPNT(nomProyecto,descripcion);
+                    /*         CASO UNO        */
+                    crearproyecto(nomProyecto,descripcion,1);
                     this.dispose();
                 }else if(rb_crearTest.isSelected() && rb_perfilEjemplo.isSelected()){
-                    JOptionPane.showMessageDialog(null, "seccion en construccion");
+                    /*         CASO DOS        */
+                    crearproyecto(nomProyecto,descripcion,2);
+                    this.dispose();
                 }else if(rb_testEjemplo.isSelected() && rb_crearPerfil.isSelected()){
-                    JOptionPane.showMessageDialog(null, "seccion en construccion");
+                    /*         CASO TRES        */
+                    crearproyecto(nomProyecto,descripcion,3);
+                    this.dispose();
                 }
             }
         }
@@ -229,7 +231,7 @@ public class JD_crearProyecto extends javax.swing.JDialog {
     public void abrirProyecto(String nomP){
         Eviu.pintarPanel_ProyectoAbierto(nomP);
     }
-    private void crearproyectoconNPNT(final String nomProyecto,final String descripcio){
+    private void crearproyecto(final String nomProyecto,final String descripcio,final int caso){
         /*
         Crear proyecto con nuevo perfil y nuevo test.
         CASO UNO
@@ -242,7 +244,7 @@ public class JD_crearProyecto extends javax.swing.JDialog {
                                 true,
                                 nomProyecto,
                                 descripcio,
-                                1,
+                                caso,
                                 Eviu);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override

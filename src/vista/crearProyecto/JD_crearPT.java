@@ -2,8 +2,8 @@
  Existen casos
 
  * Crear proyecto con nuevo perfil y nuevo test. CASO UNO
- * Crear proyecto con plantilla perfil y nuevo test
- * Crear proyecto con nuevo perfil y plantilla test
+ * Crear proyecto con plantilla perfil y nuevo test CASO DOS
+ * Crear proyecto con nuevo perfil y plantilla test CASO TRES
 
  * crear un nuevo test en un proyecto ya existente. CASO 4
  */
@@ -43,6 +43,10 @@ public class JD_crearPT extends javax.swing.JDialog {
         this.setLocationRelativeTo(null);
         //CASO UNO
         if (banderadeCasos == 1) {
+            jp_contenedor.add(new JP_perfil(this, banderadeCasos, this.proyecto, this.descripcion));
+        }else if(banderadeCasos == 2){
+            jp_contenedor.add(new JP_miTest(this, banderadeCasos, this.proyecto));
+        }else if(banderadeCasos == 3){
             jp_contenedor.add(new JP_perfil(this, banderadeCasos, this.proyecto, this.descripcion));
         }
 
@@ -193,6 +197,34 @@ public class JD_crearPT extends javax.swing.JDialog {
         }
         this.dispose();
     }
+    public void crearCasoDos() {
+        
+        boolean a = controlador.Archivos.crearProyectoCasoDos(
+                proyecto,
+                descripcion,
+                nomTest,
+                lst_preguntas);
+        if (a) {
+            javax.swing.JOptionPane.showMessageDialog(null, "Proyecto creado exitosamente");
+            Eviu.pintarPanel_ProyectoAbierto(proyecto);
+        }
+        this.dispose();
+    }
+    
+    public void crearCasoTres() {
+        
+        boolean a = controlador.Archivos.crearProyectoCasoTres(
+                proyecto,
+                descripcion,
+                nomTest,
+                lst_perfil);
+        if (a) {
+            javax.swing.JOptionPane.showMessageDialog(null, "Proyecto creado exitosamente");
+            Eviu.pintarPanel_ProyectoAbierto(proyecto);
+        }
+        this.dispose();
+    }   
+    
 
     public void crearCasoCuatro() {
         //CASO CUATRO
@@ -204,7 +236,7 @@ public class JD_crearPT extends javax.swing.JDialog {
          */
         boolean a = controlador.Archivos.crearCasoCuatro(proyecto, nomTest, lst_preguntas);
         if (a) {
-            javax.swing.JOptionPane.showMessageDialog(null, "Proyecto creado exitosamente");
+            javax.swing.JOptionPane.showMessageDialog(null, "Test creado exitosamente");
         }
         this.dispose();
     }

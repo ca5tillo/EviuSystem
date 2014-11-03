@@ -217,6 +217,64 @@ public class Archivos {
         return a;
     }
 
+    @SuppressWarnings("UnusedAssignment")
+    public static boolean crearProyectoCasoDos(
+            String nomProyecto,
+            String descripcion,
+            String nomTest,
+            org.json.simple.JSONArray lst_preguntas) {
+        //* Crear proyecto con plantilla perfil y nuevo test CASO DOS
+        
+        boolean a = false;
+        String paht = "proyectos/" + nomProyecto + "/";
+        if (existeArchivooCarpeta(paht)) {
+            JOptionPane.showMessageDialog(null, "Ya existe el proyecto: " + nomProyecto);
+        } else {
+            carpeta(paht);// creo la carpeta del proyecto
+            String jsonProyecto = LeerDatos.plantilla_Proyecto(nomProyecto, descripcion);
+            if (vista.Config.AES()) {
+                jsonProyecto = AES.encrypt(jsonProyecto);
+            }
+            a = escribirEnArchivo(paht + nomProyecto + ".eviu", jsonProyecto); // creo el arcivoproyecto 
+
+            carpeta(paht + "tests/");//creo la carpetatest
+            String jsonTest = LeerDatos.plantilla_Test(nomProyecto, nomTest, lst_preguntas);
+            if (vista.Config.AES()) {
+                jsonTest = AES.encrypt(jsonTest);
+            }
+            a = escribirEnArchivo(paht + "tests/" + nomTest + ".eviutest", jsonTest);//creo unteset
+        }
+        return a;
+    }
+        @SuppressWarnings("UnusedAssignment")
+    public static boolean crearProyectoCasoTres(
+            String nomProyecto,
+            String descripcion,
+            String nomTest,
+            org.json.simple.JSONArray lst_perfil) {
+// * Crear proyecto con nuevo perfil y plantilla test CASO TRES
+        boolean a = false;
+        String paht = "proyectos/" + nomProyecto + "/";
+        if (existeArchivooCarpeta(paht)) {
+            JOptionPane.showMessageDialog(null, "Ya existe el proyecto: " + nomProyecto);
+        } else {
+            carpeta(paht);// creo la carpeta del proyecto
+            String jsonProyecto = LeerDatos.plantilla_Proyecto(nomProyecto, descripcion, lst_perfil);//crear el objJSON
+            if (vista.Config.AES()) {
+                jsonProyecto = AES.encrypt(jsonProyecto);
+            }
+            a = escribirEnArchivo(paht + nomProyecto + ".eviu", jsonProyecto); // creo el arcivoproyecto 
+
+            carpeta(paht + "tests/");//creo la carpetatest
+            String jsonTest = LeerDatos.plantilla_Test(nomProyecto);
+            if (vista.Config.AES()) {
+                jsonTest = AES.encrypt(jsonTest);
+            }
+            a = escribirEnArchivo(paht + "tests/testEjemplo.eviutest", jsonTest);//creo unteset
+        }
+        return a;
+    }
+
     public static boolean crearCasoCuatro(
             String nomProyecto,
             String nomTest,

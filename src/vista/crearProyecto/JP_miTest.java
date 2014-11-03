@@ -331,6 +331,8 @@ public class JP_miTest extends javax.swing.JPanel {
             JD_crearPT.setLst_preguntas(lst_preguntas);// envio la lista de preguntas tipo JSONArray
             if (banderadeCasos==1){
                 JD_crearPT.crearCasoUno();
+            }else if (banderadeCasos==2){
+                JD_crearPT.crearCasoDos();
             }else if (banderadeCasos==4){
                 JD_crearPT.crearCasoCuatro();
             }

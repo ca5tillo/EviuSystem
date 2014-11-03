@@ -211,6 +211,8 @@ public class JP_perfil extends javax.swing.JPanel {
         //CASO UNO
         if(banderadeCasos==1){
             JD_crearPT.pintarTest();
+        }else if (banderadeCasos==3){
+            JD_crearPT.crearCasoTres();
         }
     }//GEN-LAST:event_jb_aceptarActionPerformed
 
