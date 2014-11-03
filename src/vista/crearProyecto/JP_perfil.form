@@ -21,18 +21,20 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="jl_titulo" max="32767" attributes="0"/>
                   <Group type="102" alignment="0" attributes="0">
-                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                          <Component id="jl_categoria" min="-2" max="-2" attributes="0"/>
-                          <Component id="jl_opcion" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Group type="102" alignment="0" attributes="0">
-                              <Component id="jtf_opcion" min="-2" pref="210" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="jb_aceptarOpcion" min="-2" pref="105" max="-2" attributes="0"/>
-                          </Group>
-                          <Component id="jtf_categoria" alignment="0" max="32767" attributes="0"/>
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" attributes="0">
                               <Component id="jb_añadirCategoria" min="-2" pref="180" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="141" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="103" alignment="1" groupAlignment="0" max="-2" attributes="0">
+                              <Component id="jl_categoria" min="-2" max="-2" attributes="0"/>
+                              <Component id="jl_opcion" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Group type="102" alignment="1" attributes="0">
+                                  <Component id="jtf_opcion" min="-2" pref="210" max="-2" attributes="0"/>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Component id="jb_aceptarOpcion" min="-2" pref="105" max="-2" attributes="0"/>
+                              </Group>
+                              <Component id="jtf_categoria" alignment="0" min="-2" pref="321" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <Group type="103" groupAlignment="0" attributes="0">
@@ -71,21 +73,21 @@
               <Component id="jl_trabajandoEn" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="4" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="jScrollPane1" min="-2" pref="279" max="-2" attributes="0"/>
                   <Group type="102" attributes="0">
+                      <Component id="jb_añadirCategoria" min="-2" pref="39" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="jl_categoria" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jtf_categoria" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="10" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
                       <Component id="jl_opcion" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jtf_opcion" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jb_aceptarOpcion" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace min="-2" pref="73" max="-2" attributes="0"/>
-                      <Component id="jb_añadirCategoria" min="-2" pref="39" max="-2" attributes="0"/>
                   </Group>
-                  <Component id="jScrollPane1" min="-2" pref="279" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
@@ -148,8 +150,11 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jl_titulo">
       <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Ubuntu" size="18" style="1"/>
+        </Property>
         <Property name="horizontalAlignment" type="int" value="0"/>
-        <Property name="text" type="java.lang.String" value="Nuevo Seleccion de Perfil"/>
+        <Property name="text" type="java.lang.String" value="Nuevo Perfil"/>
       </Properties>
     </Component>
     <Container class="javax.swing.JScrollPane" name="jScrollPane1">
