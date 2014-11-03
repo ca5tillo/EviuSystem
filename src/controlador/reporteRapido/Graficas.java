@@ -13,7 +13,7 @@ import org.jfree.data.category.DefaultCategoryDataset;
 
 public class Graficas {
     public static String bar_Perfil(String str_nomProyecto,String str_nomTest) {
-        String path = "/home/lp-ub-14/Escritorio/ImagenGuardada.jpg";
+        String path = "bar_Perfil.jpg";
         JFreeChart Grafica;
         DefaultCategoryDataset Datos = new DefaultCategoryDataset();
 

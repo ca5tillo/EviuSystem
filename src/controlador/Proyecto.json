@@ -1,0 +1,16 @@
+{
+    "str_nombreProyecto": "proyecto",
+    "str_descripcionDelProyecto": "proyecto",
+    "ID": "w?]amW",
+    "str_versiones": "0",
+    "lst_perfil": [{
+            "categoria": "Sexo",
+            "opciones": ["Hombre", "Mujer"]
+        }, {
+            "categoria": "Edad",
+            "opciones": ["De 5 a 10", "De 10 a 15", "De 15 a 20"]
+        }, {
+            "categoria": "Ocupacion",
+            "opciones": ["Estudiante", "Profesor", "Desempleado"]
+        }]
+}

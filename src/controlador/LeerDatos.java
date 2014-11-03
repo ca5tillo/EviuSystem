@@ -14,9 +14,27 @@ import org.json.simple.parser.ParseException;
 public class LeerDatos {
     private static String modTest(){
         return "{\"str_padre\":\"proyecto\",\"str_nombreDelTest\":\"testEjemplo\",\"lst_respuestas\":[],\"ID\":\"4db(AP\",\"str_IDpadre\":\"w?]amW\",\"lst_preguntas\":[{\"boolean_seMediraPorTiempo\":true,\"str_pregunta\":\"pregunta 1\",\"str_id\":\"01\",\"str_t2\":\"00:00:08:00\",\"str_t1\":\"00:00:03:01\",\"boolean_EstadoDeAnimo\":true},{\"boolean_seMediraPorTiempo\":true,\"str_pregunta\":\"pregunta 2\",\"str_id\":\"02\",\"str_t2\":\"00:00:06:00\",\"str_t1\":\"00:00:02:01\",\"boolean_EstadoDeAnimo\":false},{\"boolean_seMediraPorTiempo\":false,\"str_pregunta\":\"pregunta 3\",\"str_id\":\"03\",\"str_t2\":\"\",\"str_t1\":\"\",\"boolean_EstadoDeAnimo\":true},{\"boolean_seMediraPorTiempo\":false,\"str_pregunta\":\"pregunta 4\",\"str_id\":\"04\",\"str_t2\":\"\",\"str_t1\":\"\",\"boolean_EstadoDeAnimo\":false}]}";
+     //   return "";
     }
     private static String  modProyecto(){
-        return "{\"str_descripcionDelProyecto\":\"proyecto\",\"lst_perfil\":[{\"categoria\":\"Sexo\",\"opciones\":[\"hombre\",\"mujer\"]},{\"categoria\":\"Edad\",\"opciones\":[\"De 5 a 10\",\"De 10 a 15\",\"De 15 a 20\"]},{\"categoria\":\"Ocupacion\",\"opciones\":[\"estudiante\",\"profesor\",\"desempleado\"]}],\"ID\":\"w?]amW\",\"str_nombreProyecto\":\"proyecto\",\"str_versiones\":\"0\"}";
+    //    return "{\"str_descripcionDelProyecto\":\"proyecto\",\"lst_perfil\":[{\"categoria\":\"Sexo\",\"opciones\":[\"hombre\",\"mujer\"]},{\"categoria\":\"Edad\",\"opciones\":[\"De 5 a 10\",\"De 10 a 15\",\"De 15 a 20\"]},{\"categoria\":\"Ocupacion\",\"opciones\":[\"estudiante\",\"profesor\",\"desempleado\"]}],\"ID\":\"w?]amW\",\"str_nombreProyecto\":\"proyecto\",\"str_versiones\":\"0\"}";
+        return ""+
+"{" +
+"    \"str_nombreProyecto\": \"proyecto\"," +
+"    \"str_descripcionDelProyecto\": \"proyecto\"," +
+"    \"ID\": \"w?]amW\"," +
+"    \"str_versiones\": \"0\"," +
+"    \"lst_perfil\": [{" +
+"            \"categoria\": \"Sexo\"," +
+"            \"opciones\": [\"Hombre\", \"Mujer\"]" +
+"        }, {" +
+"            \"categoria\": \"Edad\"," +
+"            \"opciones\": [\"De 5 a 10\", \"De 10 a 15\", \"De 15 a 20\"]" +
+"        }, {" +
+"            \"categoria\": \"Ocupacion\"," +
+"            \"opciones\": [\"Estudiante\", \"Profesor\", \"Desempleado\"]" +
+"        }]" +
+"}";
     }
     
     public static java.util.ArrayList<controlador.modelos.Pregunta>

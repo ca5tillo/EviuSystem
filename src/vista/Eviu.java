@@ -81,6 +81,11 @@ public class Eviu extends javax.swing.JFrame {
         jm_ayuda.setText("Ayuda");
 
         jMenuItem2.setText("Ver Guia");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
         jm_ayuda.add(jMenuItem2);
 
         jmi_ayuda_acercade.setText("Acerda De...");
@@ -179,6 +184,10 @@ public class Eviu extends javax.swing.JFrame {
     private void jmi_importarRespuestasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jmi_importarRespuestasActionPerformed
         jmi_importarRespuestasActionPerformed();
     }//GEN-LAST:event_jmi_importarRespuestasActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        javax.swing.JOptionPane.showMessageDialog(null, "Seccion en Construccion");
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     public void jmi_importarRespuestasActionPerformed() {                                                       
         class Filtro extends javax.swing.filechooser.FileFilter {

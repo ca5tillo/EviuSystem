@@ -9,6 +9,7 @@ import com.itextpdf.text.FontFactory;
 import com.itextpdf.text.Image;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfWriter;
+import static controlador.LeerDatos.getPreguntas;
 import controlador.modelos.Categoria;
 import controlador.modelosRespuestas.Obj_respuestas;
 import controlador.modelosRespuestas.Perfil;
@@ -18,6 +19,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JProgressBar;
 import javax.swing.SwingWorker;
 
@@ -65,19 +68,13 @@ public class GenerarReporte extends SwingWorker<Boolean, Integer> {
         
         Documento.add(new Paragraph(new Chunk().setNewPage()));
         publish(70);
-        Paragraph seccion1 = new Paragraph("Desglose de los Resultados",
-                FontFactory.getFont("arial", // fuente
-                        20, // tamaño
-                        Font.BOLD, // estilo
-                        BaseColor.BLACK));
-        seccion1.setAlignment(Element.ALIGN_CENTER);
-        Documento.add(seccion1);
+        Documento.add(tituloSeccion());
         publish(80);
         
-        Documento.add(seccion(Documento));
+        seccionTest(Documento);
         
-        publish(90);
         
+        System.out.println("llego al 90 %");
         /*      cerrar PDF      */
         Documento.close();
         publish(100);
@@ -180,16 +177,59 @@ public class GenerarReporte extends SwingWorker<Boolean, Integer> {
         descripcionDePerfil.add(pdf_perfil);
         return descripcionDePerfil;
     }
+    
+    private Paragraph tituloSeccion() {
+        Paragraph titulo = new Paragraph("Desglose de los Resultados\n\n",
+                FontFactory.getFont("arial", // fuente
+                        24, // tamaño
+                        Font.BOLD, // estilo
+                        BaseColor.BLACK));
+        titulo.setAlignment(Element.ALIGN_CENTER);
+        return titulo;
+    }
 
     /*      seccion () es experimental  */
-    private Paragraph seccion(Document Documento) {
-        Paragraph seccion = new Paragraph();
-        String ss = "";
-
+    
+    private void seccionTest(Document Documento){
+        class Secciones{
+            Secciones(){
+                
+            }
+            
+            public Paragraph tituloTest(String titulo){
+                Paragraph Paragraph =  new Paragraph(
+                new Paragraph(""+titulo+"\n\n",
+                FontFactory.getFont("arial", // fuente
+                        20, // tamaño
+                        Font.BOLD, // estilo
+                        BaseColor.BLACK)));
+                
+                return Paragraph;
+            }
+        }
+        Secciones seccion = new Secciones();
+        
         java.util.ArrayList<String> Tests = controlador.Archivos.getTests(nomProyecto);
-        for (String test : Tests) {
-            ss+="\n\nTest: "+test+"\n\n";
+        for (String test : Tests) {//Recorro cada Test
+            Paragraph Paragraph = new Paragraph();
+            Paragraph.add(seccion.tituloTest(test));
+            
+            Paragraph.add(new Paragraph("Este Test contiene "+
+                    getPreguntas(nomProyecto,test).size()+" preguntas"));
+            
+            ArrayList<Obj_respuestas> Obj_respuestas = 
+                    controlador.LeerDatos.getRespuestas(nomProyecto, test);
+            
+            for (Obj_respuestas obj_respuestas : Obj_respuestas) {
+                //Aqui contiene cada test Resuelto 
+                if(obj_respuestas.getVersion().equals(controlador.LeerDatos.getVersion(nomProyecto))){
+                    
+                    Paragraph.add(new Paragraph("ID: "+obj_respuestas.getID()));
+                    
+                }
+            }
             try {
+                Documento.add(Paragraph);
                 String fotoo=Graficas.bar_Perfil(nomProyecto, test);
                 Image foto = Image.getInstance(fotoo);
                 foto.scaleToFit(500, 500);
@@ -198,44 +238,7 @@ public class GenerarReporte extends SwingWorker<Boolean, Integer> {
                 new java.io.File(fotoo).delete();
             } catch (DocumentException | IOException e) {
             }
-            ArrayList<Obj_respuestas> getRespuestas
-                    = controlador.LeerDatos.getRespuestas(nomProyecto, test);
-            for (Obj_respuestas a : getRespuestas) {
-                String ID = a.getID();
-                String version = a.getVersion();
-                String tiempodeencuesta = a.getTiempodeencuesta();
-                ss += "\nID: " + ID;
-                ss += "\n\t version: " + version;
-                ss += "\n\t tiempodeencuesta: " + tiempodeencuesta;
-                java.util.ArrayList<controlador.modelosRespuestas.Perfil> perfil = a.getPerfil();
-
-                java.util.ArrayList<controlador.modelosRespuestas.Respuestas> respuestas = a.getRespuestas();
-                ss += "\n\t\t-----PERFIL-----";
-                for (Perfil perfil1 : perfil) {
-                    String categoria = perfil1.getCategoria();
-                    String opcion = perfil1.getOpcion();
-
-                    ss += "\n\t\t\t" + opcion;
-                }
-                ss += "\n\t\t-----RESPUESTAS-----";
-                for (Respuestas respuestas1 : respuestas) {
-                    String id_pregunta = respuestas1.getId_pregunta();
-                    String pregunta = respuestas1.getPregunta();
-                    String realizo = respuestas1.getRealizo();
-                    String tiempo = respuestas1.getTiempo();
-                    String animo = respuestas1.getAnimo();
-                    String nota = respuestas1.getNota();
-
-                    ss += "\n\t\t\tpregunta: " + pregunta;
-                    ss += "\n\t\t\t\trealizo: " + realizo;
-                    ss += "\n\t\t\t\ttiempo: " + tiempo;
-                    ss += "\n\t\t\t\tanimo: " + animo;
-                    ss += "\n\t\t\t\tnota: " + nota;
-                }
-            }
-
         }
-        seccion.add(ss);
-        return seccion;
     }
+    
 }
