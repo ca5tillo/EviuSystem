@@ -186,7 +186,7 @@ public class Eviu extends javax.swing.JFrame {
     }//GEN-LAST:event_jmi_importarRespuestasActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
-        javax.swing.JOptionPane.showMessageDialog(null, "Seccion en Construccion");
+        abrirJD__Ayuda();
     }//GEN-LAST:event_jMenuItem2ActionPerformed
 
     public void jmi_importarRespuestasActionPerformed() {                                                       
@@ -346,5 +346,19 @@ public class Eviu extends javax.swing.JFrame {
             System.exit(0);
         } else {
         }
+    }
+    public void abrirJD__Ayuda(){
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                final vista.ayuda.JD_Ayuda dialog = new vista.ayuda.JD_Ayuda(new javax.swing.JFrame(), true);
+                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+                    @Override
+                    public void windowClosing(java.awt.event.WindowEvent e) {
+                        dialog.dispose();
+                    }
+                });
+                dialog.setVisible(true);
+            }
+        });
     }
 }

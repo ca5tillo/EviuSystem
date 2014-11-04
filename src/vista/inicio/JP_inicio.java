@@ -246,7 +246,7 @@ public class JP_inicio extends javax.swing.JPanel {
     }//GEN-LAST:event_jl_importarMouseClicked
 
     private void jl_ayudaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jl_ayudaMouseClicked
-        javax.swing.JOptionPane.showMessageDialog(null,"Seccion en Construccion");
+        Eviu.abrirJD__Ayuda();
     }//GEN-LAST:event_jl_ayudaMouseClicked
 
     private void jl_ayudaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jl_ayudaMouseExited

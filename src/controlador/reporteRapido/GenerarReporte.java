@@ -10,6 +10,7 @@ import com.itextpdf.text.Image;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfWriter;
 import static controlador.LeerDatos.getPreguntas;
+import static controlador.LeerDatos.getRespuestas;
 import controlador.modelos.Categoria;
 import controlador.modelosRespuestas.Obj_respuestas;
 import controlador.modelosRespuestas.Perfil;
@@ -32,6 +33,7 @@ public class GenerarReporte extends SwingWorker<Boolean, Integer> {
     private final String pdf_nombre;
     private final String pdf_direccion;
     private boolean resultado = false;
+    private int count=0;
 
     public GenerarReporte(JProgressBar progreso, String nomProyecto,
             String pdf_nombre, String pdf_direccion) {
@@ -63,27 +65,25 @@ public class GenerarReporte extends SwingWorker<Boolean, Integer> {
         Documento.add(descripcionDeLosTest());
         publish(50);
         Documento.add(descripcionDePerfil());
-        
+
         publish(60);
-        
+
         Documento.add(new Paragraph(new Chunk().setNewPage()));
         publish(70);
         Documento.add(tituloSeccion());
         publish(80);
-        
-        seccionTest(Documento);
-        
-        
-        System.out.println("llego al 90 %");
+
+        seccionTest2(Documento);
+
         /*      cerrar PDF      */
         Documento.close();
         publish(100);
-            try {
-                Thread.sleep(100);
-            } catch (InterruptedException e) {
-                System.out.println("interrumpido");
-            }
-            
+        try {
+            Thread.sleep(100);
+        } catch (InterruptedException e) {
+            System.out.println("interrumpido");
+        }
+
         return resultado;
     }
 
@@ -177,7 +177,7 @@ public class GenerarReporte extends SwingWorker<Boolean, Integer> {
         descripcionDePerfil.add(pdf_perfil);
         return descripcionDePerfil;
     }
-    
+
     private Paragraph tituloSeccion() {
         Paragraph titulo = new Paragraph("Desglose de los Resultados\n\n",
                 FontFactory.getFont("arial", // fuente
@@ -189,56 +189,202 @@ public class GenerarReporte extends SwingWorker<Boolean, Integer> {
     }
 
     /*      seccion () es experimental  */
-    
-    private void seccionTest(Document Documento){
-        class Secciones{
-            Secciones(){
-                
+    private void seccionTest(Document Documento) {
+        class Secciones {
+
+            Secciones() {
+
             }
-            
-            public Paragraph tituloTest(String titulo){
-                Paragraph Paragraph =  new Paragraph(
-                new Paragraph(""+titulo+"\n\n",
-                FontFactory.getFont("arial", // fuente
-                        20, // tamaño
-                        Font.BOLD, // estilo
-                        BaseColor.BLACK)));
-                
+
+            public Paragraph tituloTest(String titulo) {
+                Paragraph Paragraph = new Paragraph(
+                        new Paragraph("" + titulo + "\n\n",
+                                FontFactory.getFont("arial", // fuente
+                                        20, // tamaño
+                                        Font.BOLD, // estilo
+                                        BaseColor.BLACK)));
+
+                return Paragraph;
+            }
+            public Paragraph obj_respuestasRespuestas(
+                    java.util.ArrayList<Respuestas> lst_Respuestas){                
+                Paragraph Paragraph = new Paragraph();
+                for (Respuestas respuestas : lst_Respuestas) {
+                    Paragraph.add(new Paragraph(respuestas.getPregunta()+"  "
+                            +respuestas.getRealizo()));
+                }
                 return Paragraph;
             }
         }
         Secciones seccion = new Secciones();
-        
+
         java.util.ArrayList<String> Tests = controlador.Archivos.getTests(nomProyecto);
         for (String test : Tests) {//Recorro cada Test
-            Paragraph Paragraph = new Paragraph();
-            Paragraph.add(seccion.tituloTest(test));
-            
-            Paragraph.add(new Paragraph("Este Test contiene "+
-                    getPreguntas(nomProyecto,test).size()+" preguntas"));
-            
-            ArrayList<Obj_respuestas> Obj_respuestas = 
-                    controlador.LeerDatos.getRespuestas(nomProyecto, test);
-            
-            for (Obj_respuestas obj_respuestas : Obj_respuestas) {
-                //Aqui contiene cada test Resuelto 
-                if(obj_respuestas.getVersion().equals(controlador.LeerDatos.getVersion(nomProyecto))){
-                    
-                    Paragraph.add(new Paragraph("ID: "+obj_respuestas.getID()));
-                    
+            ArrayList<Obj_respuestas> 
+                    lst_Obj_respuestas = getRespuestas(nomProyecto, test);
+            if (!lst_Obj_respuestas.isEmpty()) {
+                
+                Paragraph Paragraph = new Paragraph();
+                Paragraph.add(new Chunk().setNewPage());
+                Paragraph.add(seccion.tituloTest(test));
+
+                Paragraph.add(new Paragraph("Este Test contiene "
+                        + getPreguntas(nomProyecto, test).size() + " preguntas"));
+
+                for (Obj_respuestas obj_respuestas : lst_Obj_respuestas) {
+                    //Aqui contiene cada test Resuelto 
+                    if (obj_respuestas.getVersion().equals(controlador.LeerDatos.getVersion(nomProyecto))) {
+                        
+                        Paragraph.add(new Paragraph("ID: " + obj_respuestas.getID()));
+                        Paragraph.add(seccion.obj_respuestasRespuestas(obj_respuestas.getRespuestas()));
+
+                    }
                 }
-            }
-            try {
-                Documento.add(Paragraph);
-                String fotoo=Graficas.bar_Perfil(nomProyecto, test);
-                Image foto = Image.getInstance(fotoo);
-                foto.scaleToFit(500, 500);
-                foto.setAlignment(Chunk.ALIGN_MIDDLE);
-                Documento.add(foto);
-                new java.io.File(fotoo).delete();
-            } catch (DocumentException | IOException e) {
+                try {
+                    Documento.add(Paragraph);
+                    String fotoo = Graficas.bar_Perfil(nomProyecto, test);
+                    Image foto = Image.getInstance(fotoo);
+                    foto.scaleToFit(500, 500);
+                    foto.setAlignment(Chunk.ALIGN_MIDDLE);
+                    Documento.add(foto);
+                    new java.io.File(fotoo).delete();
+                } catch (DocumentException | IOException e) {
+                }
             }
         }
     }
     
+    private void seccionTest2(Document Documento) {
+        class Secciones {
+
+            Secciones() {
+
+            }
+
+            public Paragraph tituloTest(String titulo) {
+                Paragraph Paragraph = new Paragraph(
+                        new Paragraph("" + titulo + "\n\n",
+                                FontFactory.getFont("arial", // fuente
+                                        20, // tamaño
+                                        Font.BOLD, // estilo
+                                        BaseColor.BLACK)));
+
+                return Paragraph;
+            }
+            public Paragraph obj_respuestasRespuestas(
+                    java.util.ArrayList<Respuestas> lst_Respuestas){                
+                Paragraph Paragraph = new Paragraph();
+                for (Respuestas respuestas : lst_Respuestas) {
+                    Paragraph.add(new Paragraph(respuestas.getPregunta()+"  "
+                            +respuestas.getRealizo()));
+                }
+                return Paragraph;
+            }
+            
+            public Paragraph lst_Obj_respuestas (ArrayList<Obj_respuestas> lst_Obj_respuestas,String test){
+                /*      Recibo todas las Encuestas Resueltas     */
+                class r{
+                    private String pregunta;
+                    private int si_realozo;
+                    private int no_realizo;
+
+                    public r(String pregunta) {
+                        this.pregunta = pregunta;
+                    }
+
+                    public void setPregunta(String pregunta) {
+                        this.pregunta = pregunta;
+                    }
+
+                    public void setSi_realozo(int si_realozo) {
+                        this.si_realozo += si_realozo;
+                    }
+
+                    public void setNo_realizo(int no_realizo) {
+                        this.no_realizo += no_realizo;
+                    }
+                    
+                    public String getPregunta() {
+                        return pregunta;
+                    }
+
+                    public int getSi_realozo() {
+                        return si_realozo;
+                    }
+
+                    public int getNo_realizo() {
+                        return no_realizo;
+                    }
+                    
+                }
+                Paragraph Paragraph = new Paragraph();
+                ArrayList<r>base = new ArrayList();
+                for (controlador.modelos.Pregunta preguntas: getPreguntas(nomProyecto, test)){
+                    base.add(new r (preguntas.getStr_pregunta()));
+                }
+                
+                for (Obj_respuestas obj_respuestas : lst_Obj_respuestas) {
+                    //Aqui contiene cada test Resuelto 
+                    if (obj_respuestas.getVersion().equals(controlador.LeerDatos.getVersion(nomProyecto))) {
+                        
+                        
+                        for (Respuestas respuestas : obj_respuestas.getRespuestas()) {
+                            for(r baes :base){
+                                if(respuestas.getPregunta().equals(baes.getPregunta())){
+                                    if(respuestas.getRealizo().equals("si")){
+                                        baes.setSi_realozo(1);
+                                    }else{
+                                        baes.setNo_realizo(1);
+                                    }
+                                }
+                            }
+                        }
+
+                    }
+                }
+                //lst_Obj_respuestas
+                for(r baes :base){
+                    Paragraph.add(new Paragraph("La Tare: \""+baes.getPregunta()+
+                            "\" contiene  "+(baes.getSi_realozo()*100)/lst_Obj_respuestas.size()
+                            +"%  de Exitos y  "+
+                            (baes.getNo_realizo()*100)/lst_Obj_respuestas.size()+"%  de Fracasos"
+                    ));
+                }
+                return Paragraph;
+                
+            }
+        }
+        Secciones seccion = new Secciones();
+
+        java.util.ArrayList<String> Tests = controlador.Archivos.getTests(nomProyecto);
+        for (String test : Tests) {//Recorro cada Test
+            ArrayList<Obj_respuestas> lst_Obj_respuestas = getRespuestas(nomProyecto, test);
+            if (!lst_Obj_respuestas.isEmpty()) {
+                
+                Paragraph Paragraph = new Paragraph();
+                if(count!=0){Paragraph.add(new Chunk().setNewPage());}
+                count=1;
+                Paragraph.add(seccion.tituloTest(test));
+                
+                Paragraph.add("Este test fue realizado  "+lst_Obj_respuestas.size()+"  veces "+
+                        "y contiene "
+                        + getPreguntas(nomProyecto, test).size() + " preguntas");
+                
+                /*      Envio todas las Encuestas Resueltas     */
+                Paragraph.add(seccion.lst_Obj_respuestas(lst_Obj_respuestas,test));
+                /*      FIN Envio todas las Encuestas Resueltas     */
+                try {
+                    Documento.add(Paragraph);
+                    String fotoo = Graficas.bar_Perfil(nomProyecto, test);
+                    Image foto = Image.getInstance(fotoo);
+                    foto.scaleToFit(500, 500);
+                    foto.setAlignment(Chunk.ALIGN_MIDDLE);
+                    Documento.add(foto);
+                    new java.io.File(fotoo).delete();
+                } catch (DocumentException | IOException e) {
+                }
+            }
+        }
+    }
+
 }
