@@ -68,7 +68,7 @@ public class JD_Ayuda extends javax.swing.JDialog {
         jTextArea2.setEditable(false);
         jTextArea2.setColumns(20);
         jTextArea2.setRows(5);
-        jTextArea2.setText("Prodras crear Proyectos y cada proyecto puede\n tener varios test ");
+        jTextArea2.setText("Importar Respuestas \n\nEs una sección en la que permite trabajar en grupo.\nTu puedes compartir uno de tus proyectos solo copiando la carpeta \nde tu proyecto en el carpeta “proyectos” de otra copia del sistema EVIU.\n\nSi tus colaboradores que tiene una copia de tu proyecto ingresan \nresultados a los test que tu has creado podrás importar esos resultados:\n\nTendrán que que mandarte el proyecto  con los nuevos resultados o \nsi es que ellos lo tienen un una memoria usb tu solo tendrás que indicar \ndonde se encuentra el test del cual tu quieres tomas los resultados nuevos.\n\nEl sistema EVIU automáticamente solo copiara las respuestas nuevas, \nsi es que ya tenia respuestas anteriores que el sistema en el cual estas \nimportando ya tiene, esas respuestas serán ignoradas.");
         jScrollPane3.setViewportView(jTextArea2);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);

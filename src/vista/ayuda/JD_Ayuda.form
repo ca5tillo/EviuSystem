@@ -153,7 +153,7 @@
                     <Property name="editable" type="boolean" value="false"/>
                     <Property name="columns" type="int" value="20"/>
                     <Property name="rows" type="int" value="5"/>
-                    <Property name="text" type="java.lang.String" value="Prodras crear Proyectos y cada proyecto puede&#xa; tener varios test "/>
+                    <Property name="text" type="java.lang.String" value="Importar Respuestas &#xa;&#xa;Es una secci&#xf3;n en la que permite trabajar en grupo.&#xa;Tu puedes compartir uno de tus proyectos solo copiando la carpeta &#xa;de tu proyecto en el carpeta &#x201c;proyectos&#x201d; de otra copia del sistema EVIU.&#xa;&#xa;Si tus colaboradores que tiene una copia de tu proyecto ingresan &#xa;resultados a los test que tu has creado podr&#xe1;s importar esos resultados:&#xa;&#xa;Tendr&#xe1;n que que mandarte el proyecto  con los nuevos resultados o &#xa;si es que ellos lo tienen un una memoria usb tu solo tendr&#xe1;s que indicar &#xa;donde se encuentra el test del cual tu quieres tomas los resultados nuevos.&#xa;&#xa;El sistema EVIU autom&#xe1;ticamente solo copiara las respuestas nuevas, &#xa;si es que ya tenia respuestas anteriores que el sistema en el cual estas &#xa;importando ya tiene, esas respuestas ser&#xe1;n ignoradas."/>
                   </Properties>
                 </Component>
               </SubComponents>
