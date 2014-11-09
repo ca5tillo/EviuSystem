@@ -72,6 +72,8 @@ public class Reporte{
                 JD_Progreso.dispose();
             } catch (InterruptedException | ExecutionException ex) {
                 System.out.println("Error en calss Reporte subclass RespuestaWorker");
+                JD_Progreso.dispose();
+                javax.swing.JOptionPane.showMessageDialog(null,"error al crear pdf");
             }
         }
         

@@ -273,8 +273,7 @@ public final class JP_proyectoAbierto extends javax.swing.JPanel {
                 ss += "\n\t tiempodeencuesta: " + tiempodeencuesta;
                 java.util.ArrayList<controlador.modelosRespuestas.Perfil> perfil = a.getPerfil();
 
-                java.util.ArrayList<controlador.modelosRespuestas.Respuestas> 
-                        respuestas = a.getRespuestas();
+                java.util.ArrayList<controlador.modelosRespuestas.Respuestas> respuestas = a.getRespuestas();
                 ss += "\n\t\t-----PERFIL-----";
                 for (Perfil perfil1 : perfil) {
                     String categoria = perfil1.getCategoria();
@@ -300,8 +299,8 @@ public final class JP_proyectoAbierto extends javax.swing.JPanel {
             }
         }
         controlador.Archivos.reporte(ss);
-    }    
-    
+    }
+
     private void jb_nuevoTestActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jb_nuevoTestActionPerformed
 
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -363,7 +362,7 @@ public final class JP_proyectoAbierto extends javax.swing.JPanel {
                 return "Guardar en pdf";
             }
         }
-        respuestas();
+
         javax.swing.JFileChooser selector = new javax.swing.JFileChooser(".");
         selector.setAcceptAllFileFilterUsed(false);//que en opciones, no apraresca todos los archivos
         selector.setFileFilter(new Filtro());
@@ -373,9 +372,35 @@ public final class JP_proyectoAbierto extends javax.swing.JPanel {
             java.io.File archivoSeleccionado = selector.getSelectedFile();
             String nombre = archivoSeleccionado.getName();
             String direccion = archivoSeleccionado.getParent();
+
+            java.io.File[] lst_contenido = new java.io.File(direccion).listFiles();
+            java.io.File[] contenido = new java.io.File(direccion).listFiles();
+            boolean noexite= false;
+            for (java.io.File file : contenido) {
+                if (file.getName().equals(nombre)) {
+                    noexite= false;
+                    Object[] opciones = {"Aceptar", "Cancelar"};
+                    int eleccion = javax.swing.JOptionPane.showOptionDialog(Eviu,
+                            "Ya Existe un archivo con ese nombre ¿desea Remplazarlo?",
+                            "Mensaje de Confirmacion",
+                            javax.swing.JOptionPane.YES_NO_OPTION,
+                            javax.swing.JOptionPane.QUESTION_MESSAGE, null, opciones, "Aceptar");
+                    if (eleccion == javax.swing.JOptionPane.YES_OPTION) {
+                        Reporte reporte = new controlador.reporteRapido.Reporte(
+                            Eviu, str_nomProyecto, nombre, direccion);
+                        
+                    } else {
+                    }
+                    break;
+                }else{
+                    noexite=true;
+                }
+            }
 //            System.out.println(direccion );
-            Reporte reporte = new controlador.reporteRapido.Reporte(
-                    Eviu, str_nomProyecto, nombre, direccion);
+            if(noexite){
+                Reporte reporte = new controlador.reporteRapido.Reporte(
+                        Eviu, str_nomProyecto, nombre, direccion);
+            }
         }
     }//GEN-LAST:event_jb_reporteRapidoActionPerformed
 

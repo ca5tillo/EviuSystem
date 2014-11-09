@@ -8,6 +8,7 @@ import com.itextpdf.text.Element;
 import com.itextpdf.text.FontFactory;
 import com.itextpdf.text.Image;
 import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import static controlador.LeerDatos.getPreguntas;
 import static controlador.LeerDatos.getRespuestas;
@@ -30,6 +31,7 @@ import javax.swing.SwingWorker;
 
 public class GenerarReporte extends SwingWorker<Boolean, Integer> {
 //    private final javax.swing.JProgressBar progreso;
+
     private final Document Documento;
     private final JProgressBar progreso;
     private final String nomProyecto;
@@ -45,11 +47,11 @@ public class GenerarReporte extends SwingWorker<Boolean, Integer> {
         this.pdf_direccion = pdf_direccion;
         /*      Iniciar el PDF       */
         Documento = new Document();
-        try{
-        FileOutputStream pdf = new FileOutputStream(pdf_direccion + "/" + pdf_nombre);
-        PdfWriter.getInstance(Documento, pdf).setInitialLeading(20);
-        Documento.open();
-        }catch(FileNotFoundException | DocumentException e){
+        try {
+            FileOutputStream pdf = new FileOutputStream(pdf_direccion + "/" + pdf_nombre);
+            PdfWriter.getInstance(Documento, pdf).setInitialLeading(20);
+            Documento.open();
+        } catch (FileNotFoundException | DocumentException e) {
             System.out.println("Error enel constructor de GenerarReporte");
         }
     }
@@ -212,12 +214,13 @@ public class GenerarReporte extends SwingWorker<Boolean, Integer> {
 
                 return Paragraph;
             }
+
             public Paragraph obj_respuestasRespuestas(
-                    java.util.ArrayList<Respuestas> lst_Respuestas){                
+                    java.util.ArrayList<Respuestas> lst_Respuestas) {
                 Paragraph Paragraph = new Paragraph();
                 for (Respuestas respuestas : lst_Respuestas) {
-                    Paragraph.add(new Paragraph(respuestas.getPregunta()+"  "
-                            +respuestas.getRealizo()));
+                    Paragraph.add(new Paragraph(respuestas.getPregunta() + "  "
+                            + respuestas.getRealizo()));
                 }
                 return Paragraph;
             }
@@ -226,10 +229,9 @@ public class GenerarReporte extends SwingWorker<Boolean, Integer> {
 
         java.util.ArrayList<String> Tests = controlador.Archivos.getTests(nomProyecto);
         for (String test : Tests) {//Recorro cada Test
-            ArrayList<Obj_respuestas> 
-                    lst_Obj_respuestas = getRespuestas(nomProyecto, test);
+            ArrayList<Obj_respuestas> lst_Obj_respuestas = getRespuestas(nomProyecto, test);
             if (!lst_Obj_respuestas.isEmpty()) {
-                
+
                 Paragraph Paragraph = new Paragraph();
                 Paragraph.add(new Chunk().setNewPage());
                 Paragraph.add(seccion.tituloTest(test));
@@ -240,7 +242,7 @@ public class GenerarReporte extends SwingWorker<Boolean, Integer> {
                 for (Obj_respuestas obj_respuestas : lst_Obj_respuestas) {
                     //Aqui contiene cada test Resuelto 
                     if (obj_respuestas.getVersion().equals(controlador.LeerDatos.getVersion(nomProyecto))) {
-                        
+
                         Paragraph.add(new Paragraph("ID: " + obj_respuestas.getID()));
                         Paragraph.add(seccion.obj_respuestasRespuestas(obj_respuestas.getRespuestas()));
 
@@ -259,8 +261,8 @@ public class GenerarReporte extends SwingWorker<Boolean, Integer> {
             }
         }
     }
-    
-    private void seccionTest2( ) {
+
+    private void seccionTest2() throws Exception {
         class Secciones {
 
             Secciones() {
@@ -277,53 +279,55 @@ public class GenerarReporte extends SwingWorker<Boolean, Integer> {
 
                 return Paragraph;
             }
-            
-            public Paragraph lst_Obj_respuestas (
+
+            public Paragraph lst_Obj_respuestas(
                     ArrayList<Obj_respuestas> lst_Obj_respuestas,
-                    String test){
+                    String test) throws DocumentException {
                 /*      Recibo todas las Encuestas Resueltas     */
                 class Clasificado {
+
                     private final String id;
                     protected ArrayList<Obj_respuestas> lst_Obj_respuestas = new ArrayList();
 
                     public Clasificado(String id) {
-                    this.id = id;
+                        this.id = id;
                     }
-                    
+
                     public void add_Lst_Obj_respuestas(
-                            Obj_respuestas obj_respuestas ){
+                            Obj_respuestas obj_respuestas) {
                         this.lst_Obj_respuestas.add(obj_respuestas);
                     }
-                    
-                    public String getId(){
+
+                    public String getId() {
                         return id;
                     }
 
                     public ArrayList<Obj_respuestas> getLst_Obj_respuestas() {
                         return lst_Obj_respuestas;
                     }
-                    
+
                 }
-                class Herramientas{
+                class Herramientas {
+
                     public boolean addClasificado(
                             ArrayList<Clasificado> Clasificado,
                             String perfil,
-                            Obj_respuestas obj_respuestas){
+                            Obj_respuestas obj_respuestas) {
                         boolean a = false;
-                        if(!Clasificado.isEmpty()){
-                            for(Clasificado clasificado:Clasificado){
-                                    if(clasificado.getId().equals(perfil)){
-                                        clasificado.add_Lst_Obj_respuestas(obj_respuestas);
-                                        a=true;
-                                    }
+                        if (!Clasificado.isEmpty()) {
+                            for (Clasificado clasificado : Clasificado) {
+                                if (clasificado.getId().equals(perfil)) {
+                                    clasificado.add_Lst_Obj_respuestas(obj_respuestas);
+                                    a = true;
+                                }
                             }
                         }
                         return a;
                     }
-                    
+
                     public ArrayList<Clasificado> clasificar(
                             ArrayList<Obj_respuestas> lst_Obj_respuestas) {
-                        
+
                         ArrayList<Clasificado> Clasificados = new ArrayList();
                         for (Obj_respuestas obj_respuestas : lst_Obj_respuestas) {
 //                            Aqui contiene cada test Resuelto 
@@ -333,26 +337,27 @@ public class GenerarReporte extends SwingWorker<Boolean, Integer> {
                                 for (Perfil perfil1 : obj_respuestas.getPerfil()) {
                                     String categoria = perfil1.getCategoria();
                                     String opcion = perfil1.getOpcion();
-                                    perfil += categoria+": "+opcion+",  ";
+                                    perfil += categoria + ": " + opcion + ",  ";
                                 }
 
                                 if (!addClasificado(Clasificados, perfil, obj_respuestas)) {
                                     Clasificado Clasificado = new Clasificado(perfil);
                                     Clasificado.add_Lst_Obj_respuestas(obj_respuestas);
                                     Clasificados.add(Clasificado);
-                                    
+
                                 }
 
                             }
                         }
                         return Clasificados;
                     }
-                    
+
                     public Paragraph getparrafoXperfil(
                             Clasificado Clasificado,
                             String test,
-                            int totalEncuestas) {
-                        class ParrafoXperfil{
+                            int totalEncuestas) throws DocumentException {
+                        class ParrafoXperfil {
+
                             private final String pregunta;
                             private final boolean tiempo;
                             private final boolean animo;
@@ -382,7 +387,7 @@ public class GenerarReporte extends SwingWorker<Boolean, Integer> {
                             public boolean isAnimo() {
                                 return animo;
                             }
-                            
+
                             public int getExito() {
                                 return exito;
                             }
@@ -444,31 +449,27 @@ public class GenerarReporte extends SwingWorker<Boolean, Integer> {
                             }
 
                             public void setComentarios(String comentarios) {
-                                this.comentarios += "["+comentarios+"]";
+                                this.comentarios += "[" + comentarios + "]";
                             }
-                            
-                            
-                            
-                            
+
                         }
-                        
+
                         @SuppressWarnings("MismatchedQueryAndUpdateOfCollection")
                         Paragraph Paragraph = new Paragraph();
-                        
+
                         String id = Clasificado.getId();//perfil
-                        ArrayList<Obj_respuestas> lst_Obj_respuestas =
-                                Clasificado.getLst_Obj_respuestas();
-                        
+                        ArrayList<Obj_respuestas> lst_Obj_respuestas
+                                = Clasificado.getLst_Obj_respuestas();
+
                         /*  Lista re respuestas por perfil  */
                         @SuppressWarnings("MismatchedQueryAndUpdateOfCollection")
                         ArrayList<ParrafoXperfil> lst_ParrafoXperfil = new ArrayList();
-                        
+
                         /*  Creo la base    */
-                        ArrayList<controlador.modelos.Pregunta> preguntas =
-                        getPreguntas(nomProyecto, test);
+                        ArrayList<controlador.modelos.Pregunta> preguntas
+                                = getPreguntas(nomProyecto, test);
                         for (Pregunta pregunta : preguntas) {
-                            lst_ParrafoXperfil.add(new ParrafoXperfil(pregunta.getStr_pregunta()
-                            ,pregunta.isBoolean_seMediraPorTiempo(),pregunta.isBoolean_seTomaranCuentaElEstadoDeAnimo()));
+                            lst_ParrafoXperfil.add(new ParrafoXperfil(pregunta.getStr_pregunta(), pregunta.isBoolean_seMediraPorTiempo(), pregunta.isBoolean_seTomaranCuentaElEstadoDeAnimo()));
                         }
                         //* *//
                         for (Obj_respuestas obj_respuestas : lst_Obj_respuestas) {
@@ -476,26 +477,28 @@ public class GenerarReporte extends SwingWorker<Boolean, Integer> {
                             for (Respuestas respuestas1 : respuestas) {
                                 String pregunta = respuestas1.getPregunta();
                                 for (ParrafoXperfil parrafoXperfil : lst_ParrafoXperfil) {
-                                    if(parrafoXperfil.pregunta.equals(pregunta)){
-                                        if(respuestas1.getRealizo().equals("si")){
+                                    if (parrafoXperfil.pregunta.equals(pregunta)) {
+                                        if (respuestas1.getRealizo().equals("si")) {
                                             parrafoXperfil.addExito(1);
-                                        }else parrafoXperfil.addFracaso(1);
-                                        
+                                        } else {
+                                            parrafoXperfil.addFracaso(1);
+                                        }
+
                                         String animo = respuestas1.getAnimo();
-                                        if(animo.equalsIgnoreCase("feliz")){
+                                        if (animo.equalsIgnoreCase("feliz")) {
                                             parrafoXperfil.addFeliz(1);
-                                        }else if(animo.equalsIgnoreCase("impaciente")){
+                                        } else if (animo.equalsIgnoreCase("impaciente")) {
                                             parrafoXperfil.addImpaciente(1);
-                                        }else if(animo.equalsIgnoreCase("desepcionado")){
+                                        } else if (animo.equalsIgnoreCase("desepcionado")) {
                                             parrafoXperfil.addDesepcionado(1);
-                                        }else if(animo.equalsIgnoreCase("enojado")){
+                                        } else if (animo.equalsIgnoreCase("enojado")) {
                                             parrafoXperfil.addEnojado(1);
-                                        }else if(animo.equalsIgnoreCase("n-a")){
+                                        } else if (animo.equalsIgnoreCase("n-a")) {
                                             parrafoXperfil.addN_a(1);
                                         }
-                                        
+
                                         String nota = respuestas1.getNota();
-                                        if(!nota.equalsIgnoreCase("")){
+                                        if (!nota.equalsIgnoreCase("")) {
                                             parrafoXperfil.setComentarios(nota);
                                         }
                                     }
@@ -503,81 +506,193 @@ public class GenerarReporte extends SwingWorker<Boolean, Integer> {
                             }
                         }
                         /**/
+                        Paragraph titulo = new Paragraph("El perfil:  " + id + " que representa el  "
+                                + (lst_Obj_respuestas.size() * 100) / totalEncuestas + "%  "
+                                + "del total de los participantes y contiene  "
+                                + lst_Obj_respuestas.size() + " encuestas realizadas, "
+                                + "cuyos resultados son los siguientes:\n\n",
+                                FontFactory.getFont("arial", // fuente
+                                        14, // tamaño
+                                        Font.BOLD, // estilo
+                                        BaseColor.BLACK));
+                        Documento.add(titulo);
                         
-                        Paragraph.add("El perfil:  "+id+" que representa el  "+
-                                (lst_Obj_respuestas.size()*100)/totalEncuestas+"%  "
-                                + "del total de los participantes y contiene  "+
-                                lst_Obj_respuestas.size()+" encuestas realizadas, "
-                                + "cuyos resultados son los siguientes:\n\n");
-                        String resultados="";
+                        String resultados = "";
                         for (ParrafoXperfil parrafoXperfil : lst_ParrafoXperfil) {
-                            resultados += parrafoXperfil.getPregunta()+"";
+                            Paragraph pregunta = new Paragraph(parrafoXperfil.getPregunta() + "\n",
+                                FontFactory.getFont("arial", // fuente
+                                        14, // tamaño
+                                        Font.LAYOUT_RIGHT_TO_LEFT, // estilo
+                                        BaseColor.BLACK));
+                            Documento.add(pregunta);
                             
-                            resultados +=
-                                "   Exitos: "+parrafoXperfil.getExito()*100/lst_Obj_respuestas.size()+
-                                        "% ( local )  "+parrafoXperfil.getExito()*100/totalEncuestas+
-                                        "% ( global )";
+                            Documento.add(new Paragraph("          Porsentajes locales:\n\n"));
+                            PdfPTable tabla = new PdfPTable(7);
+                            tabla.addCell(" Exitos");
+                            tabla.addCell(" Fracasos");
+                            tabla.addCell(" Feliz");
+                            tabla.addCell("Desepcionado");
+                            tabla.addCell(" Enojado");
+                            tabla.addCell("Impaciente");
+                            tabla.addCell(" N/a");
                             
-                            resultados +=
-                                "   Exitos2: "+parrafoXperfil.getExito()*100/lst_Obj_respuestas.size()+
-                                        "% ( local )  "+parrafoXperfil.getExito()*100/totalEncuestas+
-                                        "% ( global )";
+                            
+                            tabla.addCell((parrafoXperfil.getExito() * 100) / lst_Obj_respuestas.size()+" %");
+                            tabla.addCell((parrafoXperfil.getFracaso() * 100) / lst_Obj_respuestas.size()+" %");
+                            tabla.addCell((parrafoXperfil.getFeliz() * 100 )/ lst_Obj_respuestas.size()+" %");
+                            tabla.addCell((parrafoXperfil.getDesepcionado() * 100 )/ lst_Obj_respuestas.size()+" %");
+                            tabla.addCell((parrafoXperfil.getEnojado() * 100 )/ lst_Obj_respuestas.size()+" %");
+                            tabla.addCell((parrafoXperfil.getImpaciente() * 100) / lst_Obj_respuestas.size()+"%");
+                            tabla.addCell((parrafoXperfil.getN_a() * 100 )/ lst_Obj_respuestas.size()+" %");
+                            Documento.add(tabla);
+                            
+                            Documento.add(new Paragraph("\n"));
+                            
+//                            Documento.add(new Paragraph("Porsentajes globales:\n\n"));
+//                            PdfPTable tabla2 = new PdfPTable(7);
+//                            tabla2.addCell(" Exitos");
+//                            tabla2.addCell(" Fracasos");
+//                            tabla2.addCell(" Feliz");
+//                            tabla2.addCell("Desepcionado");
+//                            tabla2.addCell(" Enojado");
+//                            tabla2.addCell("Impaciente");
+//                            tabla2.addCell(" N/a");
+//                            
+//                            
+//                            tabla2.addCell((parrafoXperfil.getExito() * 100) / totalEncuestas+" %");
+//                            tabla2.addCell((parrafoXperfil.getFracaso() * 100) / totalEncuestas+" %");
+//                            tabla2.addCell((parrafoXperfil.getFeliz() * 100 )/ totalEncuestas+" %");
+//                            tabla2.addCell((parrafoXperfil.getDesepcionado() * 100 )/ totalEncuestas+" %");
+//                            tabla2.addCell((parrafoXperfil.getEnojado() * 100 )/ totalEncuestas+" %");
+//                            tabla2.addCell((parrafoXperfil.getImpaciente() * 100) / totalEncuestas+"%");
+//                            tabla2.addCell((parrafoXperfil.getN_a() * 100 )/ totalEncuestas+" %");
+//                            Documento.add(tabla2);
+                            
+//                            Documento.add(new Paragraph("\n"));
+                            resultados
+                                    += "     Exitos: " + parrafoXperfil.getExito() * 100 / lst_Obj_respuestas.size()
+                                    + "% ( local )  " + parrafoXperfil.getExito() * 100 / totalEncuestas
+                                    + "% ( global )\n";
+                            resultados
+                                    += "     Fracasos: " + parrafoXperfil.getFracaso() * 100 / lst_Obj_respuestas.size()
+                                    + "% ( local )  " + parrafoXperfil.getFracaso() * 100 / totalEncuestas
+                                    + "% ( global )\n";
+                            resultados += "\n";
+                            resultados
+                                    += "     Feliz: " + parrafoXperfil.getFeliz() * 100 / lst_Obj_respuestas.size()
+                                    + "% ( local )  " + parrafoXperfil.getFeliz() * 100 / totalEncuestas
+                                    + "% ( global )\n";
+                            resultados
+                                    += "     Desepcionado: " + parrafoXperfil.getDesepcionado() * 100 / lst_Obj_respuestas.size()
+                                    + "% ( local )  " + parrafoXperfil.getDesepcionado() * 100 / totalEncuestas
+                                    + "% ( global )\n";
+                            resultados
+                                    += "     Enojado: " + parrafoXperfil.getEnojado() * 100 / lst_Obj_respuestas.size()
+                                    + "% ( local )  " + parrafoXperfil.getEnojado() * 100 / totalEncuestas
+                                    + "% ( global )\n";
+                            resultados
+                                    += "     Impaciente: " + parrafoXperfil.getImpaciente() * 100 / lst_Obj_respuestas.size()
+                                    + "% ( local )  " + parrafoXperfil.getImpaciente() * 100 / totalEncuestas
+                                    + "% ( global )\n";
+                            resultados
+                                    += "     N/a: " + parrafoXperfil.getN_a() * 100 / lst_Obj_respuestas.size()
+                                    + "% ( local )  " + parrafoXperfil.getN_a() * 100 / totalEncuestas
+                                    + "% ( global )\n\n";
                         }
                         Chunk ck = new Chunk(resultados);
-                        Paragraph.add(ck);
+                        Paragraph.add(resultados);
+
                         return Paragraph;
                     }
                 }
-                
+
                 Paragraph Paragraph = new Paragraph();
                 ArrayList<Clasificado> Clasificados;
-                
+
                 /*      CLASIFICO Obj_respuestas POR PERFIL     */
-                
                 Clasificados = new Herramientas().clasificar(lst_Obj_respuestas);
                 /*      FIN DE CLASIFICO Obj_respuestas POR PERFIL     */
-                
+
                 for (Clasificado clasificado : Clasificados) {
-                    Paragraph.add(new Herramientas().getparrafoXperfil(
-                                    clasificado,test,lst_Obj_respuestas.size()));
+//                    Documento.add(new Herramientas().getparrafoXperfil(
+//                            clasificado, test, lst_Obj_respuestas.size()));
+                    new Herramientas().getparrafoXperfil(
+                            clasificado, test, lst_Obj_respuestas.size());
                 }
                 //lst_Obj_respuestas
-                
+
                 return Paragraph;
-                
+
             }
+        }
+        class General{
+            private int exito=0;
+            private int fracaso=0;
+            
+            public int getExito() {
+                return exito;
+            }
+
+            public void addExito(int exito) {
+                this.exito += exito;
+            }
+
+            public int getFracaso() {
+                return fracaso;
+            }
+
+            public void addFracaso(int fracaso) {
+                this.fracaso += fracaso;
+            }
+            
         }
         Secciones seccion = new Secciones();
         boolean newpag = false;
         java.util.ArrayList<String> Tests = controlador.Archivos.getTests(nomProyecto);
         for (String test : Tests) {//Recorro cada Test
             ArrayList<Obj_respuestas> lst_Obj_respuestas = getRespuestas(nomProyecto, test);
+            
             if (!lst_Obj_respuestas.isEmpty()) {
-                
+
                 Paragraph Paragraph = new Paragraph();
-                if(newpag){Paragraph.add(new Chunk().setNewPage());}
-                newpag=true;
-                Paragraph.add(seccion.tituloTest(test));
-                
-                 Paragraph.add("El test consta de "+ getPreguntas(nomProyecto, test).size() + " preguntas"+
-                        " y fue realizado por  "+lst_Obj_respuestas.size()+"  participantes "
-                        + "de los cuales se crean las siguientes secciones.  \n\n");
-                
-                
-                /*      Envio todas las Encuestas Resueltas     */
-                Paragraph.add(seccion.lst_Obj_respuestas(lst_Obj_respuestas,test));
-//                seccion.lst_Obj_respuestas(lst_Obj_respuestas,test);
-                /*      FIN Envio todas las Encuestas Resueltas     */
-                try {
-                    Documento.add(Paragraph);
-                    String fotoo = Graficas.bar_Perfil(nomProyecto, test);
-                    Image foto = Image.getInstance(fotoo);
-                    foto.scaleToFit(500, 500);
-                    foto.setAlignment(Chunk.ALIGN_MIDDLE);
-                    Documento.add(foto);
-                    new java.io.File(fotoo).delete();
-                } catch (DocumentException | IOException e) {
+                if (newpag) {
+                    Documento.add(new Paragraph(new Chunk().setNewPage()));
                 }
+                newpag = true;
+                Documento.add(seccion.tituloTest(test));
+                
+                General General = new General();
+                int numpreguntas =0;
+                for (Obj_respuestas obj_respuestas : lst_Obj_respuestas) {
+                    ArrayList<Respuestas> respuestas = obj_respuestas.getRespuestas();
+                    numpreguntas= respuestas.size();
+                    for (Respuestas respuestas1 : respuestas) {
+                        if(respuestas1.getRealizo().equals("si")){
+                            General.addExito(1);
+                        }else General.addFracaso(1);
+                    }
+                }
+                Documento.add(new Paragraph("El test consta de " + getPreguntas(nomProyecto, test).size() + " preguntas"
+                        + " y fue realizado por  " + lst_Obj_respuestas.size() + "  participantes. "
+                        + "\nDe forma general el test tiene:\n [ "+
+                        (General.getExito()*100)/(numpreguntas*lst_Obj_respuestas.size())+"% de Exitos]\n [ "
+                        +(General.getFracaso()*100)/(numpreguntas*lst_Obj_respuestas.size())+ "% de Fracasos ]"
+                        + " \n\nDe manera mas detallada se muestran resultados de acuerdo "
+                        + "a grupos de perfiles:\n\n\n"));
+
+                /*      Envio todas las Encuestas Resueltas     */
+//                Documento.add(seccion.lst_Obj_respuestas(lst_Obj_respuestas,test));
+                seccion.lst_Obj_respuestas(lst_Obj_respuestas, test);
+                /*      FIN Envio todas las Encuestas Resueltas     */
+//                try {
+//                    String fotoo = Graficas.bar_Perfil(nomProyecto, test);
+//                    Image foto = Image.getInstance(fotoo);
+//                    foto.scaleToFit(500, 500);
+//                    foto.setAlignment(Chunk.ALIGN_MIDDLE);
+//                    Documento.add(foto);
+//                    new java.io.File(fotoo).delete();
+//                } catch (DocumentException | IOException e) {
+//                }
             }
         }
     }
