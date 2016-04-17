@@ -14,3 +14,6 @@ Cada test esta relacionado al perfil de usuario a quien realice la prueba.
 
 Podrá sincronizar respuestas, para que varias personas puedan hacer el test del 
 mismo proyecto en diferentes equipos.
+
+
+![Icon](https://raw.githubusercontent.com/ca5tillo/EviuSystem/master/cap.jpg)
